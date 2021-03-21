@@ -23,8 +23,8 @@ def max_spanning_forest_prim(adj):  # Time: O(N^2), Space: O(N)
         lookup[u] = True
         result += max_e[u]
         for v in xrange(len(nodes)):
-            if (nodes[u], nodes[v]) in adj:
-                max_e[v] = max(max_e[v], adj[nodes[u], nodes[v]])
+            if (nodes[u], nodes[v]) in adj and adj[nodes[u], nodes[v]] > max_e[v]:
+                max_e[v] = adj[nodes[u], nodes[v]]
     return result
 
 def checksum():
