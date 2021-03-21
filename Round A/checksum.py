@@ -45,6 +45,5 @@ def checksum():
                 total += B[i][j]
     return total - max_spanning_forest_prim(adj, list(nodes))
 
-INF = float("inf")
 for case in xrange(input()):
     print 'Case #%d: %s' % (case+1, checksum())
