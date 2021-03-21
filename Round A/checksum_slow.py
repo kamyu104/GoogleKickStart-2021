@@ -38,9 +38,10 @@ def checksum():
     adj = {}
     for i in xrange(len(A)):
         for j in xrange(len(A[0])):
-            if A[i][j] == -1:
-                adj[i, N+j] = adj[N+j, i] = B[i][j]  # Space: O(N^2)
-                total += B[i][j]
+            if A[i][j] != -1:
+                continue
+            adj[i, N+j] = adj[N+j, i] = B[i][j]  # Space: O(N^2)
+            total += B[i][j]
     return total - max_spanning_forest_prim(adj)
 
 for case in xrange(input()):

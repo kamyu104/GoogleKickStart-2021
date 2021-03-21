@@ -38,11 +38,12 @@ def checksum():
     nodes = set()
     for i in xrange(len(A)):
         for j in xrange(len(A[0])):
-            if A[i][j] == -1:
-                adj[i][j+N] = adj[N+j][i] = B[i][j]  # Space: O(N^2)
-                nodes.add(i)
-                nodes.add(j+N)
-                total += B[i][j]
+            if A[i][j] != -1:
+                continue
+            adj[i][j+N] = adj[N+j][i] = B[i][j]  # Space: O(N^2)
+            nodes.add(i)
+            nodes.add(j+N)
+            total += B[i][j]
     return total - max_spanning_forest_prim(adj, list(nodes))
 
 for case in xrange(input()):
