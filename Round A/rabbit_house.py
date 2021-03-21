@@ -20,7 +20,7 @@ def rabbit_house():
     max_G = max(G[i][j] for i in xrange(R) for j in xrange(C))
     result = 0
     for h in reversed(xrange(max_G-((R-1)+(C-1)), max_G+1)):
-        for i, j in set(buckets[h]):
+        for i, j in buckets[h]:
             for di, dj in DIRECTIONS:
                 ni, nj = i+di, j+dj
                 if not (0 <= ni < R and 0 <= nj < C and G[ni][nj] < h-1):
