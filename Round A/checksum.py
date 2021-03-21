@@ -3,11 +3,11 @@
 # Google Kick Start 2021 Round A - Problem B. L Shaped Plots
 # https://codingcompetitions.withgoogle.com/kickstart/round/0000000000436140/000000000068c509
 #
-# Time:  O(R * C), pass in PyPy2 but Python2
-# Space: O(min(R, C))
+# Time:  O(N^2), pass in PyPy2 but Python2
+# Space: O(N^2)
 #
 
-def max_prim(adj):
+def max_prim(adj):  # Time: O(N^2), Space: O(N)
     if not adj:
         return 0
     result = 0
@@ -40,7 +40,7 @@ def checksum():
     for i in xrange(len(A)):
         for j in xrange(len(A[0])):
             if A[i][j] == -1:
-                adj[i, N+j] = adj[N+j, i] = B[i][j]
+                adj[i, N+j] = adj[N+j, i] = B[i][j]  # Space: O(N^2)
                 total += B[i][j]
     return total - max_prim(adj)
 
