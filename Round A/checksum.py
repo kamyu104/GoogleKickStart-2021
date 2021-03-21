@@ -9,11 +9,9 @@
 
 # reference: https://cp-algorithms.com/graph/mst_prim.html#toc-tgt-5
 def max_spanning_forest_prim(adj, nodes):  # Time: O(N^2), Space: O(N)
-    if not adj:
-        return 0
     result = 0
-    lookup = [False]*len(nodes)
     max_e = [0]*len(nodes)
+    lookup = [False]*len(nodes)
     for _ in xrange(len(nodes)):
         u = -1
         for v in xrange(len(nodes)):
