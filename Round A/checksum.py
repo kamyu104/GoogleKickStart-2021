@@ -3,16 +3,15 @@
 # Google Kick Start 2021 Round A - Problem D. Checksum
 # https://codingcompetitions.withgoogle.com/kickstart/round/0000000000436140/000000000068c2c3
 #
-# Time:  O(N^2), pass in PyPy2 but Python2
+# Time:  O(N^2)
 # Space: O(N^2)
 #
 
 # reference: https://cp-algorithms.com/graph/mst_prim.html#toc-tgt-5
-def max_spanning_forest_prim(adj):  # Time: O(N^2), Space: O(N)
+def max_spanning_forest_prim(adj, nodes):  # Time: O(N^2), Space: O(N)
     if not adj:
         return 0
     result = 0
-    nodes = list(set(i for i, _ in adj.iterkeys()))
     lookup = [False]*len(nodes)
     max_e = [0]*len(nodes)
     for _ in xrange(len(nodes)):
@@ -25,8 +24,7 @@ def max_spanning_forest_prim(adj):  # Time: O(N^2), Space: O(N)
         lookup[u] = True
         result += max_e[u]
         for v in xrange(len(nodes)):
-            if (nodes[u], nodes[v]) in adj:
-                max_e[v] = max(max_e[v], adj[nodes[u], nodes[v]])
+            max_e[v] = max(max_e[v], adj[nodes[u]][nodes[v]])
     return result
 
 def checksum():
@@ -37,13 +35,16 @@ def checksum():
     C = map(int, raw_input().strip().split())
 
     total = 0
-    adj = {}
+    adj = [[0]*(2*N) for _ in xrange(2*N)]
+    nodes = set()
     for i in xrange(len(A)):
         for j in xrange(len(A[0])):
             if A[i][j] == -1:
-                adj[i, N+j] = adj[N+j, i] = B[i][j]  # Space: O(N^2)
+                adj[i][j+N] = adj[N+j][i] = B[i][j]  # Space: O(N^2)
+                nodes.add(i)
+                nodes.add(j+N)
                 total += B[i][j]
-    return total - max_spanning_forest_prim(adj)
+    return total - max_spanning_forest_prim(adj, list(nodes))
 
 INF = float("inf")
 for case in xrange(input()):
