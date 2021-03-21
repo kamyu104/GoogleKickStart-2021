@@ -15,7 +15,7 @@ def max_spanning_forest_prim(adj):  # Time: O(N^2), Space: O(N)
     nodes = list(set(i for i, _ in adj.iterkeys()))
     lookup = [False]*len(nodes)
     max_e = [0]*len(nodes)
-    for i in xrange(len(nodes)):
+    for _ in xrange(len(nodes)):
         u = -1
         for v in xrange(len(nodes)):
             if lookup[v]:
