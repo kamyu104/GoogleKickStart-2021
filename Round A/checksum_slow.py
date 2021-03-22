@@ -18,7 +18,7 @@ def max_spanning_forest_prim(adj):  # Time: O(N^2), Space: O(N)
         for v in xrange(len(nodes)):
             if lookup[v]:
                 continue
-            if u == -1 or max_e[u] < max_e[v]:
+            if u == -1 or max_e[v] > max_e[u]:
                 u = v
         lookup[u] = True
         result += max_e[u]
