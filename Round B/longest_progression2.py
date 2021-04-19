@@ -12,7 +12,7 @@ def longest_progression():
     A = map(int, raw_input().strip().split())
 
     dp = [0]*4
-    dp_skip = [0]*4  # replace A[i-2]
+    dp_skip = [0]*4
     result = 0
     for i in xrange(N):
         dp[i%4] = min(i+1, 2)
