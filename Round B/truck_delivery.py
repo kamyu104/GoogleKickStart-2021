@@ -97,24 +97,22 @@ def iter_dfs(adj, queries, st, result, MAX_L, MAX_W):
         for node, l, a in reversed(adj[curr]):
             if node == prev:
                 continue
-            prev_a = [0]
-            stk.append(partial(postprocess, l, prev_a))
+            stk.append(partial(postprocess, l))
             stk.append(partial(divide, node, curr))
-            stk.append(partial(prevprocess, l, a, prev_a))
+            stk.append(partial(prevprocess, l, a))
         stk.append(partial(init, curr))
 
     def init(curr):
         for w, i in queries[curr]:
             result[i] = st.query(0, min(w, MAX_L)-1)
 
-    def prevprocess(l, a, prev):
+    def prevprocess(l, a):
         if l <= MAX_W:
-            prev[0] = st.query(l-1, l-1)
-            st.update(l-1, l-1, gcd(prev[0], a))
+            st.update(l-1, l-1, a)  # all Li are distinct
 
-    def postprocess(l, prev):
+    def postprocess(l):
         if l <= MAX_W:
-            st.update(l-1, l-1, prev[0])
+            st.update(l-1, l-1, 0)
 
     stk = [partial(divide, 1, 0)]
     while stk:
