@@ -31,6 +31,6 @@ def consecutive_primes():
     return primes[-1]*primes[-2]
 
 # https://en.wikipedia.org/wiki/Prime_gap
-MAX_GAP = 282  # MAX_N = 10^18, MAX_N^(1/2) = 10^9, p(n+1)-gn >= 10^9, min n = 30 => gn = 282
+MAX_GAP = 282  # MAX_N = 10^18, max prime >= 10^9 => p(n+1)-gn >= 10^9, min n = 30 => gn = 282
 for case in xrange(input()):
     print 'Case #%d: %s' % (case+1, consecutive_primes())
