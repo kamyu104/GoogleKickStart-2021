@@ -12,10 +12,9 @@ def increasing_substring():
     S = raw_input()
 
     result = []
-    prev, cnt = -1, 0
+    prev = cnt = 0
     for c in S:
         if ord(c)-ord('A') <= prev:
-            prev = -1
             cnt = 0
         prev = ord(c)-ord('A')
         cnt += 1
