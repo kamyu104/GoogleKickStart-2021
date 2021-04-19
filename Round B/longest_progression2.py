@@ -28,14 +28,12 @@ def longest_progression():
             continue
         if A[i]-A[i-2] == 2*(A[i-2]-A[i-3]):  # replace A[i-1]
             result = max(result, dp[(i-2)%4]+1+1)
-        if dp_skip[i%4] == 3 and 2*(A[i]-A[i-1]) == A[i-1]-A[i-3]:  # replace A[i-2]
-            dp_skip[i%4] = 4
+        if 2*(A[i]-A[i-1]) == A[i-1]-A[i-3]:  # replace A[i-2]
+            dp_skip[i%4] = max(dp_skip[i%4], 4)
             result = max(result, dp_skip[i%4])
-        if i < 4:
-            continue
-        if A[i]-A[i-1] == A[i-3]-A[i-4] and 2*(A[i]-A[i-1]) == A[i-1]-A[i-3]:  # replace A[i-2]
-            dp_skip[i%4] = max(dp_skip[i%4], dp[(i-3)%4]+1+2)
-            result = max(result, dp_skip[i%4])
+            if i >= 4 and A[i]-A[i-1] == A[i-3]-A[i-4]:
+                dp_skip[i%4] = max(dp_skip[i%4], dp[(i-3)%4]+1+2)
+                result = max(result, dp_skip[i%4])
     return result
 
 for case in xrange(input()):
