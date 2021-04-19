@@ -114,8 +114,7 @@ def iter_dfs(adj, queries, st, result, MAX_L, MAX_W):
         if l <= MAX_W:
             st.update(l-1, l-1, 0)
 
-    stk = []
-    stk.append(partial(divide, 1, 0))
+    stk = [partial(divide, 1, 0)]
     while stk:
         stk.pop()()
 
