@@ -21,8 +21,10 @@ def consecutive_primes():
         if not is_prime(i):
             continue
         primes.append(i)
-        if len(primes) >= 2 and primes[-1]*primes[-2] <= N:
-            break 
+        if len(primes) == 2:
+            if primes[-1]*primes[-2] <= N:
+                break
+            primes = primes[1:]
     return primes[-1]*primes[-2]
 
 # https://en.wikipedia.org/wiki/Prime_gap
