@@ -1,7 +1,7 @@
 # Copyright (c) 2021 kamyu. All rights reserved.
 #
-# Google Kick Start 2021 Round B - Problem A. Increasing Substring
-# https://codingcompetitions.withgoogle.com/kickstart/round/0000000000435a5b/000000000077a882
+# Google Kick Start 2021 Round B - Problem C. Consecutive Primes
+# https://codingcompetitions.withgoogle.com/kickstart/round/0000000000435a5b/000000000077a8e6
 #
 # Time:  O(N^(1/4) * MAX_GAP)
 # Space: O(1)
