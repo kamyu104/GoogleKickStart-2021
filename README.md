@@ -20,5 +20,5 @@ Python solutions of Google Kick Start 2021. Solution begins with `*` means it wi
 |---| ----- | -------- | ---- | ----- | ---------- | --- | ---- |
 |A| [Increasing Substring](https://codingcompetitions.withgoogle.com/kickstart/round/0000000000435a5b/000000000077a882)| [Python](./Round%20B/k_goodness_string.py)| _O(N)_ | _O(1)_ | Easy | | String |
 |B| [Longest Progression](https://codingcompetitions.withgoogle.com/kickstart/round/0000000000436140/000000000068c509)| [Python](./Round%20B/longest_progression.py) [Python](./Round%20B/longest_progression2.py) | _O(N)_ | _O(1)_ | Medium | | DP |
-|C| [Consecutive Primes](https://codingcompetitions.withgoogle.com/kickstart/round/0000000000435a5b/000000000077a8e6)| [Python](./Round%20B/consecutive_primes.py)| _O(N^(1/4) * MAX_GAP)_ | _O(1)_ | Hard | | Max Prime Gap |
+|C| [Consecutive Primes](https://codingcompetitions.withgoogle.com/kickstart/round/0000000000435a5b/000000000077a8e6)| [Python](./Round%20B/consecutive_primes.py)| _O(N^(1/4) * MAX_GAP)_ | _O(1)_ | Hard | | Prime Gap |
 |D| [Truck Delivery](https://codingcompetitions.withgoogle.com/kickstart/round/0000000000435a5b/000000000077a885)| [PyPy](./Round%20B/truck_delivery.py) | _O((N + R) * log(min(MAX_L, MAX_W)))_ | _O(min(MAX_L, MAX_W))_ | Medium | | Segment Tree |
