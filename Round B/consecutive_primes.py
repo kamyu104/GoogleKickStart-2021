@@ -8,19 +8,14 @@
 #
 
 def is_prime(n):
-    i = 2
-    while i*i <= n:
-        if n%i == 0:
-            return False
-        i += 1
-    return True
+    if n < 2 or n%2 == 0:
+        return n == 2
+    return all(n%d for d in xrange(3, int(n**(0.5))+1, 2))
 
 def consecutive_primes():
     N = input()
 
     sqrt_N = int(N**(0.5))
-    if sqrt_N**2 < N:
-        sqrt_N += 1
     primes = []
     for i in reversed(xrange(max(sqrt_N-2*MAX_GAP, 2), sqrt_N+MAX_GAP+1)):
         if not is_prime(i):
