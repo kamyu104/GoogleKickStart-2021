@@ -104,8 +104,7 @@ def iter_dfs(adj, queries, st, result, MAX_L, MAX_W):
 
     def init(curr):
         for w, i in queries[curr]:
-            w = min(w, MAX_L)
-            result[i] = st.query(0, w-1)
+            result[i] = st.query(0, min(w, MAX_L)-1)
 
     def prevprocess(l, a):
         if l <= MAX_W:
