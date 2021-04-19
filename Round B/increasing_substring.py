@@ -11,14 +11,10 @@ def increasing_substring():
     N = input()
     S = raw_input()
 
-    result = []
-    prev = cnt = 0
-    for c in S:
-        if ord(c)-ord('A') <= prev:
-            cnt = 0
-        prev = ord(c)-ord('A')
-        cnt += 1
-        result.append(cnt)
+    result = [1]*N
+    for i in xrange(1, N):
+        if S[i-1] < S[i]:
+            result[i] = result[i-1]+1
     return " ".join(map(str, result))
 
 for case in xrange(input()):
