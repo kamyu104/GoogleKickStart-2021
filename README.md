@@ -4,7 +4,7 @@ Python solutions of Google Kick Start 2021. Solution begins with `*` means it wi
 
 * [Kick Start 2020](https://github.com/kamyu104/GoogleKickStart-2020)
 * [Round A](https://github.com/kamyu104/GoogleKickStart-2021#round-a)
-* [Round A](https://github.com/kamyu104/GoogleKickStart-2021#round-b)
+* [Round B](https://github.com/kamyu104/GoogleKickStart-2021#round-b)
 
 
 ## Round A
