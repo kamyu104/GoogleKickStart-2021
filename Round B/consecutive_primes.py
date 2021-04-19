@@ -17,7 +17,7 @@ def consecutive_primes():
 
     sqrt_N = int(N**(0.5))
     primes = []
-    for i in reversed(xrange(max(sqrt_N-2*MAX_GAP, 2), sqrt_N+MAX_GAP+1)):
+    for i in reversed(xrange(max(sqrt_N-(2*MAX_GAP-1), 2), sqrt_N+(MAX_GAP-1)+1)):
         if not is_prime(i):
             continue
         primes.append(i)
