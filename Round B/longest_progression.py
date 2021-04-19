@@ -12,7 +12,7 @@ def longest_progression():
     A = map(int, raw_input().strip().split())
 
     left, right = {}, {}
-    result, last, d, count = 0, 0, None, 0
+    result, last, d, count = 1, 0, None, 0
     for i in xrange(N-1):
         if A[i+1]-A[i] == d:
             count += 1
