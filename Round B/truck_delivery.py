@@ -119,7 +119,6 @@ def iter_dfs(adj, queries, st, result, MAX_L, MAX_W):
     stk.append(partial(divide, 1, 0))
     while stk:
         stk.pop()()
-    return result
 
 def truck_delivery():
     N, Q = map(int, raw_input().strip().split())
