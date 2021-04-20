@@ -3,7 +3,7 @@
 # Google Kick Start 2021 Round B - Problem D. Truck Delivery
 # https://codingcompetitions.withgoogle.com/kickstart/round/0000000000435a5b/000000000077a885
 #
-# Time:  O((N + R) * log(min(MAX_L, MAX_W))), pass in PyPy2 but Python2
+# Time:  O((N + Q) * log(min(MAX_L, MAX_W))), pass in PyPy2 but Python2
 # Space: O(min(MAX_L, MAX_W))
 #
 
