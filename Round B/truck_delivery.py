@@ -3,13 +3,14 @@
 # Google Kick Start 2021 Round B - Problem D. Truck Delivery
 # https://codingcompetitions.withgoogle.com/kickstart/round/0000000000435a5b/000000000077a885
 #
-# Time:  O((N + Q) * log(min(MAX_L, MAX_W))), pass in PyPy2 but Python2
-# Space: O(min(MAX_L, MAX_W))
+# Time:  O((N + Q) * (logN + log(MAX_A))), pass in PyPy2 but Python2
+# Space: O(N)
 #
 
 from collections import defaultdict
 from functools import partial
 from fractions import gcd
+from bisect import bisect_right
 
 class SegmentTree(object):  # 0-based index
     def __init__(self, N,
@@ -92,7 +93,7 @@ class SegmentTree(object):  # 0-based index
             showList.append(self.query(i, i))
         return ",".join(map(str, showList))
 
-def iter_dfs(adj, queries, st, result, MAX_L, MAX_W):
+def iter_dfs(adj, queries, Ls, idx, st, result, MAX_W):
     def divide(curr, prev):
         for node, l, a in reversed(adj[curr]):
             if node == prev:
@@ -104,15 +105,15 @@ def iter_dfs(adj, queries, st, result, MAX_L, MAX_W):
 
     def init(curr):
         for w, i in queries[curr]:
-            result[i] = st.query(0, min(w, MAX_L)-1)
+            result[i] = st.query(0, bisect_right(Ls, w)-1)
 
     def prevprocess(l, a):
         if l <= MAX_W:
-            st.update(l-1, l-1, a)  # all Li are distinct
+            st.update(idx[l], idx[l], a)  # all Li are distinct
 
     def postprocess(l):
         if l <= MAX_W:
-            st.update(l-1, l-1, 0)
+            st.update(idx[l], idx[l], 0)
 
     stk = [partial(divide, 1, 0)]
     while stk:
@@ -121,21 +122,26 @@ def iter_dfs(adj, queries, st, result, MAX_L, MAX_W):
 def truck_delivery():
     N, Q = map(int, raw_input().strip().split())
     adj = defaultdict(list)
-    MAX_L = 0
+    Ls = []
     for _ in xrange(N-1):
         X, Y, L, A = map(int, raw_input().strip().split())
-        MAX_L = max(MAX_L, L)
         adj[X].append((Y, L, A))
         adj[Y].append((X, L, A))
+        Ls.append(L)
     MAX_W = 0
     queries = defaultdict(list)
     for i in xrange(Q):
         C, W = map(int, raw_input().strip().split())
         MAX_W = max(MAX_W, W)
         queries[C].append((W, i))
-    st = SegmentTree(min(MAX_L, MAX_W))
+
+    Ls.sort()
+    while Ls and Ls[-1] > MAX_W:
+        Ls.pop()
+    idx = {L:i for i, L in enumerate(Ls)}  # coordinate compression
+    st = SegmentTree(len(Ls))
     result = [0]*Q
-    iter_dfs(adj, queries, st, result, MAX_L, MAX_W)
+    iter_dfs(adj, queries, Ls, idx, st, result, MAX_W)
     return " ".join(map(str, result))
 
 for case in xrange(input()):
