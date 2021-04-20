@@ -8,9 +8,11 @@
 #
 
 def is_prime(n):
-    if n < 2 or n%2 == 0:
-        return n == 2
-    return all(n%d for d in xrange(3, int(n**(0.5))+1, 2))
+    if n <= 3:
+        return n > 1
+    if n%2 == 0 or n%3 == 0:
+        return False
+    return all(n%i and n%(i+2) for i in xrange(5, int(n**(0.5))+1, 6))
 
 def consecutive_primes():
     N = input()
