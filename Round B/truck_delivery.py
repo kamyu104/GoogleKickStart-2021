@@ -15,7 +15,7 @@ from bisect import bisect_right
 class SegmentTree(object):  # 0-based index
     def __init__(self, N,
                  build_fn=lambda x, y: [y]*(2*x),
-                 query_fn=lambda x, y: y if x is None else gcd(x, y),
+                 query_fn=lambda x, y: y if x is None else gcd(x, y),  # Time: O(logN + log(MAX_A)) per update or query
                  update_fn=lambda x, y: y,
                  default_val=0):
         self.N = N
@@ -138,7 +138,7 @@ def truck_delivery():
     Ls.sort()
     while Ls and Ls[-1] > MAX_W:
         Ls.pop()
-    idx = {L:i for i, L in enumerate(Ls)}  # coordinate compression
+    idx = {L:i for i, L in enumerate(Ls)}  # coordinate compression, O(N) space
     st = SegmentTree(len(Ls))
     result = [0]*Q
     iter_dfs(adj, queries, Ls, idx, st, result, MAX_W)
