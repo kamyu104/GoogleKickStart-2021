@@ -5,32 +5,15 @@
 #
 # Time:  O(N)
 # Space: O(1)
-#    
-
-def linear_congruence(a, m, b):  # Time: O(logN), the same as gcd, Space: O(logN)
-    # gcd(a, m) = g and g|b, find x, s.t. ax % m = b % m
-    # => (a%m)x = my+(b%m)
-    # => gcd(m, a%m) = g and g|-(b%m), find y, s.t. my % (a%m) = -(b%m) % (a%m)
-    # => y = linear_congruence(m, a%m, -(b%m))
-    # => x = (my+(b%m))/(a%m)
-    ambs = []
-    while m:
-        a, m, b = m, a%m, -(b%m)
-        if m:
-            ambs.append((m, a, -b))
-    x = a  # a is gcd
-    while ambs:
-        a, m, b = ambs.pop()
-        x = (m*x+b)//a
-    return x
+#  
 
 def smaller_strings():
     N, K = map(int, raw_input().strip().split())
     S = raw_input().strip()
 
     result = 0
-    cnt = pow(K, (len(S)+1)//2-1, MOD)
-    inv_K = linear_congruence(K, MOD, 1)
+    cnt = pow(K, (len(S)+1)//2-1, MOD)  # Time:  O(logN)
+    inv_K = pow(K, MOD-2, MOD)  # Time:  O(logN), Fermat's little theorem, k^(p-1) % p = 1 => k^(p-2) % p = k^(-1) % p
     for i in xrange((len(S)+1)//2):
         result = (result+(ord(S[i])-ord('a'))*cnt)%MOD
         cnt = (cnt*inv_K)%MOD
