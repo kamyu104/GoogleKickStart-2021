@@ -35,7 +35,6 @@ def binary_operator():
     N = input()
     E = [raw_input().strip() for _ in xrange(N)]
     prev = None
-    cnt = 1
     while True:
         curr = solution(E)
         if curr != prev:
@@ -51,3 +50,4 @@ K = 3
 MAX_N = MAX_E = 100
 for case in xrange(input()):
     print 'Case #%d: %s' % (case+1, binary_operator())
+ 
