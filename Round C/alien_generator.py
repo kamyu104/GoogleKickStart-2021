@@ -9,6 +9,7 @@
 
 def alien_generator():
     G = input()
+
     result, l = 0, 1
     while (1+l)*l//2 <= G:
         # K*l + (1+l)*l//2 = G
