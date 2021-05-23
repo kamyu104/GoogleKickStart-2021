@@ -35,7 +35,7 @@ def rock_paper_scissors():
                     if dp[r][s][p] < dp[r][s][p-1] + W*s/(n-1) + E*r/(n-1):
                         dp[r][s][p] = dp[r][s][p-1] + W*s/(n-1) + E*r/(n-1)
                         backtracing[r][s][p] = 'P'
-            if max_r == max_s == -1 or dp[max_r][max_s][N-max_r-max_s] < dp[r][s][N-r-s]:
+            if max_r == -1 or dp[max_r][max_s][N-max_r-max_s] < dp[r][s][N-r-s]:
                 max_r, max_s = r, s
     result = []
     r, s, p = max_r, max_s, N-max_r-max_s
