@@ -7,7 +7,7 @@
 # Space: O(N)
 #    
 
-def solution():
+def smaller_strings():
     N, K = map(int, raw_input().strip().split())
     S = raw_input().strip()
 
@@ -23,4 +23,4 @@ def solution():
 
 MOD =10**9+7
 for case in xrange(input()):
-    print 'Case #%d: %s' % (case+1, solution())
+    print 'Case #%d: %s' % (case+1, smaller_strings())
