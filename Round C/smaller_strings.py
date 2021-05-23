@@ -17,10 +17,9 @@ def smaller_strings():
     for i in xrange((len(S)+1)//2):
         result = (result+(ord(S[i])-ord('a'))*cnt)%MOD
         cnt = (cnt*inv_K)%MOD
-    for i in reversed(xrange(len(S)//2)):
-        if S[i] != S[-1-i]:
-            result = (result+int(S[i] < S[-1-i]))%MOD
-            break
+    i = next((i for i in reversed(xrange(len(S)//2)) if S[i] != S[-1-i]), -1)
+    if i != -1:
+        result = (result+int(S[i] < S[-1-i]))%MOD
     return result
 
 MOD =10**9+7
