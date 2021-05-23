@@ -9,7 +9,7 @@
 
 from random import seed, randint
 
-def solution(E):
+def count(E):
     lookup = {}
     class Operand(object):
         def __init__(self, state=None):
@@ -37,7 +37,7 @@ def binary_operator():
 
     prev = None
     while True:
-        curr = solution(E)
+        curr = count(E)
         if curr != prev:
             prev = curr
             cnt = 1
