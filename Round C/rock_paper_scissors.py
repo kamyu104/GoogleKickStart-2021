@@ -15,28 +15,26 @@ def rock_paper_scissors():
     for r in xrange(N+1):
         for s in xrange(N+1-r):
             for p in xrange(N+1-r-s):
-                n = r+p+s
                 if r-1 >= 0:
-                    dp[r][s][p] = max(dp[r][s][p], dp[r-1][s][p] + W*p/(n-1) + E*s/(n-1) if n != 1 else W/3+E/3)
+                    dp[r][s][p] = max(dp[r][s][p], dp[r-1][s][p] + W*p/(r+p+s-1) + E*s/(r+p+s-1) if r+p+s != 1 else W/3+E/3)
                 if s-1 >= 0:
-                    dp[r][s][p] = max(dp[r][s][p], dp[r][s-1][p] + W*r/(n-1) + E*p/(n-1) if n != 1 else W/3+E/3)
+                    dp[r][s][p] = max(dp[r][s][p], dp[r][s-1][p] + W*r/(r+p+s-1) + E*p/(r+p+s-1) if r+p+s != 1 else W/3+E/3)
                 if p-1 >= 0 :
-                    dp[r][s][p] = max(dp[r][s][p], dp[r][s][p-1] + W*s/(n-1) + E*r/(n-1) if n != 1 else W/3+E/3)
+                    dp[r][s][p] = max(dp[r][s][p], dp[r][s][p-1] + W*s/(r+p+s-1) + E*r/(r+p+s-1) if r+p+s != 1 else W/3+E/3)
             if max_r == -1 or dp[max_r][max_s][N-max_r-max_s] < dp[r][s][N-r-s]:
                 max_r, max_s = r, s
     result = []
-    r, s, p, n = max_r, max_s, N-max_r-max_s, N
-    while n:
-        if r-1 >= 0 and (n == 1 or dp[r][s][p] == dp[r-1][s][p] + W*p/(n-1) + E*s/(n-1)):
+    r, s, p = max_r, max_s, N-max_r-max_s
+    while r+p+s:
+        if r-1 >= 0 and dp[r][s][p] == (dp[r-1][s][p] + W*p/(r+p+s-1) + E*s/(r+p+s-1) if r+p+s != 1 else W/3+E/3):
             result.append('R')
             r -= 1
-        elif s-1 >= 0 and (n == 1 or dp[r][s][p] == dp[r][s-1][p] + W*r/(n-1) + E*p/(n-1)):
+        elif s-1 >= 0 and dp[r][s][p] == (dp[r][s-1][p] + W*r/(r+p+s-1) + E*p/(r+p+s-1) if r+p+s != 1 else W/3+E/3):
             result.append('S')
             s -= 1
         else:
             result.append('P')
             p -= 1
-        n -= 1
     result.reverse()
     return "".join(result)
     
