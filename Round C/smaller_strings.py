@@ -14,9 +14,9 @@ def smaller_strings():
     result = 0
     pow_of_2 = [1]
     for i in xrange((len(S)+1)//2-1):
-        pow_of_2.append((cnt[-1]*K)%MOD)
+        pow_of_2.append((pow_of_2[-1]*K)%MOD)
     for i in xrange((len(S)+1)//2):
-        result = (result+(ord(S[i])-ord('a'))*pow_of_2[-1-i])%MOD
+        result = (result+(ord(S[i])-ord('a'))*pow_of_2[(len(S)+1)//2-1-i])%MOD
     if S[:(len(S)+1)//2]+S[:len(S)//2][::-1] < S:
         result = (result+1)%MOD
     return result
