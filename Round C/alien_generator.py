@@ -18,6 +18,5 @@ def alien_generator():
         x += 1
     return result
 
-
 for case in xrange(input()):
     print 'Case #%d: %s' % (case+1, alien_generator())
