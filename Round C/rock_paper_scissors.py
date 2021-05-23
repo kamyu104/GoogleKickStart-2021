@@ -31,8 +31,7 @@ def rock_paper_scissors():
             if max_r == -1 or dp[max_r][max_s][N-max_r-max_s] < dp[r][s][N-r-s]:
                 max_r, max_s = r, s
     result = []
-    r, s, p = max_r, max_s, N-max_r-max_s
-    n = r+s+p
+    r, s, p, n = max_r, max_s, N-max_r-max_s, N
     while n:
         if r and (n == 1 or dp[r][s][p] == dp[r-1][s][p] + W*p/(n-1) + E*s/(n-1)):
             result.append('R')
