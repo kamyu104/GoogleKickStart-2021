@@ -50,4 +50,3 @@ K = 3
 MAX_N = MAX_E = 100
 for case in xrange(input()):
     print 'Case #%d: %s' % (case+1, binary_operator())
- 
