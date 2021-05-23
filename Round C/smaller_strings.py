@@ -12,8 +12,8 @@ def smaller_strings():
     S = raw_input().strip()
 
     result = 0
-    cnt = pow(K, (len(S)+1)//2-1, MOD)  # Time:  O(logN)
-    inv_K = pow(K, MOD-2, MOD)  # Time:  O(logN), Fermat's little theorem, k^(p-1) % p = 1 => k^(p-2) % p = k^(-1) % p
+    cnt = pow(K, (len(S)+1)//2-1, MOD)  # Time: O(logN)
+    inv_K = pow(K, MOD-2, MOD)  # Time: O(logN), Fermat's little theorem, k^(p-1) % p = 1 => k^(p-2) % p = k^(-1) % p
     for i in xrange((len(S)+1)//2):
         result = (result+(ord(S[i])-ord('a'))*cnt)%MOD
         cnt = (cnt*inv_K)%MOD
