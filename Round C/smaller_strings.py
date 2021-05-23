@@ -17,8 +17,10 @@ def smaller_strings():
         pow_of_2.append((pow_of_2[-1]*K)%MOD)
     for i in xrange((len(S)+1)//2):
         result = (result+(ord(S[i])-ord('a'))*pow_of_2[(len(S)+1)//2-1-i])%MOD
-    if S[:(len(S)+1)//2]+S[:len(S)//2][::-1] < S:
-        result = (result+1)%MOD
+    for i in reversed(xrange(len(S)//2)):
+        if S[i] != S[-1-i]:
+            result = (result+int(S[i] < S[-1-i]))%MOD
+            break
     return result
 
 MOD =10**9+7
