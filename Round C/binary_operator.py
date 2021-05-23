@@ -34,6 +34,7 @@ def solution(E):
 def binary_operator():
     N = input()
     E = [raw_input().strip() for _ in xrange(N)]
+
     prev = None
     while True:
         curr = solution(E)
