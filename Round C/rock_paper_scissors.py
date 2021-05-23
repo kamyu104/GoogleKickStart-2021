@@ -11,32 +11,26 @@ def rock_paper_scissors():
     W, E = map(float, raw_input().strip().split())
 
     dp = [[[0.0]*(N+1) for _ in xrange(N+1)] for _ in xrange(N+1)]
-    dp[1][0][0] = dp[0][1][0] = dp[0][0][1] = W/3 + E/3
     max_r = max_s = -1
     for r in xrange(N+1):
         for s in xrange(N+1-r):
             for p in xrange(N+1-r-s):
                 n = r+p+s
-                if n-1 <= 0:
-                    continue
                 if r-1 >= 0:
-                    if dp[r][s][p] < dp[r-1][s][p] + W*p/(n-1) + E*s/(n-1):
-                        dp[r][s][p] = dp[r-1][s][p] + W*p/(n-1) + E*s/(n-1)
+                    dp[r][s][p] = max(dp[r][s][p], dp[r-1][s][p] + W*p/(n-1) + E*s/(n-1) if n != 1 else W/3+E/3)
                 if s-1 >= 0:
-                    if dp[r][s][p] < dp[r][s-1][p] + W*r/(n-1) + E*p/(n-1):
-                        dp[r][s][p] = dp[r][s-1][p] + W*r/(n-1) + E*p/(n-1)
-                if p-1 >= 0:
-                    if dp[r][s][p] < dp[r][s][p-1] + W*s/(n-1) + E*r/(n-1):
-                        dp[r][s][p] = dp[r][s][p-1] + W*s/(n-1) + E*r/(n-1)
+                    dp[r][s][p] = max(dp[r][s][p], dp[r][s-1][p] + W*r/(n-1) + E*p/(n-1) if n != 1 else W/3+E/3)
+                if p-1 >= 0 :
+                    dp[r][s][p] = max(dp[r][s][p], dp[r][s][p-1] + W*s/(n-1) + E*r/(n-1) if n != 1 else W/3+E/3)
             if max_r == -1 or dp[max_r][max_s][N-max_r-max_s] < dp[r][s][N-r-s]:
                 max_r, max_s = r, s
     result = []
     r, s, p, n = max_r, max_s, N-max_r-max_s, N
     while n:
-        if r and (n == 1 or dp[r][s][p] == dp[r-1][s][p] + W*p/(n-1) + E*s/(n-1)):
+        if r-1 >= 0 and (n == 1 or dp[r][s][p] == dp[r-1][s][p] + W*p/(n-1) + E*s/(n-1)):
             result.append('R')
             r -= 1
-        elif s and (n == 1 or dp[r][s][p] == dp[r][s-1][p] + W*r/(n-1) + E*p/(n-1)):
+        elif s-1 >= 0 and (n == 1 or dp[r][s][p] == dp[r][s-1][p] + W*r/(n-1) + E*p/(n-1)):
             result.append('S')
             s -= 1
         else:
