@@ -7,7 +7,7 @@
 # Space: O(N + E)
 #
 
-from random import randint, seed
+from random import seed, randint
 
 def binary_operator():
     lookup = {}
