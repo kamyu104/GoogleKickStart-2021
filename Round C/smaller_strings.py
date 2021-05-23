@@ -11,8 +11,7 @@ def smaller_strings():
     N, K = map(int, raw_input().strip().split())
     S = raw_input().strip()
 
-    result, cnt = 0, 1
-    has_diff = False
+    result, cnt, has_diff = 0, 1, False
     for i in reversed(xrange((len(S)+1)//2)):
         result = (result+(ord(S[i])-ord('a'))*cnt)%MOD
         cnt = (cnt*K)%MOD
