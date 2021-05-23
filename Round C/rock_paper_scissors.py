@@ -10,16 +10,16 @@
 def rock_paper_scissors():
     W, E = map(float, raw_input().strip().split())
 
-    dp = [[[0.0]*(ROUNDS+1) for _ in xrange(ROUNDS+1)] for _ in xrange(ROUNDS+1)]
+    dp = [[[0.0]*(N+1) for _ in xrange(N+1)] for _ in xrange(N+1)]
     dp[1][0][0] = dp[0][1][0] = dp[0][0][1] = W/3 + E/3
-    backtracing = [[[None]*(ROUNDS+1) for _ in xrange(ROUNDS+1)] for _ in xrange(ROUNDS+1)]
+    backtracing = [[[None]*(N+1) for _ in xrange(N+1)] for _ in xrange(N+1)]
     backtracing[1][0][0] = 'R'
     backtracing[0][1][0] = 'S'
     backtracing[0][0][1] = 'P'
     max_r = max_s = -1
-    for r in xrange(ROUNDS+1):
-        for s in xrange(ROUNDS+1-r):
-            for p in xrange(ROUNDS+1-r-s):
+    for r in xrange(N+1):
+        for s in xrange(N+1-r):
+            for p in xrange(N+1-r-s):
                 n = r+p+s
                 if n-1 <= 0:
                     continue
@@ -35,10 +35,10 @@ def rock_paper_scissors():
                     if dp[r][s][p] < dp[r][s][p-1] + W*s/(n-1) + E*r/(n-1):
                         dp[r][s][p] = dp[r][s][p-1] + W*s/(n-1) + E*r/(n-1)
                         backtracing[r][s][p] = 'P'
-            if max_r == max_s == -1 or dp[max_r][max_s][ROUNDS-max_r-max_s] < dp[r][s][ROUNDS-r-s]:
+            if max_r == max_s == -1 or dp[max_r][max_s][N-max_r-max_s] < dp[r][s][N-r-s]:
                 max_r, max_s = r, s
     result = []
-    r, s, p = max_r, max_s, ROUNDS-max_r-max_s
+    r, s, p = max_r, max_s, N-max_r-max_s
     while backtracing[r][s][p] is not None:
         result.append(backtracing[r][s][p])
         if backtracing[r][s][p] == 'R':
@@ -50,7 +50,7 @@ def rock_paper_scissors():
     result.reverse()
     return "".join(result)
     
-ROUNDS = 60
+N = 60
 T, X = input(), input()
 for case in xrange(T):
     print 'Case #%d: %s' % (case+1, rock_paper_scissors())
