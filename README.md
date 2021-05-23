@@ -29,4 +29,4 @@ Python solutions of Google Kick Start 2021. Solution begins with `*` means it wi
 |A| [Smaller Strings](https://codingcompetitions.withgoogle.com/kickstart/round/0000000000435c44/00000000007ebe5e)| [Python](./Round%20C/increasing_substring.py)| _O(N)_ | _O(1)_ | Easy | | Math, Counting |
 |B| [Alien Generator](https://codingcompetitions.withgoogle.com/kickstart/round/0000000000435c44/00000000007ec1cb)| [Python](./Round%20C/alien_generator.py) | _O(sqrt(G))_ | _O(1)_ | Easy | | Math, Arithmetic Progression |
 |C| [Rock Paper Scissors](https://codingcompetitions.withgoogle.com/kickstart/round/0000000000435c44/00000000007ec28e)| [Python](./Round%20C/rock_paper_scissors.py) | _O(N^3)_ | _O(N^3)_ | Medium | | Math, Expected Value, DP |
-|D| [Binary Operator](https://codingcompetitions.withgoogle.com/kickstart/round/0000000000435c44/00000000007ec290)| [Python](./Round%20C/binary_operator.py) | _O(N * E)_ | _O(N + E)_ | Medium | | Hash |
+|D| [Binary Operator](https://codingcompetitions.withgoogle.com/kickstart/round/0000000000435c44/00000000007ec290)| [Python](./Round%20C/binary_operator.py) | _O(N * E)_ | _O(N + E)_ | Hard | | Hash |
