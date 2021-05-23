@@ -12,10 +12,6 @@ def rock_paper_scissors():
 
     dp = [[[0.0]*(N+1) for _ in xrange(N+1)] for _ in xrange(N+1)]
     dp[1][0][0] = dp[0][1][0] = dp[0][0][1] = W/3 + E/3
-    backtracing = [[[None]*(N+1) for _ in xrange(N+1)] for _ in xrange(N+1)]
-    backtracing[1][0][0] = 'R'
-    backtracing[0][1][0] = 'S'
-    backtracing[0][0][1] = 'P'
     max_r = max_s = -1
     for r in xrange(N+1):
         for s in xrange(N+1-r):
@@ -26,27 +22,28 @@ def rock_paper_scissors():
                 if r-1 >= 0:
                     if dp[r][s][p] < dp[r-1][s][p] + W*p/(n-1) + E*s/(n-1):
                         dp[r][s][p] = dp[r-1][s][p] + W*p/(n-1) + E*s/(n-1)
-                        backtracing[r][s][p] = 'R'
                 if s-1 >= 0:
                     if dp[r][s][p] < dp[r][s-1][p] + W*r/(n-1) + E*p/(n-1):
                         dp[r][s][p] = dp[r][s-1][p] + W*r/(n-1) + E*p/(n-1)
-                        backtracing[r][s][p] = 'S'
                 if p-1 >= 0:
                     if dp[r][s][p] < dp[r][s][p-1] + W*s/(n-1) + E*r/(n-1):
                         dp[r][s][p] = dp[r][s][p-1] + W*s/(n-1) + E*r/(n-1)
-                        backtracing[r][s][p] = 'P'
             if max_r == -1 or dp[max_r][max_s][N-max_r-max_s] < dp[r][s][N-r-s]:
                 max_r, max_s = r, s
     result = []
     r, s, p = max_r, max_s, N-max_r-max_s
-    while backtracing[r][s][p] is not None:
-        result.append(backtracing[r][s][p])
-        if backtracing[r][s][p] == 'R':
+    n = r+s+p
+    while n:
+        if r and (n == 1 or dp[r][s][p] == dp[r-1][s][p] + W*p/(n-1) + E*s/(n-1)):
+            result.append('R')
             r -= 1
-        elif backtracing[r][s][p] == 'S':
+        elif s and (n == 1 or dp[r][s][p] == dp[r][s-1][p] + W*r/(n-1) + E*p/(n-1)):
+            result.append('S')
             s -= 1
         else:
+            result.append('P')
             p -= 1
+        n -= 1
     result.reverse()
     return "".join(result)
     
