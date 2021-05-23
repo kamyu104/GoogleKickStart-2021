@@ -24,12 +24,12 @@ def binary_operator():
             return lookup[(self.state, other)]
 
     N = input()
-    result, group, x = [], {}, Operand()
+    result, groups, x = [], {}, Operand()
     for _ in xrange(N):
         g = eval(raw_input().strip().replace("#", "+x+"))
-        if g not in group:
-            group[g] = len(group)+1
-        result.append(str(group[g]))
+        if g not in groups:
+            groups[g] = len(groups)+1
+        result.append(str(groups[g]))
     return " ".join(result)
 
 seed(0)
