@@ -12,7 +12,7 @@ def alien_generator():
     result = 0
     x = 1
     while (1+x)*x//2 <= G:
-        # K*x + (x+1)*x//2 = G
+        # K*x + (1+x)*x//2 = G
         if (G-(x+1)*x//2)%x == 0:
             result += 1
         x += 1
