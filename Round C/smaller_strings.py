@@ -17,7 +17,7 @@ def solution():
         cnt.append((cnt[-1]*K)%MOD)
     for i in xrange((len(S)+1)//2):
         result = (result+(ord(S[i])-ord('a'))*cnt[-1-i])%MOD
-    if S[:(len(S)+1)//2]+S[:(len(S)+1)//2-len(S)%2][::-1] < S:
+    if S[:(len(S)+1)//2]+S[:len(S)//2][::-1] < S:
         result = (result+1)%MOD
     return result
 
