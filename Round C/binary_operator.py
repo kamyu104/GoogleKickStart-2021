@@ -9,7 +9,7 @@
 
 from random import seed, randint
 
-def solution(N, E):
+def solution(E):
     lookup = {}
     class Operand(object):
         def __init__(self, state=None):
@@ -36,7 +36,7 @@ def binary_operator():
     E = [raw_input().strip() for _ in xrange(N)]
     prev = None
     while True:
-        curr = solution(N, E)
+        curr = solution(E)
         if curr == prev:
             return curr
         prev = curr
