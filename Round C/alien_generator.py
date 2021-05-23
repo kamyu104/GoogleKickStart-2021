@@ -10,12 +10,12 @@
 def alien_generator():
     G = input()
     result = 0
-    x = 1
-    while (1+x)*x//2 <= G:
-        # K*x + (1+x)*x//2 = G
-        if (G-(x+1)*x//2)%x == 0:
+    l = 1
+    while (1+l)*l//2 <= G:
+        # K*l + (1+l)*l//2 = G
+        if (G-(l+1)*l//2)%l == 0:
             result += 1
-        x += 1
+        l += 1
     return result
 
 for case in xrange(input()):
