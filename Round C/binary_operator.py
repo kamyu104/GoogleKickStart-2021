@@ -43,8 +43,7 @@ def binary_operator():
         curr = count(E)
         if curr != prev:
             prev = curr
-            cnt = 1
-            continue
+            cnt = 0
         cnt += 1
         if cnt == K:
             return curr
