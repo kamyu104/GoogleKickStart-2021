@@ -27,7 +27,7 @@ def evaluate(s, ops):
         if s[i].isdigit():
             operand = addmod(operand*10, int(s[i]))
             if i == len(s)-1 or not s[i+1].isdigit():
-                operands.append(operand%MOD)
+                operands.append(operand)
                 operand = 0
         elif s[i] == ')':
             right, left = operands.pop(), operands.pop()
