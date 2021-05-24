@@ -7,7 +7,7 @@
 # Space: O(N^3)
 #
 
-def backtracing(W, E, dp):
+def backtracing(dp):
     result = []
     r = s = p = 0
     while r+s+p < N:
@@ -28,7 +28,7 @@ def solve(W, E):
                 dp[r][s][p] = max(dp[r][s][p], [dp[r+1][s][p][0] + ((W*p+E*s)/(r+s+p) if r+s+p != 0 else (W+E)/3), 'R'])
                 dp[r][s][p] = max(dp[r][s][p], [dp[r][s+1][p][0] + ((W*r+E*p)/(r+s+p) if r+s+p != 0 else (W+E)/3), 'S'])
                 dp[r][s][p] = max(dp[r][s][p], [dp[r][s][p+1][0] + ((W*s+E*r)/(r+s+p) if r+s+p != 0 else (W+E)/3), 'P'])
-    return backtracing(W, E, dp)
+    return backtracing(dp)
 
 def rock_paper_scissors():
     W, E = map(float, raw_input().strip().split())
