@@ -12,9 +12,9 @@ def alien_generator():
 
     result, l = 0, 1
     while (1+l)*l//2 <= G:
-        # K*l + (1+l)*l//2 = G
+        # let k = K-1 => k*l + (1+l)*l//2 = G
         if (G-(1+l)*l//2)%l == 0:
-            result += 1
+            result += 1  # k = (G-(1+l)*l//2)//l >= 0
         l += 1
     return result
 
