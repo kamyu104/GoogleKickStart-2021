@@ -7,6 +7,19 @@
 # Space: O(1)
 #
 
+def rock_paper_scissors():
+    W, E = map(int, raw_input().strip().split())
+
+    if W == E:
+        return RESULT[0]
+    if W == E*2:
+        return RESULT[1]
+    if W == E*10:
+        return RESULT[2]
+    return RESULT[3]
+
+N = 60
+'''
 def backtracing(W, E, dp, r, s, p):
     result = []
     while r+p+s:
@@ -38,19 +51,6 @@ def solve(W, E):
                 max_r, max_s = r, s
     return backtracing(W, E, dp, max_r, max_s, N-max_r-max_s)
 
-def rock_paper_scissors():
-    W, E = map(int, raw_input().strip().split())
-
-    if W == E:
-        return RESULT[0]
-    if W == E*2:
-        return RESULT[1]
-    if W == E*10:
-        return RESULT[2]
-    return RESULT[3]
-
-N = 60
-'''
 # precompute
 RESULT = [solve(1.0, 1.0), solve(1.0, 1.0/2.0), solve(1.0, 1.0/10.0), solve(1.0, 1.0/float("inf"))]
 '''
