@@ -3,7 +3,7 @@
 # Google Kick Start 2021 Round C - Problem D. Binary Operator
 # https://codingcompetitions.withgoogle.com/kickstart/round/0000000000435c44/00000000007ec290
 #
-# Time:  O(N * E^2 * logE)
+# Time:  O(N * E^2)
 # Space: O(N * E^2)
 #
 
@@ -16,7 +16,8 @@ class Poly(Counter):
         if expr is None:
             return
         if expr.isdigit():
-            self.update({(): int(expr)})
+            if int(expr):
+                self.update({(): int(expr)})
         else:
             self[(expr,)] += 1
 
@@ -51,8 +52,8 @@ class Poly(Counter):
                 result.update({tuple(merge(k1, k2)): v1*v2})
         return result
 
-    def __str__(self):
-        return " ".join(["*".join((str(v),) + k) for k, v in sorted(self.iteritems(), key=lambda x: (-len(x[0]), x[0])) if v])
+    def __hash__(self):
+        return hash(frozenset(self.iteritems()))
 
 def make_variable(n):
     result = []
@@ -63,9 +64,9 @@ def make_variable(n):
     return "".join(result)
 
 def variable(lookup, x, y):
-    if (str(x), str(y)) not in lookup:
-        lookup[(str(x), str(y))] = Poly(make_variable(len(lookup)+1))
-    return lookup[(str(x), str(y))]
+    if (x, y) not in lookup:
+        lookup[(x, y)] = Poly(make_variable(len(lookup)+1))
+    return lookup[(x, y)]
 
 def evaluate(s, ops):
     operands, operators, operand = [], [], []
@@ -80,7 +81,7 @@ def evaluate(s, ops):
             operands.append(ops[operators.pop()](left, right))
         elif s[i] != '(':
             operators.append(s[i])
-    return str(operands[-1])
+    return operands[-1]
 
 def count(E):
     result, groups = [], {}
