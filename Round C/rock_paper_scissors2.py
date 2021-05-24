@@ -34,10 +34,9 @@ def backtracing(W, E, dp):
     return "".join(result)
 
 def solve(W, E):
-    dp = [[[[-1.0, ''] for _ in xrange(N+1)] for _ in xrange(N+1)] for _ in xrange(N+1)]
+    dp = [[[[0.0, ''] for _ in xrange(N+1)] for _ in xrange(N+1)] for _ in xrange(N+1)]
     for r in reversed(xrange(N+1)):
         for s in reversed(xrange(N+1-r)):
-            dp[r][s][N-r-s] = [0.0, '']
             for p in reversed(xrange(N+1-r-s-1)):
                 dp[r][s][p] = max(dp[r][s][p], [dp[r+1][s][p][0] + ((W*p+E*s)/(r+s+p) if r+s+p != 0 else (W+E)/3), 'R'])
                 dp[r][s][p] = max(dp[r][s][p], [dp[r][s+1][p][0] + ((W*r+E*p)/(r+s+p) if r+s+p != 0 else (W+E)/3), 'S'])
