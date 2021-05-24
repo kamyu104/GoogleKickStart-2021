@@ -55,11 +55,6 @@ class Poly(Counter):
     def __hash__(self):
         return hash(frozenset(self.iteritems()))
 
-    def __eq__(self, other):
-        if not isinstance(other, Poly):
-            return False
-        return frozenset(self.iteritems()) == frozenset(other.iteritems())
-
 def make_variable(n):
     result = []
     while n:
