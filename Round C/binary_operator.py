@@ -51,6 +51,6 @@ def binary_operator():
 
 seed(0)
 MOD = 10**9+7
-K = 3
+K = 2
 for case in xrange(input()):
     print 'Case #%d: %s' % (case+1, binary_operator())
