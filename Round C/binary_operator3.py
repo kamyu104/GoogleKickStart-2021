@@ -61,7 +61,7 @@ def binary_operator():
             return curr
 
 seed(0)
-MOD = 10**9-63  # a prime rather than 10**9+7 to avoid collision made by corner case
+MOD = 10**9-63  # pick a prime rather than 10**9+7 to avoid collision made by corner case
 K = 2
 for case in xrange(input()):
     print 'Case #%d: %s' % (case+1, binary_operator())
