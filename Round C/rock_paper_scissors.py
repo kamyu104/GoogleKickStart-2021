@@ -3,8 +3,8 @@
 # Google Kick Start 2021 Round C - Problem C. Rock Paper Scissors
 # https://codingcompetitions.withgoogle.com/kickstart/round/0000000000435c44/00000000007ec28e
 #
-# Time:  O(1)
-# Space: O(1)
+# Time:  O(N^3)
+# Space: O(N^3)
 #
 
 def backtracing(W, E, dp, r, s, p):
