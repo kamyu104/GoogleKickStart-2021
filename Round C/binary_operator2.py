@@ -8,21 +8,26 @@
 #
 
 from random import seed, randint
-from operator import add, mul
 from functools import partial
+
+def addmod(x, y):
+    return (x+y)%MOD
+
+def mulmod(x, y):
+    return (x*y)%MOD
 
 def hash(lookup, x, y):
     if (x, y) not in lookup:
-        lookup[(x, y)] = randint(1, MAX_N*MAX_E)
+        lookup[(x, y)] = randint(0, MOD-1)
     return lookup[(x, y)]    
 
 def evaluate(s, ops):
     operands, operators, operand = [], [], 0
     for i in xrange(len(s)):
         if s[i].isdigit():
-            operand = operand*10 + int(s[i])
+            operand = addmod(operand*10, int(s[i]))
             if i == len(s)-1 or not s[i+1].isdigit():
-                operands.append(operand)
+                operands.append(operand%MOD)
                 operand = 0
         elif s[i] == ')':
             right, left = operands.pop(), operands.pop()
@@ -33,9 +38,9 @@ def evaluate(s, ops):
 
 def count(E):
     result, groups = [], {}
-    ops = {'+':add, '*':mul, '#':partial(hash, {})}
-    for e in E:
-        g = evaluate(e, ops)
+    ops = {'+':addmod, '*':mulmod, '#':partial(hash, {})}
+    for s in E:
+        g = evaluate(s, ops)
         if g not in groups:
             groups[g] = len(groups)+1
         result.append(str(groups[g]))
@@ -56,8 +61,8 @@ def binary_operator():
         if cnt == K:
             return curr
 
+MOD = 10**9+21  # a prime rather than 10**9+7
 seed(0)
 K = 3
-MAX_N = MAX_E = 100
 for case in xrange(input()):
     print 'Case #%d: %s' % (case+1, binary_operator())
