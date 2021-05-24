@@ -3,7 +3,7 @@
 # Google Kick Start 2021 Round C - Problem D. Binary Operator
 # https://codingcompetitions.withgoogle.com/kickstart/round/0000000000435c44/00000000007ec290
 #
-# Time:  O(N * E^2)
+# Time:  O(N * E^2 * logE)
 # Space: O(N + E)
 #
 
