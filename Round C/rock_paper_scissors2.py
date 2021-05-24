@@ -3,7 +3,7 @@
 # Google Kick Start 2021 Round C - Problem C. Rock Paper Scissors
 # https://codingcompetitions.withgoogle.com/kickstart/round/0000000000435c44/00000000007ec28e
 #
-# Time:  O(1)
+# Time:  O(N)
 # Space: O(1)
 #
 
@@ -39,11 +39,22 @@ def solve(W, E):
     return backtracing(W, E, dp, max_r, max_s, N-max_r-max_s)
 
 def rock_paper_scissors():
-    W, E = map(float, raw_input().strip().split())
+    W, E = map(int, raw_input().strip().split())
 
-    return solve(W, E)
+    if W == E:
+        return RESULT[0]
+    if W == E*2:
+        return RESULT[1]
+    if W == E*10:
+        return RESULT[2]
+    return RESULT[3]
 
 N = 60
+'''
+# precompute
+RESULT = [solve(1.0, 1.0), solve(1.0, 1.0/2.0), solve(1.0, 1.0/10.0), solve(1.0, 1.0/float("inf"))]
+'''
+RESULT = ['PSRPSRPSRPSRPSRPSRPSRPSRPSRPSRPSRPSRPSRPSRPSRPSRPSRPSRPSRPSR', 'PRRSSSSPPPPPPPPRRRRRRRRRRRRRRRRSSSSSSSSSSSSSSSSSSSPPPPPPPPPP', 'SPPPPRRRRRRRRRRRRRRRSSSSSSSSSSSSSSSSSSSSSSSSSPPPPPPPPPPPPPPP', 'PRRRRRRRRRSSSSSSSSSSSSSSSSSSSSSSSSSSSPPPPPPPPPPPPPPPPPPPPPPP']
 T, X = input(), input()
 for case in xrange(T):
     print 'Case #%d: %s' % (case+1, rock_paper_scissors())
