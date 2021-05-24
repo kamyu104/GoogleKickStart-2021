@@ -4,7 +4,7 @@
 # https://codingcompetitions.withgoogle.com/kickstart/round/0000000000435c44/00000000007ec290
 #
 # Time:  O(N * E^2)
-# Space: O(N + E)
+# Space: O(N * E)
 #
 
 from random import seed, randint
