@@ -9,6 +9,11 @@
 
 from random import seed, randint
 
+def hash(lookup, x, y):
+    if (x, y) not in lookup:
+        lookup[(x, y)] = randint(0, MOD-1)
+    return lookup[(x, y)]    
+
 def count(E):
     lookup = {}
     class Operand(object):
@@ -19,9 +24,7 @@ def count(E):
             return Operand(other)
 
         def __add__(self, other):
-            if (self.state, other) not in lookup:
-                lookup[(self.state, other)] = randint(0, MOD-1)
-            return lookup[(self.state, other)]
+            return hash(lookup, self.state, other)
 
     result, groups, x = [], {}, Operand()
     for e in E:
