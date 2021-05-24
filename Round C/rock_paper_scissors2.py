@@ -18,8 +18,8 @@ def rock_paper_scissors():
         return RESULT[2]
     return RESULT[3]
 
-N = 60
 '''
+N = 60
 def backtracing(W, E, dp, r, s, p):
     result = []
     while r+s+p:
