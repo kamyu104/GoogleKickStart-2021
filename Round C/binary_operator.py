@@ -21,8 +21,10 @@ class Poly(Counter):
             self[(expr,)] += 1
 
     def __add__(self, other):
-        self.update(other)
-        return self
+        result = Poly()
+        result.update(self)
+        result.update(other)
+        return result
 
     def __mul__(self, other):
         def merge(k1, k2):
@@ -62,8 +64,8 @@ def make_variable(n):
 
 def variable(lookup, x, y):
     if (str(x), str(y)) not in lookup:
-        lookup[(str(x), str(y))] = make_variable(len(lookup)+1)
-    return Poly(lookup[(str(x), str(y))])
+        lookup[(str(x), str(y))] = Poly(make_variable(len(lookup)+1))
+    return lookup[(str(x), str(y))]
 
 def evaluate(s, ops):
     operands, operators, operand = [], [], []
