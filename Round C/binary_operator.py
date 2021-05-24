@@ -94,16 +94,7 @@ def binary_operator():
     N = input()
     E = [raw_input().strip() for _ in xrange(N)]
 
-    prev = None
-    while True:
-        curr = count(E)
-        if curr != prev:
-            prev = curr
-            cnt = 0
-        cnt += 1
-        if cnt == K:
-            return curr
+    return count(E)
 
-K = 2
 for case in xrange(input()):
     print 'Case #%d: %s' % (case+1, binary_operator())
