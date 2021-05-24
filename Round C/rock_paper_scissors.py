@@ -27,13 +27,10 @@ def solve(W, E):
     max_r = max_s = -1
     for r in xrange(N+1):
         for s in xrange(N+1-r):
-            for p in xrange(N+1-r-s):
-                if r-1 >= 0:
-                    dp[r][s][p] = max(dp[r][s][p], dp[r-1][s][p] + (W*p+E*s)/(r+p+s-1) if r+p+s-1 != 0 else (W+E)/3)
-                if s-1 >= 0:
-                    dp[r][s][p] = max(dp[r][s][p], dp[r][s-1][p] + (W*r+E*p)/(r+p+s-1) if r+p+s-1 != 0 else (W+E)/3)
-                if p-1 >= 0:
-                    dp[r][s][p] = max(dp[r][s][p], dp[r][s][p-1] + (W*s+E*r)/(r+p+s-1) if r+p+s-1 != 0 else (W+E)/3)
+            for p in xrange(N+1-r-s-1):  # skip r+s+p = N
+                dp[r+1][s][p] = max(dp[r+1][s][p], dp[r][s][p] + (W*p+E*s)/(r+p+s) if r+p+s != 0 else (W+E)/3)
+                dp[r][s+1][p] = max(dp[r][s+1][p], dp[r][s][p] + (W*r+E*p)/(r+p+s) if r+p+s != 0 else (W+E)/3)
+                dp[r][s][p+1] = max(dp[r][s][p+1], dp[r][s][p] + (W*s+E*r)/(r+p+s) if r+p+s != 0 else (W+E)/3)
             if max_r == -1 or dp[max_r][max_s][N-max_r-max_s] < dp[r][s][N-r-s]:
                 max_r, max_s = r, s
     return backtracing(W, E, dp, max_r, max_s, N-max_r-max_s)
