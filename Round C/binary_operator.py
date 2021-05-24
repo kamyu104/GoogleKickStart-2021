@@ -20,7 +20,7 @@ def count(E):
 
         def __add__(self, other):
             if (self.state, other) not in lookup:
-                lookup[(self.state, other)] = randint(1, MAX_N*MAX_E)
+                lookup[(self.state, other)] = randint(0, MOD-1)
             return lookup[(self.state, other)]
 
     result, groups, x = [], {}, Operand()
@@ -47,7 +47,7 @@ def binary_operator():
             return curr
 
 seed(0)
+MOD = 10**9+21  # a prime rather than 10**9+7
 K = 3
-MAX_N = MAX_E = 100
 for case in xrange(input()):
     print 'Case #%d: %s' % (case+1, binary_operator())
