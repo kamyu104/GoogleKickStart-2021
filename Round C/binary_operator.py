@@ -55,17 +55,9 @@ class Poly(Counter):
     def __hash__(self):
         return hash(frozenset(self.iteritems()))
 
-def make_variable(n):
-    result = []
-    while n:
-        result += chr((n-1)%26 + ord('a'))
-        n = (n-1)//26
-    result.reverse()
-    return "".join(result)
-
 def variable(lookup, x, y):
     if (x, y) not in lookup:
-        lookup[(x, y)] = Poly(make_variable(len(lookup)+1))
+        lookup[(x, y)] = Poly("x" + str(len(lookup)))
     return lookup[(x, y)]
 
 def evaluate(s, ops):
