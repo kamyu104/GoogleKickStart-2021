@@ -11,7 +11,7 @@ from random import seed, randint
 
 def hash(lookup, x, y):
     if (x, y) not in lookup:
-        lookup[(x, y)] = randint(0, MOD-1)
+        lookup[(x, y)] = randint(1, MAX_N * MAX_E)  # the min range of random number, the larger range is , the less K is
     return lookup[(x, y)]    
 
 def count(E):
@@ -49,7 +49,7 @@ def binary_operator():
             return curr
 
 seed(0)
-MOD = 10**9+7
+MAX_N = MAX_E = 100
 K = 2
 for case in xrange(input()):
     print 'Case #%d: %s' % (case+1, binary_operator())
