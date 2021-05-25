@@ -18,7 +18,7 @@ def mulmod(x, y):
 
 def hash(lookup, x, y):
     if (x, y) not in lookup:
-        lookup[(x, y)] = addmod(0, randint(1, MAX_N * MAX_E))  # the min range of random number, the larger range is, the less K is
+        lookup[(x, y)] = addmod(0, randint(1, MAX_N * MAX_E))  # the min range of random number, the larger range is, the smaller K is
     return lookup[(x, y)]    
 
 def evaluate(s, ops):
@@ -63,6 +63,6 @@ def binary_operator():
 seed(0)
 MOD = 10**9-63  # pick a prime rather than 10**9+7 to avoid collision made by corner case
 MAX_N = MAX_E = 100
-K = 2
+K = 2  # a parameter we have to tune, the larger K is, the more confident we have
 for case in xrange(input()):
     print 'Case #%d: %s' % (case+1, binary_operator())
