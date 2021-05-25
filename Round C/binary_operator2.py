@@ -50,6 +50,6 @@ def binary_operator():
 
 seed(0)
 MAX_N = MAX_E = 100
-K = 2  # a parameter we have to tune, the larger K is, the more confident we have
+K = 2  # a parameter we have to tune, the larger K is, the more confidence we have
 for case in xrange(input()):
     print 'Case #%d: %s' % (case+1, binary_operator())
