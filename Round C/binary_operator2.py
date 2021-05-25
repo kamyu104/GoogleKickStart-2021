@@ -11,7 +11,7 @@ from random import seed, randint
 
 def hash(lookup, x, y):
     if (x, y) not in lookup:
-        lookup[(x, y)] = randint(1, MAX_N * MAX_E)  # the min range of random number, the larger range is , the less K is
+        lookup[(x, y)] = randint(1, MAX_N * MAX_E)  # the min range of random number, the larger range is, the less K is
     return lookup[(x, y)]    
 
 def count(E):
