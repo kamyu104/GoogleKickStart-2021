@@ -20,6 +20,6 @@ def smaller_strings():
             break
     return result
 
-MOD =10**9+7
+MOD = 10**9+7
 for case in xrange(input()):
     print 'Case #%d: %s' % (case+1, smaller_strings())
