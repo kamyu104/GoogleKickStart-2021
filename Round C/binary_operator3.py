@@ -61,7 +61,7 @@ def binary_operator():
             return curr
 
 seed(0)
-MOD = 10**9-63  # pick a prime rather than 10**9+7 to avoid collision made by corner case
+MOD = 10**9-63  # pick a prime rather than 10**9+7 to avoid collisions made by contrived test cases
 MAX_N = MAX_E = 100
 K = 2  # a parameter we have to tune, the larger K is, the more confidence we have
 for case in xrange(input()):
