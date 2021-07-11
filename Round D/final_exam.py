@@ -3,7 +3,7 @@
 # Google Kick Start 2021 Round D - Problem C. Final Exam
 # https://codingcompetitions.withgoogle.com/kickstart/round/00000000004361e3/000000000082bffc
 #
-# Time:  O(NlogN + Mlog(N + M)), pass in PyPy2 but Python2
+# Time:  O(NlogN + M * log(N + M)), pass in PyPy2 but Python2
 # Space: O(N + M)
 #
 
