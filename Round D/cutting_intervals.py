@@ -19,11 +19,11 @@ def cutting_intervals():
     points = sorted(x for x in count.iteritems())
     overlap, prev = 0, None
     overlap_to_cnt = Counter()
-    for p, c in points:
+    for curr, cnt in points:
         if overlap:
-            overlap_to_cnt[overlap] += p-prev  # count of [prev, p)
-        overlap += c
-        prev = p
+            overlap_to_cnt[overlap] += curr-prev  # count of [prev, curr)
+        overlap += cnt
+        prev = curr
     overlap_to_cnt = sorted(x for x in overlap_to_cnt.iteritems())
     result = N
     while overlap_to_cnt:
