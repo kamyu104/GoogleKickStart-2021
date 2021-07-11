@@ -34,22 +34,17 @@ def vp(p, x):  # Time: O(logx)
         result += 1
     return result
 
-def lte1(p, a, b):
-    return vp(p, a-b)
-
-def lte2(p, a, b):
-    return vp(p, a+b)
-
 def add(p, bits, pos, val, sign):  # Time: O(logN + log(max(val)))
-    if val < p:
-        return  # V(val^s - (val%p)^s) is 0, just skip
-    if val%p == 0:
-        bits[0].add(pos, sign*vp(p, val))
+    a, b = val, val%p
+    if a == b:
+        return  # V(a^s - b^s) is 0, just skip
+    if b == 0:
+        bits[0].add(pos, sign * vp(p, a))
     else:
-        bits[1].add(pos, sign*1)
-        bits[2].add(pos, sign*lte1(p, val, val%p))
+        bits[1].add(pos, sign * 1)
+        bits[2].add(pos, sign * vp(p, a-b))
         if p == 2:
-            bits[3].add(pos, sign*lte2(p, val, val%p))
+            bits[3].add(pos, sign * vp(p, a+b))
 
 # reference: https://en.wikipedia.org/wiki/Lifting-the-exponent_lemma#Statements
 def query(p, bits, pos, s):  # Time: O(logN + log(max(S)))
