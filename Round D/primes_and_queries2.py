@@ -41,7 +41,8 @@ def vp(p, x):  # Time: O(log(logx))
     while exp < x:
         exp = exp*exp
         right *= 2
-    return binary_search_right(1, right, lambda n: x%p**n == 0)  # since p**n is O(logN), and N <= 64, we treat it as O(1)
+    assert(right <= 64)
+    return binary_search_right(1, right, lambda n: x%p**n == 0)  # since p**n is O(logn), and n <= 64, we treat it as O(1)
 
 def lte1(p, a, b):
     return vp(p, a-b)
