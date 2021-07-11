@@ -34,7 +34,7 @@ def binary_search_right(left, right, check):
             left = mid+1
     return right
 
-def power(x, n):  # compute and cache, at most O(n) time and O(n) space in each test case, O(n) = O(logN)
+def power(x, n):  # compute and cache, at most O(n) time and O(n) space in each test case, O(n) = O(log(max(A)) + log(max(val))) <= O(64) <= O(N)
     while len(POW[0]) <= n:  # lazy initialization
         POW[0].append(POW[0][-1]*x)
     return POW[0][n]
