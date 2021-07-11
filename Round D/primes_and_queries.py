@@ -38,27 +38,16 @@ def lte1(p, a, b):
 def lte2(p, a, b):
     return vp(p, a+b)
 
-def add(p, bits, pos, val):
+def add(p, bits, pos, val, sign):
     if val < p:
         return  # V(val^s - (val%p)^s) is 0, just skip
     if val%p == 0:
-        bits[0].add(pos, vp(p, val))
+        bits[0].add(pos, sign*vp(p, val))
     else:
-        bits[1].add(pos, 1)
-        bits[2].add(pos, lte1(p, val, val%p))
+        bits[1].add(pos, sign*1)
+        bits[2].add(pos, sign*lte1(p, val, val%p))
         if p == 2:
-            bits[3].add(pos, lte2(p, val, val%p))
-
-def remove(p, bits, pos, val):
-    if val < p:
-        return  # V(val^s - (val%p)^s) is 0, just skip
-    if val%p == 0:
-        bits[0].add(pos, -vp(p, val))
-    else:
-        bits[1].add(pos, -1)
-        bits[2].add(pos, -lte1(p, val, val%p))
-        if p == 2:
-            bits[3].add(pos, -lte2(p, val, val%p))
+            bits[3].add(pos, sign*lte2(p, val, val%p))
 
 def query(p, bits, pos, s):
     # sum(s*vp(p, A[i]) for i in xrange(pos+1) if A[i] >= p and A[i]%p == 0) + \
@@ -75,15 +64,15 @@ def primes_and_queries():
     A = [0]*N
     for i, val in enumerate(map(int, raw_input().strip().split())):
         A[i] = val
-        add(P, bits, i, A[i])
+        add(P, bits, i, A[i], 1)
     result = []
     for ops in (map(int, raw_input().strip().split()) for _ in xrange(Q)):
         if len(ops) == 3:
             _, pos, val = ops
             i = pos-1
-            remove(P, bits, i, A[i])
+            add(P, bits, i, A[i], -1)
             A[i] = val
-            add(P, bits, i, A[i])
+            add(P, bits, i, A[i], 1)
         else:
             _, S, L, R = ops
             result.append(query(P, bits, (R-1), S) - query(P, bits, (L-1)-1, S))
