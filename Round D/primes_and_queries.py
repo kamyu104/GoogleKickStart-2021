@@ -64,18 +64,18 @@ def primes_and_queries():
     A = [0]*N
     for i, val in enumerate(map(int, raw_input().strip().split())):
         A[i] = val
-        add(P, bits, i, A[i], 1)
+        add(P, bits, i, A[i], 1)  # Time: O(logN + log(max(A)))
     result = []
     for ops in (map(int, raw_input().strip().split()) for _ in xrange(Q)):
         if len(ops) == 3:
             _, pos, val = ops
             i = pos-1
-            add(P, bits, i, A[i], -1)
+            add(P, bits, i, A[i], -1)  # Time: O(logN + log(max(val)))
             A[i] = val
-            add(P, bits, i, A[i], 1)
+            add(P, bits, i, A[i], 1)  # Time: O(logN + log(max(val)))
         else:
             _, S, L, R = ops
-            result.append(query(P, bits, (R-1), S) - query(P, bits, (L-1)-1, S))
+            result.append(query(P, bits, (R-1), S) - query(P, bits, (L-1)-1, S))  # Time: O(logN + log(max(S)))
     return " ".join(map(str, result))
 
 for case in xrange(input()):
