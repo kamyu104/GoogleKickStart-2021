@@ -26,10 +26,12 @@ class BIT(object):  # 0-indexed.
         return ret
 
 def vp(p, x):
+    if x == 0:
+        return 0
     result = 0
-    while x and x%p == 0:
-        result += 1
+    while x%p == 0:
         x //= p
+        result += 1
     return result
 
 def lte1(p, a, b):
