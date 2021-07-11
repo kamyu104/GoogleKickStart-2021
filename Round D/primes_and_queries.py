@@ -3,7 +3,7 @@
 # Google Kick Start 2021 Round D - Problem D. Primes and Queries
 # https://codingcompetitions.withgoogle.com/kickstart/round/00000000004361e3/000000000082bcf4
 #
-# Time:  O(N * log(max(A)) + Q * (logN + log(max(S)) + log(max(val))))
+# Time:  O(N * (logN + log(max(A))) + Q * (logN + log(max(val)) + log(max(S))))
 # Space: O(N)
 #
 
@@ -38,7 +38,7 @@ def lte1(p, a, b):
 def lte2(p, a, b):
     return vp(p, a+b)
 
-def add(p, bits, pos, val, sign):
+def add(p, bits, pos, val, sign):  # Time: O(logN + log(max(val)))
     if val < p:
         return  # V(val^s - (val%p)^s) is 0, just skip
     if val%p == 0:
@@ -49,7 +49,7 @@ def add(p, bits, pos, val, sign):
         if p == 2:
             bits[3].add(pos, sign*lte2(p, val, val%p))
 
-def query(p, bits, pos, s):
+def query(p, bits, pos, s):  # Time: O(logN + log(max(S)))
     # sum(s*vp(p, A[i]) for i in xrange(pos+1) if A[i] >= p and A[i]%p == 0) + \
     # sum(vp(p, s) + vp(p, A[i]-A[i]%p) for i in xrange(pos+1) if A[i] >= p and A[i]%p != 0) + \
     # (sum(vp(p, A[i]+A[i]%p)-1 for i in xrange(pos+1) if A[i] >= p and A[i]%p != 0) if p == 2 and s%2 == 0 else 0)
