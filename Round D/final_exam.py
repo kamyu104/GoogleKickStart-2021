@@ -119,33 +119,33 @@ class SkipList(object):
                 curr = curr.nexts[i]
         return "\n".join(map(lambda x: "->".join(x), result))
 
-def find_interval_contain(sl, x):
+def find_contained_interval(sl, x):
     it = sl.lower_bound((x, float("inf")))
     if it == sl.begin():
         return None
     it = it.prevs[0]
     return it.val if it.val[0] <= x <= it.val[1] else None
 
-def remove(sl, x):
-    p = find_interval_contain(sl, x)
-    sl.remove(sl.find(p))
-    if p[0] <= x-1:
-        sl.add((p[0], x-1))
-    if x+1 <= p[1]:
-        sl.add((x+1, p[1]))
-
-def find_interval_left(sl, x):
+def find_nearest_left(sl, x):
     it = sl.lower_bound((x, float("inf")))
     if it == sl.begin():
         return None
     it = it.prevs[0]
     return it.val[1]
 
-def find_interval_right(sl, x):
+def find_nearest_right(sl, x):
     it = sl.lower_bound((x, float("inf")))
     if it == sl.end():
         return None
     return it.val[0]
+
+def remove(sl, x):
+    p = find_contained_interval(sl, x)
+    sl.remove(sl.find(p))
+    if p[0] <= x-1:
+        sl.add((p[0], x-1))
+    if x+1 <= p[1]:
+        sl.add((x+1, p[1]))
 
 def final_exam():
     N, M = map(int, raw_input().strip().split())
@@ -154,13 +154,12 @@ def final_exam():
         sl.add((l, r))
     result = []
     for x in map(int, raw_input().strip().split()):
-        p = find_interval_contain(sl, x)
-        if p is not None:
+        if find_contained_interval(sl, x):
             result.append(x)
         else:
-            a = find_interval_left(sl, x)
-            b = find_interval_right(sl, x)
-            result.append(a if b is None or (a is not None and x-a <= b-x) else b)
+            l = find_nearest_left(sl, x)
+            r = find_nearest_right(sl, x)
+            result.append(l if r is None or (l is not None and x-l <= r-x) else r)
         remove(sl, result[-1])
     return " ".join(map(str, result))
 
