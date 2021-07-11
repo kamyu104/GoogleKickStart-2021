@@ -65,10 +65,10 @@ def add(p, bits, pos, val, sign):  # Time: O(logN + log(log(max(val))))
 # find V(a^s - b^s) => (a-b)%p = 0
 # (1) if a = b => V(a^s - b^s) = 0
 # (2) if a != b =>
-#    (2.1) if b = 0 => V(a^s - b^s) = V(a^s) = s*V(a)
-#    (2.2) if b != 0 => a%p != 0 and b%p != 0 =>
-#          (2.2.1) if p != 2 or s%2 != 0 => V(a^s - b^s) = V(a-b) + V(s)
-#          (2.2.2) if p = 2 and s%2 == 0 => V(a^s - b^s) = V(a-b) + V(a+b) + V(s) - 1
+#     (2.1) if b = 0 => V(a^s - b^s) = V(a^s) = s*V(a)
+#     (2.2) if b != 0 => a%p != 0 and b%p != 0 =>
+#           (2.2.1) if p != 2 or s%2 != 0 => V(a^s - b^s) = V(a-b) + V(s)
+#           (2.2.2) if p = 2 and s%2 == 0 => V(a^s - b^s) = V(a-b) + V(a+b) + V(s) - 1
 def query(p, bits, pos, s):  # Time: O(logN + log(log(max(S))))
     # sum(s*vp(p, A[i]) for i in xrange(pos+1) if A[i] >= p and A[i]%p == 0) + \
     # sum(vp(p, s) + vp(p, A[i]-A[i]%p) for i in xrange(pos+1) if A[i] >= p and A[i]%p != 0) + \
