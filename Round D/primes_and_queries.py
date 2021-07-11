@@ -1,7 +1,7 @@
 # Copyright (c) 2021 kamyu. All rights reserved.
 #
 # Google Kick Start 2021 Round D - Problem D. Primes and Queries
-# https://codingcompetitions.withgoogle.com/kickstart/round/00000000004361e3/000000000082bcf4#analysis
+# https://codingcompetitions.withgoogle.com/kickstart/round/00000000004361e3/000000000082bcf4
 #
 # Time:  O(N * log(max(A)) + Q * (logN + log(max(S)) + log(max(val))))
 # Space: O(N)
