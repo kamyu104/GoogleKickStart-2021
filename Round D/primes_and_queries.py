@@ -36,7 +36,7 @@ def lte1(p, a, b):
     return vp(p, a-b)
 
 def lte2(p, a, b):
-    return vp(p, a+b)-1
+    return vp(p, a+b)
 
 def add(p, bits, pos, val):
     if val < p:
@@ -66,7 +66,7 @@ def query(p, bits, pos, s):
     # (sum(vp(p, A[i]+A[i]%p)-1 for i in xrange(pos+1) if A[i] >= p and A[i]%p != 0) if p == 2 and s%2 == 0 else 0)
     return s*bits[0].query(pos) + \
            vp(p, s)*bits[1].query(pos) + bits[2].query(pos) + \
-           (bits[3].query(pos) if p == 2 and s%2 == 0 else 0)
+           (bits[3].query(pos)-bits[1].query(pos) if p == 2 and s%2 == 0 else 0)
 
 def primes_and_queries():
     N, Q, P = map(int, raw_input().strip().split())
