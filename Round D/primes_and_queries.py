@@ -44,16 +44,24 @@ def add(p, bits, pos, val, sign):  # Time: O(logN + log(max(val)))
         bits[1].add(pos, sign * 1)
         bits[2].add(pos, sign * vp(p, a-b))
         if p == 2:
-            bits[3].add(pos, sign * vp(p, a+b))
+            bits[3].add(pos, sign * (vp(p, a+b)-1))
 
 # reference: https://en.wikipedia.org/wiki/Lifting-the-exponent_lemma#Statements
+# given a is N+, p is prime, b = a%p,
+# find V(a^s - b^s) => (a-b)%p = 0
+# (1) if a = b => V(a^s - b^s) = 0
+# (2) if a != b =>
+#    (2.1) if b = 0 => V(a^s - b^s) = V(a^s) = s*V(a)
+#    (2.2) if b != 0 => a%p != 0 and b%p != 0 =>
+#          (2.2.1) if p != 2 or s%2 != 0 => V(a^s - b^s) = V(a-b) + V(s)
+#          (2.2.2) if p = 2 and s%2 == 0 => V(a^s - b^s) = V(a-b) + V(a+b) + V(s) - 1
 def query(p, bits, pos, s):  # Time: O(logN + log(max(S)))
     # sum(s*vp(p, A[i]) for i in xrange(pos+1) if A[i] >= p and A[i]%p == 0) + \
     # sum(vp(p, s) + vp(p, A[i]-A[i]%p) for i in xrange(pos+1) if A[i] >= p and A[i]%p != 0) + \
     # (sum(vp(p, A[i]+A[i]%p)-1 for i in xrange(pos+1) if A[i] >= p and A[i]%p != 0) if p == 2 and s%2 == 0 else 0)
     return s*bits[0].query(pos) + \
            vp(p, s)*bits[1].query(pos) + bits[2].query(pos) + \
-           (bits[3].query(pos)-bits[1].query(pos) if p == 2 and s%2 == 0 else 0)
+           (bits[3].query(pos) if p == 2 and s%2 == 0 else 0)
 
 def primes_and_queries():
     N, Q, P = map(int, raw_input().strip().split())
