@@ -41,7 +41,7 @@ def lte_even(p, a, b):
     return vp(p, a-b)+vp(p, a+b)-1
 
 def add(p, bits, pos, val):
-    if val < p:
+    if val < p:  # vp(p, val) is 0, just skip
         return
     if val%p == 0:
         bits[0].add(pos, vp(p, val))
@@ -51,7 +51,7 @@ def add(p, bits, pos, val):
         bits[3].add(pos, lte_odd(p, val, val%p))
 
 def remove(p, bits, pos, val):
-    if val < p:
+    if val < p:  # vp(p, val) is 0, just skip
         return
     if val%p == 0:
         bits[0].add(pos, -vp(p, val))
