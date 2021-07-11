@@ -42,32 +42,34 @@ def lte_even(p, a, b):
 
 def add(p, bits, pos, val):
     if val < p:
-        return  # vp(p, val) is 0, just skip
+        return  # V(val^s - (val%p)^s) is 0, just skip
     if val%p == 0:
         bits[0].add(pos, vp(p, val))
     else:
         bits[1].add(pos, 1)
-        bits[2].add(pos, lte_even(p, val, val%p))
-        bits[3].add(pos, lte_odd(p, val, val%p))
+        bits[2].add(pos, lte_odd(p, val, val%p))
+        if p == 2:
+            bits[3].add(pos, lte_even(p, val, val%p))
 
 def remove(p, bits, pos, val):
     if val < p:
-        return  # vp(p, val) is 0, just skip
+        return  # V(val^s - (val%p)^s) is 0, just skip
     if val%p == 0:
         bits[0].add(pos, -vp(p, val))
     else:
         bits[1].add(pos, -1)
-        bits[2].add(pos, -lte_even(p, val, val%p))
-        bits[3].add(pos, -lte_odd(p, val, val%p))
+        bits[2].add(pos, -lte_odd(p, val, val%p))
+        if p == 2:
+            bits[3].add(pos, -lte_even(p, val, val%p))
 
 def query(p, bits, pos, s):
-    return s*bits[0].query(pos) + vp(p, s)*bits[1].query(pos) + bits[2].query(pos) if p == 2 and s%2 == 0 else \
+    return s*bits[0].query(pos) + vp(p, s)*bits[1].query(pos) + bits[2].query(pos) if p != 2 or s%2 else \
            s*bits[0].query(pos) + vp(p, s)*bits[1].query(pos) + bits[3].query(pos)
 
 def primes_and_queries():
     N, Q, P = map(int, raw_input().strip().split())
 
-    bits = [BIT(N) for _ in xrange(4)]
+    bits = [BIT(N) for _ in xrange(3 if P != 2 else 4)]
     A = [0]*N
     for i, val in enumerate(map(int, raw_input().strip().split())):
         A[i] = val
