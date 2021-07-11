@@ -12,21 +12,18 @@ from collections import Counter
 def cutting_intervals():
     N, C = map(int, raw_input().strip().split())
 
-    points = []
-    for l, r in [map(int, raw_input().strip().split()) for _ in xrange(N)]:
-        points.append((l+1, 1))
-        points.append((r, -1))
-    points.sort()
-    curr = 0
     count = Counter()
-    for i, c in points:
-        curr += c
-        count[i] = curr
-    points = sorted(count.iterkeys())
+    for l, r in [map(int, raw_input().strip().split()) for _ in xrange(N)]:
+        count[l+1] += 1
+        count[r] -= 1
+    points = sorted(x for x in count.iteritems())
+    overlap, prev = 0, None
     overlap_to_cnt = Counter()
-    for i in xrange(1, len(points)):
-        if count[points[i-1]]:
-            overlap_to_cnt[count[points[i-1]]] += points[i]-points[i-1]
+    for p, c in points:
+        if overlap:
+            overlap_to_cnt[overlap] += p-prev
+        overlap += c
+        prev = p
     overlap_to_cnt = sorted(x for x in overlap_to_cnt.iteritems())
     result = N
     while overlap_to_cnt:
