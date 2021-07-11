@@ -1,4 +1,4 @@
-# [GoogleKickStart 2021](https://codingcompetitions.withgoogle.com/kickstart) ![Language](https://img.shields.io/badge/language-Python-orange.svg) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE) ![Progress](https://img.shields.io/badge/progress-12%20%2F%2012-ff69b4.svg)
+# [GoogleKickStart 2021](https://codingcompetitions.withgoogle.com/kickstart) ![Language](https://img.shields.io/badge/language-Python-orange.svg) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE) ![Progress](https://img.shields.io/badge/progress-16%20%2F%2016-ff69b4.svg)
 
 Python solutions of Google Kick Start 2021. Solution begins with `*` means it will get TLE in the largest data set (total computation amount > `10^8`, which is not friendly for Python to solve in 5 ~ 15 seconds). A problem was marked as `Very Hard` means that it was an unsolved one during the contest and may not be that difficult.
 
@@ -6,6 +6,7 @@ Python solutions of Google Kick Start 2021. Solution begins with `*` means it wi
 * [Round A](https://github.com/kamyu104/GoogleKickStart-2021#round-a)
 * [Round B](https://github.com/kamyu104/GoogleKickStart-2021#round-b)
 * [Round C](https://github.com/kamyu104/GoogleKickStart-2021#round-c)
+* [Round D](https://github.com/kamyu104/GoogleKickStart-2021#round-d)
 
 ## Round A
 | # | Title | Solution | Time | Space | Difficulty | Tag | Note |
@@ -30,3 +31,11 @@ Python solutions of Google Kick Start 2021. Solution begins with `*` means it wi
 |B| [Alien Generator](https://codingcompetitions.withgoogle.com/kickstart/round/0000000000435c44/00000000007ec1cb)| [Python](./Round%20C/alien_generator.py) | _O(sqrt(G))_ | _O(1)_ | Easy | | Math, Arithmetic Progression |
 |C| [Rock Paper Scissors](https://codingcompetitions.withgoogle.com/kickstart/round/0000000000435c44/00000000007ec28e)| [Python](./Round%20C/rock_paper_scissors.py) [Python](./Round%20C/rock_paper_scissors2.py) | _O(N)_ | _O(1)_ | Medium | | Math, Expected Value, DP, Backtracing, Precompute |
 |D| [Binary Operator](https://codingcompetitions.withgoogle.com/kickstart/round/0000000000435c44/00000000007ec290)| [Python](./Round%20C/binary_operator.py) [Python](./Round%20C/binary_operator2.py) [Python](./Round%20C/binary_operator3.py) | _O(N * E)_ | _O(N * E)_ | Hard | | Math, Polynomial Calculator, Hash |
+
+## Round D
+| # | Title | Solution | Time | Space | Difficulty | Tag | Note |
+|---| ----- | -------- | ---- | ----- | ---------- | --- | ---- |
+|A| [Arithmetic Square](https://codingcompetitions.withgoogle.com/kickstart/round/00000000004361e3/000000000082b813)| [Python](./Round%20D/arithmetic_square.py)| _O(1)_ | _O(1)_ | Easy | | Math, Counting |
+|B| [Cutting Intrevals](https://codingcompetitions.withgoogle.com/kickstart/round/00000000004361e3/000000000082b933)| [Python](./Round%20D/cutting_intervals.py) | _O(NlogN)_ | _O(N)_ | Medium | | Line Sweep, Greedy |
+|C| [Final Exam](https://codingcompetitions.withgoogle.com/kickstart/round/00000000004361e3/000000000082bffc)| [PyPy](./Round%20D/final_exam.py)| _O(NlogN + Mlog(N + M))_ | _O(N + M)_ | Medium | | Skip List, Binary Search |
+|D| [Primes and Queries](https://codingcompetitions.withgoogle.com/kickstart/round/00000000004361e3/000000000082bcf4)| [Python](./Round%20D/primes_and_queries.py) | _O(N * log(max(A)) + Q * (logN + log(max(S)) + log(max(val))))_ | _O(N)_ | Hard | | BIT, Fenwick Tree, LTE, Lifting The Exponent Lemma |
