@@ -141,7 +141,7 @@ def remove(sl, x):
 
 def final_exam():
     N, M = map(int, raw_input().strip().split())
-    sl = SkipList()
+    sl = SkipList()  # alternative of sortedcontainers.SortedList
     for l, r in (map(int, raw_input().strip().split()) for _ in xrange(N)):
         sl.add((l, r))
     result = []
