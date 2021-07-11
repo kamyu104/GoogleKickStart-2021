@@ -34,15 +34,19 @@ def binary_search_right(left, right, check):
             left = mid+1
     return right
 
+def power(x, n):  # compute and cache, at most O(logN) time and O(logN) space in each test case
+    while len(POW[0]) <= n:  # lazy initialization
+        POW[0].append(POW[0][-1]*x)
+    return POW[0][n]
+
 def vp(p, x):  # Time: O(log(logx))
     if x == 0:
         return 0
-    exp, right = p, 1
-    while exp < x:
-        exp = exp*exp
+    right = 1
+    while power(p, right) < x:
         right *= 2
     assert(right <= 64)
-    return binary_search_right(1, right, lambda n: x%p**n == 0)  # since p**n is O(logn), and n <= 64, we treat it as O(1)
+    return binary_search_right(1, right, lambda n: x%power(p, n) == 0)
 
 def lte1(p, a, b):
     return vp(p, a-b)
@@ -73,6 +77,7 @@ def query(p, bits, pos, s):  # Time: O(logN + log(log(max(S))))
 def primes_and_queries():
     N, Q, P = map(int, raw_input().strip().split())
 
+    POW[0] = [1]  # cleanup global used cache to save space
     bits = [BIT(N) for _ in xrange(3 if P != 2 else 4)]
     A = [0]*N
     for i, val in enumerate(map(int, raw_input().strip().split())):
@@ -91,5 +96,6 @@ def primes_and_queries():
             result.append(query(P, bits, (R-1), S) - query(P, bits, (L-1)-1, S))  # Time: O(logN + log(log(max(S))))
     return " ".join(map(str, result))
 
+POW = [None]
 for case in xrange(input()):
     print 'Case #%d: %s' % (case+1, primes_and_queries())
