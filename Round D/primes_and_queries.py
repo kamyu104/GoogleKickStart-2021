@@ -51,6 +51,7 @@ def add(p, bits, pos, val, sign):  # Time: O(logN + log(max(val)))
         if p == 2:
             bits[3].add(pos, sign*lte2(p, val, val%p))
 
+# reference: https://en.wikipedia.org/wiki/Lifting-the-exponent_lemma
 def query(p, bits, pos, s):  # Time: O(logN + log(max(S)))
     # sum(s*vp(p, A[i]) for i in xrange(pos+1) if A[i] >= p and A[i]%p == 0) + \
     # sum(vp(p, s) + vp(p, A[i]-A[i]%p) for i in xrange(pos+1) if A[i] >= p and A[i]%p != 0) + \
