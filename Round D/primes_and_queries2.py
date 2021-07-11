@@ -3,7 +3,7 @@
 # Google Kick Start 2021 Round D - Problem D. Primes and Queries
 # https://codingcompetitions.withgoogle.com/kickstart/round/00000000004361e3/000000000082bcf4
 #
-# Time:  O(N * (logN + log(max(A))) + Q * (logN + log(max(val)) + log(max(S))))
+# Time:  O(N * (logN + log(log(max(A)))) + Q * (logN + log(log(max(val))) + log(log(max(S)))))
 # Space: O(N)
 #
 
@@ -25,14 +25,23 @@ class BIT(object):  # 0-indexed.
             i -= (i & -i)
         return ret
 
-def vp(p, x):  # Time: O(logx)
+def binary_search_right(left, right, check):
+    while left <= right:
+        mid = left + (right-left)//2
+        if not check(mid):
+            right = mid-1
+        else:
+            left = mid+1
+    return right
+
+def vp(p, x):  # Time: O(log(logx))
     if x == 0:
         return 0
-    result = 0
-    while x%p == 0:
-        x //= p
-        result += 1
-    return result
+    exp, right = p, 1
+    while exp < x:
+        exp = exp*exp
+        right *= 2
+    return binary_search_right(1, right, lambda n: x%p**n == 0)
 
 def lte1(p, a, b):
     return vp(p, a-b)
@@ -40,7 +49,7 @@ def lte1(p, a, b):
 def lte2(p, a, b):
     return vp(p, a+b)
 
-def add(p, bits, pos, val, sign):  # Time: O(logN + log(max(val)))
+def add(p, bits, pos, val, sign):  # Time: O(logN + log(log(max(val))))
     if val < p:
         return  # V(val^s - (val%p)^s) is 0, just skip
     if val%p == 0:
@@ -51,7 +60,7 @@ def add(p, bits, pos, val, sign):  # Time: O(logN + log(max(val)))
         if p == 2:
             bits[3].add(pos, sign*lte2(p, val, val%p))
 
-def query(p, bits, pos, s):  # Time: O(logN + log(max(S)))
+def query(p, bits, pos, s):  # Time: O(logN + log(log(max(S))))
     # sum(s*vp(p, A[i]) for i in xrange(pos+1) if A[i] >= p and A[i]%p == 0) + \
     # sum(vp(p, s) + vp(p, A[i]-A[i]%p) for i in xrange(pos+1) if A[i] >= p and A[i]%p != 0) + \
     # (sum(vp(p, A[i]+A[i]%p)-1 for i in xrange(pos+1) if A[i] >= p and A[i]%p != 0) if p == 2 and s%2 == 0 else 0)
@@ -66,18 +75,18 @@ def primes_and_queries():
     A = [0]*N
     for i, val in enumerate(map(int, raw_input().strip().split())):
         A[i] = val
-        add(P, bits, i, A[i], 1)  # Time: O(logN + log(max(A)))
+        add(P, bits, i, A[i], 1)  # Time: O(logN + log(log(max(A))))
     result = []
     for ops in (map(int, raw_input().strip().split()) for _ in xrange(Q)):
         if len(ops) == 3:
             _, pos, val = ops
             i = pos-1
-            add(P, bits, i, A[i], -1)  # Time: O(logN + log(max(val)))
+            add(P, bits, i, A[i], -1)  # Time: O(logN + log(log(max(val))))
             A[i] = val
-            add(P, bits, i, A[i], 1)  # Time: O(logN + log(max(val)))
+            add(P, bits, i, A[i], 1)  # Time: O(logN + log(log(max(val))))
         else:
             _, S, L, R = ops
-            result.append(query(P, bits, (R-1), S) - query(P, bits, (L-1)-1, S))  # Time: O(logN + log(max(S)))
+            result.append(query(P, bits, (R-1), S) - query(P, bits, (L-1)-1, S))  # Time: O(logN + log(log(max(S))))
     return " ".join(map(str, result))
 
 for case in xrange(input()):
