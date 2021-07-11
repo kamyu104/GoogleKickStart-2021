@@ -127,14 +127,14 @@ def find_contained_interval(sl, x):
     return it.val if it.val[0] <= x <= it.val[1] else None
 
 def find_nearest_left(sl, x):
-    it = sl.lower_bound((x, float("inf")))
+    it = sl.lower_bound((x+1,))
     if it == sl.begin():
         return None
     it = it.prevs[0]
     return it.val[1]
 
 def find_nearest_right(sl, x):
-    it = sl.lower_bound((x, float("inf")))
+    it = sl.lower_bound((x+1,))
     if it == sl.end():
         return None
     return it.val[0]
