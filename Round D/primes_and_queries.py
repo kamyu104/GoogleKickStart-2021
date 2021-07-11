@@ -27,7 +27,7 @@ class BIT(object):  # 0-indexed.
 
 def vp(p, x):
     result = 0
-    while x%p == 0:
+    while x and x%p == 0:
         result += 1
         x //= p
     return result
