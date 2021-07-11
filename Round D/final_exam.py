@@ -157,8 +157,7 @@ def final_exam():
         if find_contained_interval(sl, x):
             result.append(x)
         else:
-            l = find_nearest_left(sl, x)
-            r = find_nearest_right(sl, x)
+            l, r = find_nearest_left(sl, x), find_nearest_right(sl, x)
             result.append(l if r is None or (l is not None and x-l <= r-x) else r)
         remove(sl, result[-1])
     return " ".join(map(str, result))
