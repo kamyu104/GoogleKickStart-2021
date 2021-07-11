@@ -13,7 +13,7 @@ def cutting_intervals():
     N, C = map(int, raw_input().strip().split())
 
     count = Counter()
-    for l, r in [map(int, raw_input().strip().split()) for _ in xrange(N)]:
+    for l, r in (map(int, raw_input().strip().split()) for _ in xrange(N)):
         count[l+1] += 1
         count[r] -= 1
     points = sorted(x for x in count.iteritems())
