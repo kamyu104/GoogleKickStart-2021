@@ -131,11 +131,12 @@ def find_interval_nearest_right_to_x(sl, x):
     return sl.lower_bound((x+1,))
 
 def remove_x_from_interval(sl, it, x):
+    l, r = it.val
     sl.remove(it)
-    if it.val[0] <= x-1:
-        sl.add((it.val[0], x-1))
-    if x+1 <= it.val[1]:
-        sl.add((x+1, it.val[1]))
+    if l <= x-1:
+        sl.add((l, x-1))
+    if x+1 <= r:
+        sl.add((x+1, r))
 
 def final_exam():
     N, M = map(int, raw_input().strip().split())
