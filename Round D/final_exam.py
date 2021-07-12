@@ -119,25 +119,24 @@ class SkipList(object):
                 curr = curr.nexts[i]
         return "\n".join(map(lambda x: "->".join(x), result))
 
-def find_contained_interval(sl, x):
+def find_interval_containing_x(sl, x):
     it = sl.lower_bound((x+1,))
-    return it.prevs[0].val if it != sl.begin() and it.prevs[0].val[0] <= x <= it.prevs[0].val[1] else None
+    return it.prevs[0] if it != sl.begin() and it.prevs[0].val[0] <= x <= it.prevs[0].val[1] else sl.end()
 
-def find_nearest_left(sl, x):
+def find_interval_nearest_left_to_x(sl, x):
     it = sl.lower_bound((x+1,))
-    return it.prevs[0].val[1] if it != sl.begin() else None
+    return it.prevs[0] if it != sl.begin() else sl.end()
 
-def find_nearest_right(sl, x):
+def find_interval_nearest_right_to_x(sl, x):
     it = sl.lower_bound((x+1,))
-    return it.val[0] if it != sl.end() else None
+    return it
 
-def remove(sl, x):
-    interval = find_contained_interval(sl, x)
-    sl.remove(sl.find(interval))
-    if interval[0] <= x-1:
-        sl.add((interval[0], x-1))
-    if x+1 <= interval[1]:
-        sl.add((x+1, interval[1]))
+def remove_x_from_interval(sl, it, x):
+    sl.remove(it)
+    if it.val[0] <= x-1:
+        sl.add((it.val[0], x-1))
+    if x+1 <= it.val[1]:
+        sl.add((x+1, it.val[1]))
 
 def final_exam():
     N, M = map(int, raw_input().strip().split())
@@ -146,12 +145,14 @@ def final_exam():
         sl.add((l, r))
     result = []
     for x in map(int, raw_input().strip().split()):
-        if find_contained_interval(sl, x):
+        it = find_interval_containing_x(sl, x)
+        if it != sl.end():
             result.append(x)
         else:
-            l, r = find_nearest_left(sl, x), find_nearest_right(sl, x)
-            result.append(l if r is None or (l is not None and x-l <= r-x) else r)
-        remove(sl, result[-1])
+            lit, rit = find_interval_nearest_left_to_x(sl, x), find_interval_nearest_right_to_x(sl, x)
+            it = lit if rit == sl.end() or (lit != sl.end() and x-lit.val[1] <= rit.val[0]-x) else rit
+            result.append(lit.val[1] if rit == sl.end() or (lit != sl.end() and x-lit.val[1] <= rit.val[0]-x) else rit.val[0])
+        remove_x_from_interval(sl, it, result[-1])
     return " ".join(map(str, result))
 
 for case in xrange(input()):
