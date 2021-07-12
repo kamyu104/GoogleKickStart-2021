@@ -119,17 +119,6 @@ class SkipList(object):
                 curr = curr.nexts[i]
         return "\n".join(map(lambda x: "->".join(x), result))
 
-def find_interval_containing_x(sl, x):
-    it = sl.lower_bound((x+1,))
-    return it.prevs[0] if it != sl.begin() and it.prevs[0].val[0] <= x <= it.prevs[0].val[1] else sl.end()
-
-def find_interval_nearest_left_to_x(sl, x):
-    it = sl.lower_bound((x+1,))
-    return it.prevs[0] if it != sl.begin() else sl.end()
-
-def find_interval_nearest_right_to_x(sl, x):
-    return sl.lower_bound((x+1,))
-
 def remove_x_from_interval(sl, it, x):
     l, r = it.val
     sl.remove(it)
@@ -145,17 +134,15 @@ def final_exam():
         sl.add((l, r))
     result = []
     for x in map(int, raw_input().strip().split()):
-        it = find_interval_containing_x(sl, x)
-        if it != sl.end():
+        it = sl.lower_bound((x+1,))
+        if it != sl.begin() and it.prevs[0].val[0] <= x <= it.prevs[0].val[1]:
+            it = it.prevs[0]
             result.append(x)
+        elif it == sl.end() or (it != sl.begin() and x-it.prevs[0].val[1] <= it.val[0]-x):
+            it = it.prevs[0]
+            result.append(it.val[1])
         else:
-            lit, rit = find_interval_nearest_left_to_x(sl, x), find_interval_nearest_right_to_x(sl, x)
-            if rit == sl.end() or (lit != sl.end() and x-lit.val[1] <= rit.val[0]-x):
-                it = lit
-                result.append(lit.val[1])
-            else:
-                it = rit
-                result.append(rit.val[0])
+            result.append(it.val[0])
         remove_x_from_interval(sl, it, result[-1])
     return " ".join(map(str, result))
 
