@@ -128,8 +128,7 @@ def find_interval_nearest_left_to_x(sl, x):
     return it.prevs[0] if it != sl.begin() else sl.end()
 
 def find_interval_nearest_right_to_x(sl, x):
-    it = sl.lower_bound((x+1,))
-    return it
+    return sl.lower_bound((x+1,))
 
 def remove_x_from_interval(sl, it, x):
     sl.remove(it)
