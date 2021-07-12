@@ -150,8 +150,12 @@ def final_exam():
             result.append(x)
         else:
             lit, rit = find_interval_nearest_left_to_x(sl, x), find_interval_nearest_right_to_x(sl, x)
-            it = lit if rit == sl.end() or (lit != sl.end() and x-lit.val[1] <= rit.val[0]-x) else rit
-            result.append(lit.val[1] if rit == sl.end() or (lit != sl.end() and x-lit.val[1] <= rit.val[0]-x) else rit.val[0])
+            if rit == sl.end() or (lit != sl.end() and x-lit.val[1] <= rit.val[0]-x):
+                it = lit
+                result.append(lit.val[1])
+            else:
+                it = rit
+                result.append(rit.val[0])
         remove_x_from_interval(sl, it, result[-1])
     return " ".join(map(str, result))
 
