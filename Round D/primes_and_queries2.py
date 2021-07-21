@@ -3,7 +3,7 @@
 # Google Kick Start 2021 Round D - Problem D. Primes and Queries
 # https://codingcompetitions.withgoogle.com/kickstart/round/00000000004361e3/000000000082bcf4
 #
-# Time:  O(N * (logN + log(log(max(A)))) + Q * (logN + log(log(max(val))) + log(log(max(S)))))
+# Time:  O(N * (logN + log(log(MAX_A))) + Q * (logN + log(log(MAX_VAL)) + log(log(MAX_S))))
 # Space: O(N)
 #
 
@@ -34,7 +34,7 @@ def binary_search_right(left, right, check):
             left = mid+1
     return right
 
-def power(x, n):  # compute and cache, at most O(n) time and O(n) space in each test case, O(n) = O(log(max(A)) + log(max(val))) <= O(64) <= O(N)
+def power(x, n):  # compute and cache, at most O(n) time and O(n) space in each test case, O(n) = O(log(MAX_A) + log(MAX_VAL)) <= O(64) <= O(N)
     while len(POW[0]) <= n:  # lazy initialization
         POW[0].append(POW[0][-1]*x)
     return POW[0][n]
@@ -48,7 +48,7 @@ def vp(p, x):  # Time: O(log(logx))
     assert(right <= 64)
     return binary_search_right(1, right, lambda n: x%power(p, n) == 0)
 
-def add(p, bits, pos, val, sign):  # Time: O(logN + log(log(max(val))))
+def add(p, bits, pos, val, sign):  # Time: O(logN + log(log(MAX_VAL)))
     a, b = val, val%p
     if a == b:
         return  # V(a^s - b^s) is 0, just skip
@@ -69,7 +69,7 @@ def add(p, bits, pos, val, sign):  # Time: O(logN + log(log(max(val))))
 #     (2.2) if b != 0 => a%p != 0 and b%p != 0 =>
 #           (2.2.1) if p != 2 or s%2 != 0 => V(a^s - b^s) = V(a-b) + V(s)
 #           (2.2.2) if p = 2 and s%2 = 0  => V(a^s - b^s) = V(a-b) + V(a+b) + V(s) - 1
-def query(p, bits, pos, s):  # Time: O(logN + log(log(max(S))))
+def query(p, bits, pos, s):  # Time: O(logN + log(log(MAX_S)))
     # sum(s*vp(p, A[i]) for i in xrange(pos+1) if A[i] >= p and A[i]%p == 0) + \
     # sum(vp(p, s) + vp(p, A[i]-A[i]%p) for i in xrange(pos+1) if A[i] >= p and A[i]%p != 0) + \
     # (sum(vp(p, A[i]+A[i]%p)-1 for i in xrange(pos+1) if A[i] >= p and A[i]%p != 0) if p == 2 and s%2 == 0 else 0)
@@ -85,18 +85,18 @@ def primes_and_queries():
     A = [0]*N
     for i, val in enumerate(map(int, raw_input().strip().split())):
         A[i] = val
-        add(P, bits, i, A[i], 1)  # Time: O(logN + log(log(max(A))))
+        add(P, bits, i, A[i], 1)  # Time: O(logN + log(log(MAX_A)))
     result = []
     for ops in (map(int, raw_input().strip().split()) for _ in xrange(Q)):
         if len(ops) == 3:
             _, pos, val = ops
             i = pos-1
-            add(P, bits, i, A[i], -1)  # Time: O(logN + log(log(max(val))))
+            add(P, bits, i, A[i], -1)  # Time: O(logN + log(log(MAX_VAL)))
             A[i] = val
-            add(P, bits, i, A[i], 1)  # Time: O(logN + log(log(max(val))))
+            add(P, bits, i, A[i], 1)  # Time: O(logN + log(log(MAX_VAL)))
         else:
             _, S, L, R = ops
-            result.append(query(P, bits, (R-1), S) - query(P, bits, (L-1)-1, S))  # Time: O(logN + log(log(max(S))))
+            result.append(query(P, bits, (R-1), S) - query(P, bits, (L-1)-1, S))  # Time: O(logN + log(log(MAX_S)))
     return " ".join(map(str, result))
 
 POW = [None]
