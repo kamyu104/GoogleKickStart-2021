@@ -6,6 +6,8 @@
 # Time:  O(N * M * alpha(N * M)) ~= O(N * M)
 # Space: O(N * M)
 #
+# union find solution (slower)
+#
 
 from collections import defaultdict
 
