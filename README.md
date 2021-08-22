@@ -1,4 +1,4 @@
-# [GoogleKickStart 2021](https://codingcompetitions.withgoogle.com/kickstart) ![Language](https://img.shields.io/badge/language-Python-orange.svg) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE) ![Progress](https://img.shields.io/badge/progress-16%20%2F%2016-ff69b4.svg) ![Visitors](https://visitor-badge.laobi.icu/badge?page_id=kamyu104.googlekickstart.2021)
+# [GoogleKickStart 2021](https://codingcompetitions.withgoogle.com/kickstart) ![Language](https://img.shields.io/badge/language-Python-orange.svg) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE) ![Progress](https://img.shields.io/badge/progress-20%20%2F%2020-ff69b4.svg) ![Visitors](https://visitor-badge.laobi.icu/badge?page_id=kamyu104.googlekickstart.2021)
 
 Python solutions of Google Kick Start 2021. Solution begins with `*` means it will get TLE in the largest data set (total computation amount > `10^8`, which is not friendly for Python to solve in 5 ~ 15 seconds). A problem was marked as `Very Hard` means that it was an unsolved one during the contest and may not be that difficult.
 
@@ -7,6 +7,7 @@ Python solutions of Google Kick Start 2021. Solution begins with `*` means it wi
 * [Round B](https://github.com/kamyu104/GoogleKickStart-2021#round-b)
 * [Round C](https://github.com/kamyu104/GoogleKickStart-2021#round-c)
 * [Round D](https://github.com/kamyu104/GoogleKickStart-2021#round-d)
+* [Round E](https://github.com/kamyu104/GoogleKickStart-2021#round-e)
 
 ## Round A
 | # | Title | Solution | Time | Space | Difficulty | Tag | Note |
@@ -39,3 +40,11 @@ Python solutions of Google Kick Start 2021. Solution begins with `*` means it wi
 |B| [Cutting Intervals](https://codingcompetitions.withgoogle.com/kickstart/round/00000000004361e3/000000000082b933)| [Python](./Round%20D/cutting_intervals.py) | _O(NlogN)_ | _O(N)_ | Medium | | Line Sweep, Greedy |
 |C| [Final Exam](https://codingcompetitions.withgoogle.com/kickstart/round/00000000004361e3/000000000082bffc)| [PyPy](./Round%20D/final_exam.py)| _O(NlogN + M * log(N + M))_ | _O(N + M)_ | Medium | | Skip List, Binary Search |
 |D| [Primes and Queries](https://codingcompetitions.withgoogle.com/kickstart/round/00000000004361e3/000000000082bcf4)| [Python](./Round%20D/primes_and_queries.py) [Python](./Round%20D/primes_and_queries2.py) | _O(N * (logN + log(log(MAX_A))) + Q * (logN + log(log(MAX_VAL)) + log(log(MAX_S))))_ | _O(N)_ | Hard | | BIT, Fenwick Tree, LTE, Lifting The Exponent Lemma, Binary Search |
+
+## Round E
+| # | Title | Solution | Time | Space | Difficulty | Tag | Note |
+|---| ----- | -------- | ---- | ----- | ---------- | --- | ---- |
+|A| [Shuffled Anagrams](https://codingcompetitions.withgoogle.com/kickstart/round/000000000043585c/000000000085a152)| [Python](./Round%20E/shuffled_anagrams.py)| _O(N)_ | _O(N)_ | Easy | | Grouping |
+|B| [Birthday Cake](https://codingcompetitions.withgoogle.com/kickstart/round/000000000043585c/000000000085a285)| [Python](./Round%20E/birthday_cake.py) | _O(1)_ | _O(1)_ | Hard | | Math |
+|C| [Palindromic Crossword](https://codingcompetitions.withgoogle.com/kickstart/round/000000000043585c/0000000000859dcd)| [Python](./Round%20E/palindromic_crossword.py)| _O(N * M)_ | _O(N * M)_ | Easy | | BFS |
+|D| [Increasing Sequence Card Game](https://codingcompetitions.withgoogle.com/kickstart/round/000000000043585c/000000000085a709)| [Python](./Round%20E/increasing_sequence_card_game.py) | precompute: _O(EPS^(-1))_<br>runtime: _O(1)_ | _O(EPS^(-1))_ | Medium | | Expected Value, Harmonic Series, DP, Precompute, Series Estimation with Integrals |
