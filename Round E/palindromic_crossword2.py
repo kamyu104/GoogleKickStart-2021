@@ -11,7 +11,7 @@
 
 from collections import defaultdict
 
-class UnionFind(object):  # Time: (n * alpha(n)), Space: O(n)
+class UnionFind(object):  # Time: O(n * alpha(n)), Space: O(n)
     def __init__(self, n):
         self.set = range(n)
         self.rank = [0]*n
