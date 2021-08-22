@@ -6,6 +6,8 @@
 # Time:  O(N * M)
 # Space: O(N * M)
 #
+# bfs solution
+#
 
 from collections import defaultdict
 
