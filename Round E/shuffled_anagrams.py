@@ -12,14 +12,14 @@ from collections import defaultdict
 def shuffled_anagrams():
     S = raw_input().strip()
 
-    lookup = defaultdict(list)
+    groups = defaultdict(list)
     for i, c in enumerate(S):
-        lookup[c].append(i)
-    max_shift = len(max(lookup.itervalues(), key=len))
+        groups[c].append(i)
+    max_shift = len(max(groups.itervalues(), key=len))
     if max_shift*2 > len(S):
         return "IMPOSSIBLE"
     idxs_grouped_by_char = []
-    for idxs in lookup.itervalues():
+    for idxs in groups.itervalues():
         idxs_grouped_by_char.extend(idxs)
     result = [0]*len(S)
     for i in xrange(len(S)):
