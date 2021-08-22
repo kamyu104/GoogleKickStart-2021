@@ -13,7 +13,7 @@ from math import log
 def increasing_sequence_card_game():
     N = input()
 
-    return DP[N] if N < len(DP) else DP[-1]+log(N+1)-log(len(DP))  # assumed log(x) is O(1) time
+    return DP[N] if N < len(DP) else DP[-1]+log(N+1)-log(len(DP))  # assumed log(x) takes O(1) time
 
 EPS = 1e-6
 DP = [0.0]*(int(1/EPS)+1)
