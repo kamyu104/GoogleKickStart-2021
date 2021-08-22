@@ -46,5 +46,5 @@ Python solutions of Google Kick Start 2021. Solution begins with `*` means it wi
 |---| ----- | -------- | ---- | ----- | ---------- | --- | ---- |
 |A| [Shuffled Anagrams](https://codingcompetitions.withgoogle.com/kickstart/round/000000000043585c/000000000085a152)| [Python](./Round%20E/shuffled_anagrams.py)| _O(N)_ | _O(N)_ | Easy | | Grouping |
 |B| [Birthday Cake](https://codingcompetitions.withgoogle.com/kickstart/round/000000000043585c/000000000085a285)| [Python](./Round%20E/birthday_cake.py) | _O(1)_ | _O(1)_ | Hard | | Math |
-|C| [Palindromic Crossword](https://codingcompetitions.withgoogle.com/kickstart/round/000000000043585c/0000000000859dcd)| [Python](./Round%20E/palindromic_crossword.py)| _O(N * M)_ | _O(N * M)_ | Easy | | BFS |
+|C| [Palindromic Crossword](https://codingcompetitions.withgoogle.com/kickstart/round/000000000043585c/0000000000859dcd)| [Python](./Round%20E/palindromic_crossword.py) [Python](./Round%20E/palindromic_crossword2.py) | _O(N * M)_ | _O(N * M)_ | Easy | | BFS, Union Find |
 |D| [Increasing Sequence Card Game](https://codingcompetitions.withgoogle.com/kickstart/round/000000000043585c/000000000085a709)| [Python](./Round%20E/increasing_sequence_card_game.py) | precompute: _O(EPS^(-1))_<br>runtime: _O(1)_ | _O(EPS^(-1))_ | Medium | | Expected Value, Harmonic Series, DP, Precompute, Series Estimation with Integrals |
