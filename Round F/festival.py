@@ -134,7 +134,7 @@ def festival():
         if e == 1:
             topk_sl.add(h)
             curr += h
-            if len(topk_sl) == K+1:
+            if len(topk_sl) == K+1:  # keep topk_sl with k elements
                 v = topk_sl.begin().val
                 topk_sl.remove(topk_sl.begin())
                 curr -= v
@@ -151,7 +151,7 @@ def festival():
                 continue
             v = others_sl.end().prevs[0].val
             others_sl.remove(others_sl.end().prevs[0])
-            topk_sl.add(v)
+            topk_sl.add(v)  # keep topk_sl with k elements
             curr += v
     return result
 
