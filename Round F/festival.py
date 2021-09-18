@@ -121,13 +121,13 @@ class SkipList(object):
 
 def festival():
     D, N, K = map(int, raw_input().strip().split())
-
     intervals = []
     for _ in xrange(N):
         h, s, e = map(int, raw_input().strip().split())
         intervals.append((s, 1, h))
         intervals.append((e+1, -1, h))
     intervals.sort()
+
     topk_sl, others_sl = SkipList(), SkipList()
     result = curr = 0
     for _, e, h in intervals:

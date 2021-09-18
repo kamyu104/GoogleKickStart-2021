@@ -1,4 +1,4 @@
-# [GoogleKickStart 2021](https://codingcompetitions.withgoogle.com/kickstart) ![Language](https://img.shields.io/badge/language-Python-orange.svg) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE) ![Progress](https://img.shields.io/badge/progress-20%20%2F%2020-ff69b4.svg) ![Visitors](https://visitor-badge.laobi.icu/badge?page_id=kamyu104.googlekickstart.2021)
+# [GoogleKickStart 2021](https://codingcompetitions.withgoogle.com/kickstart) ![Language](https://img.shields.io/badge/language-Python-orange.svg) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE) ![Progress](https://img.shields.io/badge/progress-24%20%2F%2024-ff69b4.svg) ![Visitors](https://visitor-badge.laobi.icu/badge?page_id=kamyu104.googlekickstart.2021)
 
 Python solutions of Google Kick Start 2021. Solution begins with `*` means it will get TLE in the largest data set (total computation amount > `10^8`, which is not friendly for Python to solve in 5 ~ 15 seconds). A problem was marked as `Very Hard` means that it was an unsolved one during the contest and may not be that difficult.
 
@@ -8,6 +8,7 @@ Python solutions of Google Kick Start 2021. Solution begins with `*` means it wi
 * [Round C](https://github.com/kamyu104/GoogleKickStart-2021#round-c)
 * [Round D](https://github.com/kamyu104/GoogleKickStart-2021#round-d)
 * [Round E](https://github.com/kamyu104/GoogleKickStart-2021#round-e)
+* [Round F](https://github.com/kamyu104/GoogleKickStart-2021#round-f)
 
 ## Round A
 | # | Title | Solution | Time | Space | Difficulty | Tag | Note |
@@ -48,3 +49,11 @@ Python solutions of Google Kick Start 2021. Solution begins with `*` means it wi
 |B| [Birthday Cake](https://codingcompetitions.withgoogle.com/kickstart/round/000000000043585c/000000000085a285)| [Python](./Round%20E/birthday_cake.py) | _O(1)_ | _O(1)_ | Hard | | Math, Greedy |
 |C| [Palindromic Crossword](https://codingcompetitions.withgoogle.com/kickstart/round/000000000043585c/0000000000859dcd)| [Python](./Round%20E/palindromic_crossword.py) [Python](./Round%20E/palindromic_crossword2.py) [Python](./Round%20E/palindromic_crossword3.py) | _O(N * M)_ | _O(N * M)_ | Easy | | Graph, BFS, DFS, Union Find |
 |D| [Increasing Sequence Card Game](https://codingcompetitions.withgoogle.com/kickstart/round/000000000043585c/000000000085a709)| [Python](./Round%20E/increasing_sequence_card_game.py) | precompute: _O(EPS^(-1))_<br>runtime: _O(1)_ | _O(EPS^(-1))_ | Medium | | Math, Expected Value, Harmonic Series, DP, Precompute, Series Estimation with Integrals |
+
+## Round F
+| # | Title | Solution | Time | Space | Difficulty | Tag | Note |
+|---| ----- | -------- | ---- | ----- | ---------- | --- | ---- |
+|A| [Trash Bins](https://codingcompetitions.withgoogle.com/kickstart/round/0000000000435bae/0000000000887c32)| [Python](./Round%20F/trash_bins.py)| _O(N)_ | _O(N)_ | Easy | | String |
+|B| [Festival](https://codingcompetitions.withgoogle.com/kickstart/round/0000000000435bae/0000000000887dba)| [PyPy](./Round%20F/festival.py)| _O(NlogN)_ | _O(N)_ | Easy | | Skip List, Multiset |
+|C| [Star Trappers](https://codingcompetitions.withgoogle.com/kickstart/round/0000000000435bae/0000000000888d45)| [PyPy](./Round%20F/star_trappers.py)| _O(N^3)_ | _O(1)_ | Medium | | Math |
+|D| [Graph Travel](https://codingcompetitions.withgoogle.com/kickstart/round/0000000000435bae/0000000000888764)| [Python](./Round%20F/graph_travel.py)| _O(N * 2^N + M)_ | _O(2^N)_ | Medium | | DP, Bitmask |

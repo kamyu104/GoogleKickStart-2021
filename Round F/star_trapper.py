@@ -27,6 +27,7 @@ def star_trapper():
     N = input()
     points = [map(int, raw_input().strip().split()) for _ in xrange(N)]
     target = map(int, raw_input().strip().split())
+
     result = float("inf")
     for i in xrange(N):
         for j in xrange(i+1, N):
