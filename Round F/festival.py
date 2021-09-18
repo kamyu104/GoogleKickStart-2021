@@ -1,7 +1,7 @@
 # Copyright (c) 2021 kamyu. All rights reserved.
 #
 # Google Kick Start 2021 Round F - Problem B. Festival
-# https://codingcompetitions.withgoogle.com/kickstart/round/0000000000435bae/0000000000887c32
+# https://codingcompetitions.withgoogle.com/kickstart/round/0000000000435bae/0000000000887dba
 #
 # Time:  O(NlogN)
 # Space: O(N)
