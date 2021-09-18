@@ -31,7 +31,7 @@ class SkipList(object):
 
     def begin(self):
         return self.__head.nexts[0]
-    
+
     def end(self):
         return self.__end
 
@@ -40,12 +40,12 @@ class SkipList(object):
 
     def find(self, target):
         return self.__find(target, self.__find_prev_nodes(target))
-        
+
     def add(self, val):
         if not self.__can_duplicated and self.find(val):
             return self.find(val), False
         node = SkipNode(self.__random_level(), val)
-        if len(self.__head.nexts) < len(node.nexts): 
+        if len(self.__head.nexts) < len(node.nexts):
             self.__head.nexts.extend([None]*(len(node.nexts)-len(self.__head.nexts)))
         prevs = self.__find_prev_nodes(val)
         for i in xrange(len(node.nexts)):
@@ -62,7 +62,7 @@ class SkipList(object):
         curr = self.__find(it.val, prevs)
         if not curr:
             return self.__end
-        self.__len -= 1   
+        self.__len -= 1
         for i in reversed(xrange(len(curr.nexts))):
             prevs[i].nexts[i] = curr.nexts[i]
             if curr.nexts[i]:
@@ -70,7 +70,7 @@ class SkipList(object):
             if not self.__head.nexts[i]:
                 self.__head.nexts.pop()
         return curr.nexts[0]
-    
+
     def __lower_bound(self, prevs):
         if prevs:
             candidate = prevs[0].nexts[0]
@@ -99,7 +99,7 @@ class SkipList(object):
               level < SkipList.MAX_LEVEL:
             level += 1
         return level
-    
+
     def __iter__(self):
         it = self.begin()
         while it != self.end():
