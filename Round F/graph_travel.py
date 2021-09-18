@@ -23,18 +23,18 @@ def graph_travel():
         bit <<= 1
     result = 0
     for mask in xrange(1, len(dp)):
-        total = curr_adj = 0
+        total = all_reachables = 0
         bit = 1
         for i in xrange(N):
             if mask&bit:
                 total += shields[i][2]
-                curr_adj |= adj[i]
+                all_reachables |= adj[i]
             bit <<= 1
         if total == K:
             result += dp[mask]
         bit = 1
         for i in xrange(N):
-            if not (mask&bit) and curr_adj&bit and shields[i][0] <= total <= shields[i][1]:
+            if not (mask&bit) and all_reachables&bit and shields[i][0] <= total <= shields[i][1]:
                 dp[mask|bit] += dp[mask]
             bit <<= 1
     return result
