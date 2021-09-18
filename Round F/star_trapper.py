@@ -19,7 +19,7 @@ def length(a):
 def is_between(t, a, b):
     return t not in (a, b) and abs(length(vector(a, t))+length(vector(t, b)) - length(vector(a, b))) < EPS
 
-def point_inside_triangle(T, A, B, C):
+def is_inside_triangle(T, A, B, C):
     d1, d2, d3 = ccw(T, A, B),  ccw(T, B, C),  ccw(T, C, A)
     return (d1 > 0 and d2 > 0 and d3 > 0) or (d1 < 0 and d2 < 0 and d3 < 0)
 
@@ -35,7 +35,7 @@ def star_trapper():
             for k in xrange(N):
                 if k == i or k == j:
                     continue
-                if point_inside_triangle(target, points[i], points[j], points[k]):
+                if is_inside_triangle(target, points[i], points[j], points[k]):
                     result = min(result, length(vector(points[i], points[j]))+length(vector(points[j], points[k]))+length(vector(points[k], points[i])))
                 if is_two_triangles:
                     sign = ccw(points[i], points[j], points[k])
