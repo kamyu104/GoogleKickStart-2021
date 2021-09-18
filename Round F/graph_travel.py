@@ -34,7 +34,7 @@ def graph_travel():
             result += dp[mask]
         bit = 1
         for i in xrange(N):
-            if not (mask&bit) and all_reachables&bit and shields[i][0] <= total <= shields[i][1]:
+            if not (mask&bit) and (all_reachables&bit) and shields[i][0] <= total <= shields[i][1]:
                 dp[mask|bit] += dp[mask]
             bit <<= 1
     return result
