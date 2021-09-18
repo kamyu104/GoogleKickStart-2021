@@ -10,10 +10,6 @@
 def ccw(A, B, C):
     return (B[0]-A[0])*(C[1]-A[1]) - (B[1]-A[1])*(C[0]-A[0])
 
-def point_inside_triangle(T, A, B, C):
-    d1, d2, d3 = ccw(T, A, B),  ccw(T, B, C),  ccw(T, C, A)
-    return (d1 > 0 and d2 > 0 and d3 > 0) or (d1 < 0 and d2 < 0 and d3 < 0)
-
 def vector(a, b):
     return [a[i]-b[i] for i in xrange(len(a))]
 
@@ -22,6 +18,10 @@ def length(a):
 
 def is_between(t, a, b):
     return t not in (a, b) and abs(length(vector(a, t))+length(vector(t, b)) - length(vector(a, b))) < EPS
+
+def point_inside_triangle(T, A, B, C):
+    d1, d2, d3 = ccw(T, A, B),  ccw(T, B, C),  ccw(T, C, A)
+    return (d1 > 0 and d2 > 0 and d3 > 0) or (d1 < 0 and d2 < 0 and d3 < 0)
 
 def star_trapper():
     N = input()
@@ -41,8 +41,7 @@ def star_trapper():
                     sign = ccw(points[i], points[j], points[k])
                     if sign:
                         min_perimeters[sign > 0] = min(min_perimeters[sign > 0], (length(vector(points[i], points[k]))+length(vector(points[j], points[k]))))
-            if is_two_triangles:
-                result = min(result, sum(min_perimeters))
+            result = min(result, sum(min_perimeters))
     return result if result != float("inf") else "IMPOSSIBLE"
 
 EPS = 1e-9
