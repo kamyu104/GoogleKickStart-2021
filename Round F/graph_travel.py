@@ -3,7 +3,7 @@
 # Google Kick Start 2021 Round F - Problem D. Graph Travel
 # https://codingcompetitions.withgoogle.com/kickstart/round/0000000000435bae/0000000000888764
 #
-# Time:  O(M + N * 2^N )
+# Time:  O(M + N * 2^N)
 # Space: O(2^N)
 #
 
