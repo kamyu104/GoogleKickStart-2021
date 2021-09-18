@@ -16,8 +16,11 @@ def vector(a, b):
 def length(a):
     return sum(x**2 for x in a)**0.5
 
+def inner_product(a, b):
+    return sum(a[i]*b[i] for i in xrange(len(a)))
+
 def is_between(t, a, b):
-    return t not in (a, b) and abs(length(vector(a, t))+length(vector(t, b)) - length(vector(a, b))) < EPS
+    return ccw(t, a, b) == 0 and 0 < inner_product(vector(a, t), vector(a, b)) < inner_product(vector(a, b), vector(a, b))
 
 def is_inside_triangle(T, A, B, C):
     d1, d2, d3 = ccw(T, A, B),  ccw(T, B, C),  ccw(T, C, A)
@@ -45,6 +48,5 @@ def star_trappers():
             result = min(result, sum(min_perimeters))
     return result if result != float("inf") else "IMPOSSIBLE"
 
-EPS = 1e-9
 for case in xrange(input()):
     print 'Case #%d: %s' % (case+1, star_trappers())
