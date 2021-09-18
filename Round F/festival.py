@@ -128,7 +128,7 @@ def festival():
         intervals.append((s, 1, h))
         intervals.append((e+1, -1, h))
     intervals.sort()
-    topk_sl, other_sl = SkipList(), SkipList()
+    topk_sl, others_sl = SkipList(), SkipList()
     result = curr = 0
     for _, e, h in intervals:
         if e == 1:
@@ -138,19 +138,19 @@ def festival():
                 v = topk_sl.begin().val
                 topk_sl.remove(topk_sl.begin())
                 curr -= v
-                other_sl.add(v)
+                others_sl.add(v)
             result = max(result, curr)
         else:
-            it = other_sl.find(h)
+            it = others_sl.find(h)
             if it is not None:
-                other_sl.remove(it)
+                others_sl.remove(it)
                 continue
             topk_sl.remove(topk_sl.find(h))
             curr -= h
-            if not other_sl:
+            if not others_sl:
                 continue
-            v = other_sl.end().prevs[0].val
-            other_sl.remove(other_sl.end().prevs[0])
+            v = others_sl.end().prevs[0].val
+            others_sl.remove(others_sl.end().prevs[0])
             topk_sl.add(v)
             curr += v
     return result
