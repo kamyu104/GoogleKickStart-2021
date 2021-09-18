@@ -4,7 +4,7 @@
 # https://codingcompetitions.withgoogle.com/kickstart/round/0000000000435bae/0000000000887c32
 #
 # Time:  O(N^3)
-# Space: O(N^2)
+# Space: O(1)
 #
 
 def ccw(A, B, C):
