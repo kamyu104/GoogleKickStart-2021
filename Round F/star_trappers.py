@@ -34,18 +34,19 @@ def star_trappers():
     result = float("inf")
     for i in xrange(N):
         for j in xrange(i+1, N):
-            is_two_triangles = is_between(target, points[i], points[j])
+            is_between_edge = is_between(target, points[i], points[j])
             min_perimeters = [float("inf")]*2
             for k in xrange(N):
                 if k == i or k == j:
                     continue
                 if is_inside_triangle(target, points[i], points[j], points[k]):
-                    result = min(result, length(vector(points[i], points[j]))+length(vector(points[j], points[k]))+length(vector(points[k], points[i])))
-                if is_two_triangles:
+                    result = min(result, length(vector(points[i], points[j]))+length(vector(points[j], points[k]))+length(vector(points[k], points[i])))  # possible triangle
+                if is_between_edge:
                     sign = ccw(points[i], points[j], points[k])
                     if sign:
                         min_perimeters[sign > 0] = min(min_perimeters[sign > 0], (length(vector(points[i], points[k]))+length(vector(points[j], points[k]))))
-            result = min(result, sum(min_perimeters))
+            if is_between_edge:
+                result = min(result, sum(min_perimeters))  # possible quadrilateral
     return result if result != float("inf") else "IMPOSSIBLE"
 
 for case in xrange(input()):
