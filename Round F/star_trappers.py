@@ -32,7 +32,7 @@ def star_trappers():
     target = map(int, raw_input().strip().split())
 
     result = float("inf")
-    for i in xrange(N):
+    for i in xrange(N-1):
         for j in xrange(i+1, N):
             is_between_edge = is_between(target, points[i], points[j])
             min_perimeters = [float("inf")]*2
