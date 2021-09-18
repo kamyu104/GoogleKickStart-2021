@@ -20,7 +20,7 @@ def inner_product(a, b):
     return sum(a[i]*b[i] for i in xrange(len(a)))
 
 def is_between(t, a, b):
-    return ccw(t, a, b) == 0 and 0 < inner_product(vector(a, t), vector(a, b)) < inner_product(vector(a, b), vector(a, b))
+    return ccw(t, a, b) == 0 and 0 < inner_product(vector(a, t), vector(t, b))
 
 def is_inside_triangle(t, a, b, c):
     d1, d2, d3 = ccw(t, a, b),  ccw(t, b, c),  ccw(t, c, a)
