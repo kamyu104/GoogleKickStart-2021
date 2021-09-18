@@ -31,7 +31,7 @@ def star_trapper():
     for i in xrange(N):
         for j in xrange(i+1, N):
             is_two_triangles = is_between(target, points[i], points[j])
-            min_perimeters = [float("inf"), float("inf")]
+            min_perimeters = [float("inf")]*2
             for k in xrange(N):
                 if k == i or k == j:
                     continue
