@@ -142,7 +142,7 @@ def festival():
             result = max(result, curr)
         else:
             it = others_sl.find(h)
-            if it is not None:
+            if it:
                 others_sl.remove(it)
                 continue
             topk_sl.remove(topk_sl.find(h))
