@@ -43,7 +43,7 @@ def star_trappers():
                     result = min(result, length(vector(points[i], points[j]))+length(vector(points[j], points[k]))+length(vector(points[k], points[i])))  # possible triangle
                 if is_between_edge:
                     sign = ccw(points[i], points[j], points[k])
-                    if sign:  # keep min perimeters on each side of edge
+                    if sign != 0:  # keep min perimeters on each side of edge
                         min_perimeters[sign > 0] = min(min_perimeters[sign > 0], (length(vector(points[i], points[k]))+length(vector(points[j], points[k]))))
             if is_between_edge:
                 result = min(result, sum(min_perimeters))  # possible quadrilateral
