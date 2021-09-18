@@ -23,7 +23,7 @@ def is_inside_triangle(T, A, B, C):
     d1, d2, d3 = ccw(T, A, B),  ccw(T, B, C),  ccw(T, C, A)
     return (d1 > 0 and d2 > 0 and d3 > 0) or (d1 < 0 and d2 < 0 and d3 < 0)
 
-def star_trapper():
+def star_trappers():
     N = input()
     points = [map(int, raw_input().strip().split()) for _ in xrange(N)]
     target = map(int, raw_input().strip().split())
@@ -47,4 +47,4 @@ def star_trapper():
 
 EPS = 1e-9
 for case in xrange(input()):
-    print 'Case #%d: %s' % (case+1, star_trapper())
+    print 'Case #%d: %s' % (case+1, star_trappers())
