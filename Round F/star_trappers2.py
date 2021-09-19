@@ -53,7 +53,7 @@ def star_trappers():
         a, c = pairs[i]
         for j in xrange(i+1, len(pairs)):
             b, d = pairs[j]
-            result = min(result, length(vector(points[a], points[b]))+length(vector(points[b], points[c]))+length(vector(points[c], points[d]))+length(vector(points[d], points[a])))
+            result = min(result, length(vector(points[a], points[b]))+length(vector(points[b], points[c]))+length(vector(points[c], points[d]))+length(vector(points[d], points[a])))  # possible quadrilateral
     return result if result != float("inf") else "IMPOSSIBLE"
 
 for case in xrange(input()):
