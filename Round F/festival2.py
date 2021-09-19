@@ -40,19 +40,19 @@ class BIT(object):  # 0-indexed.
 
 def festival():
     D, N, K = map(int, raw_input().strip().split())
-    intervals, hs = [], []
+    points, hs = [], []
     for i in xrange(N):
         h, s, e = map(int, raw_input().strip().split())
-        intervals.append((s, 1, h, i))
-        intervals.append((e+1, -1, h, i))
+        points.append((s, 1, h, i))
+        points.append((e+1, -1, h, i))
         hs.append((h, i))
-    intervals.sort()
+    points.sort()
     hs.sort(reverse=True)
 
     idx_to_rank = {i:rank for rank, (_, i) in enumerate(hs)}
     bit1, bit2 = BIT(N), BIT(N)
     result = 0
-    for _, e, h, i in intervals:
+    for _, e, h, i in points:
         if e == 1:
             bit1.add(idx_to_rank[i], h)
             bit2.add(idx_to_rank[i], 1)

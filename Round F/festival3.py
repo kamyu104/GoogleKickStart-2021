@@ -11,16 +11,16 @@ from heapq import heappush, heappop
 
 def festival():
     D, N, K = map(int, raw_input().strip().split())
-    intervals = []
+    points = []
     for _ in xrange(N):
         h, s, e = map(int, raw_input().strip().split())
-        intervals.append((s, 1, h))
-        intervals.append((e+1, -1, h))
-    intervals.sort()
+        points.append((s, 1, h))
+        points.append((e+1, -1, h))
+    points.sort()
 
     topk, others, topk_to_remove, others_to_remove = [], [], [], []
     result = curr = l = 0
-    for _, e, h in intervals:
+    for _, e, h in points:
         if e == 1:
             while topk and topk_to_remove and topk[0] == topk_to_remove[0]:
                 heappop(topk), heappop(topk_to_remove)
