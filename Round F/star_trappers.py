@@ -17,7 +17,7 @@ def length(a):
     return (a[0]**2+a[1]**2)**0.5
 
 def inner_product(a, b):
-    return sum(a[i]*b[i] for i in xrange(len(a)))
+    return a[0]*b[0]+a[1]*b[1]
 
 def is_between(t, a, b):
     return ccw(t, a, b) == 0 and inner_product(vector(a, t), vector(t, b)) > 0
