@@ -7,47 +7,59 @@
 # Space: O(N)
 #
 
-from heapq import heappush, heappop
+# Template:
+# https://github.com/kamyu104/LeetCode-Solutions/blob/master/Python/design-most-recently-used-queue.py
+class BIT(object):  # 0-indexed.
+    def __init__(self, n):
+        self.__bit = [0]*(n+1)  # Extra one for dummy node.
+
+    def add(self, i, val):
+        i += 1  # Extra one for dummy node.
+        while i < len(self.__bit):
+            self.__bit[i] += val
+            i += (i & -i)
+
+    def query(self, i):
+        i += 1  # Extra one for dummy node.
+        ret = 0
+        while i > 0:
+            ret += self.__bit[i]
+            i -= (i & -i)
+        return ret
+
+    def binary_lift(self, k):
+        floor_log2_n = len(self.__bit).bit_length()-1
+        pow_i = 2**floor_log2_n
+        total = pos = 0  # 1-indexed
+        for _ in reversed(xrange(floor_log2_n+1)):  # O(logN)
+            if pos+pow_i < len(self.__bit) and total+self.__bit[pos+pow_i] <= k:
+                total += self.__bit[pos+pow_i]
+                pos += pow_i
+            pow_i >>= 1
+        return pos-1  # 0-indexed
 
 def festival():
     D, N, K = map(int, raw_input().strip().split())
-    intervals = []
-    for _ in xrange(N):
+    intervals, hs = [], []
+    for i in xrange(N):
         h, s, e = map(int, raw_input().strip().split())
-        intervals.append((s, 1, h))
-        intervals.append((e+1, -1, h))
+        intervals.append((s, 1, h, i))
+        intervals.append((e+1, -1, h, i))
+        hs.append((h, i))
     intervals.sort()
+    hs.sort(reverse=True)
 
-    topk, others, topk_to_remove, others_to_remove = [], [], [], []
-    result = curr = l = 0
-    for _, e, h in intervals:
+    idx_to_rank = {i:rank for rank, (_, i) in enumerate(hs)}
+    bit1, bit2 = BIT(N), BIT(N)
+    result = 0
+    for _, e, h, i in intervals:
         if e == 1:
-            while topk and topk_to_remove and topk[0] == topk_to_remove[0]:
-                heappop(topk), heappop(topk_to_remove)
-            heappush(topk, h)
-            curr += h
-            l += 1
-            if l == K+1:  # keep topk with k elements
-                v = heappop(topk)
-                curr -= v
-                l -= 1
-                heappush(others, -v)
-            result = max(result, curr)
+            bit1.add(idx_to_rank[i], h)
+            bit2.add(idx_to_rank[i], 1)
+            result = max(result, bit1.query(bit2.binary_lift(K)))
         else:
-            while others and others_to_remove and others[0] == others_to_remove[0]:
-                heappop(others), heappop(others_to_remove)
-            if others and h <= -others[0]:
-                heappush(others_to_remove, -h)
-                continue
-            heappush(topk_to_remove, h)
-            curr -= h
-            l -= 1
-            if not others:
-                continue
-            v = -heappop(others)
-            heappush(topk, v)  # keep topk with k elements
-            curr += v
-            l += 1
+            bit1.add(idx_to_rank[i], -h)
+            bit2.add(idx_to_rank[i], -1)
     return result
 
 for case in xrange(input()):
