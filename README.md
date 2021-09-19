@@ -55,5 +55,5 @@ Python solutions of Google Kick Start 2021. Solution begins with `*` means it wi
 |---| ----- | -------- | ---- | ----- | ---------- | --- | ---- |
 |A| [Trash Bins](https://codingcompetitions.withgoogle.com/kickstart/round/0000000000435bae/0000000000887c32)| [Python](./Round%20F/trash_bins.py)| _O(N)_ | _O(N)_ | Easy | | DP |
 |B| [Festival](https://codingcompetitions.withgoogle.com/kickstart/round/0000000000435bae/0000000000887dba)| [PyPy](./Round%20F/festival.py) [Python](./Round%20F/festival2.py) [Python](./Round%20F/festival3.py) | _O(NlogN)_ | _O(N)_ | Easy | | Line Sweep, Skip List, Multiset, BIT, Fenwick Tree, Heap |
-|C| [Star Trappers](https://codingcompetitions.withgoogle.com/kickstart/round/0000000000435bae/0000000000888d45)| [PyPy](./Round%20F/star_trappers.py)| _O(N^3)_ | _O(1)_ | Medium | | Math, Geometry |
+|C| [Star Trappers](https://codingcompetitions.withgoogle.com/kickstart/round/0000000000435bae/0000000000888d45)| [PyPy](./Round%20F/star_trappers.py) [Python](./Round%20F/star_trappers2.py) | _O(N^3)_ | _O(1)_ | Medium | | Math, Geometry |
 |D| [Graph Travel](https://codingcompetitions.withgoogle.com/kickstart/round/0000000000435bae/0000000000888764)| [Python](./Round%20F/graph_travel.py)| _O(M + N * 2^N)_ | _O(2^N)_ | Medium | | DP, Bitmask |
