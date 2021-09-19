@@ -27,7 +27,7 @@ def festival():
             heappush(topk, h)
             curr += h
             l += 1
-            if l == K+1:  # keep topk_sl with k elements
+            if l == K+1:  # keep topk with k elements
                 v = heappop(topk)
                 curr -= v
                 l -= 1
@@ -45,7 +45,7 @@ def festival():
             if not others:
                 continue
             v = -heappop(others)
-            heappush(topk, v)  # keep topk_sl with k elements
+            heappush(topk, v)  # keep topk with k elements
             curr += v
             l += 1
     return result
