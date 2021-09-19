@@ -50,10 +50,10 @@ def star_trappers():
             if i < j:
                 pairs.append((i, j))
     for i in xrange(len(pairs)-1):  # Time: O((N/2)^2)
-        a, b = pairs[i]
+        a, c = pairs[i]
         for j in xrange(i+1, len(pairs)):
-            c, d = pairs[j]
-            result = min(result, length(vector(points[a], points[c]))+length(vector(points[c], points[b]))+length(vector(points[b], points[d]))+length(vector(points[d], points[a])))
+            b, d = pairs[j]
+            result = min(result, length(vector(points[a], points[b]))+length(vector(points[b], points[c]))+length(vector(points[c], points[d]))+length(vector(points[d], points[a])))
     return result if result != float("inf") else "IMPOSSIBLE"
 
 for case in xrange(input()):
