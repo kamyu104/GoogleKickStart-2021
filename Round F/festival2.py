@@ -32,11 +32,11 @@ class BIT(object):  # 0-indexed.
         pow_i = 2**floor_log2_n
         total = pos = 0  # 1-indexed
         for _ in reversed(xrange(floor_log2_n+1)):  # O(logN)
-            if pos+pow_i < len(self.__bit) and total+self.__bit[pos+pow_i] <= k:
+            if pos+pow_i < len(self.__bit) and not (total+self.__bit[pos+pow_i] >= k):
                 total += self.__bit[pos+pow_i]
                 pos += pow_i
             pow_i >>= 1
-        return pos-1  # 0-indexed
+        return min(pos+1, len(self.__bit)-1)-1  # 0-indexed, modified
 
 def festival():
     D, N, K = map(int, raw_input().strip().split())
