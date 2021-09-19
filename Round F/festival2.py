@@ -32,7 +32,7 @@ class BIT(object):  # 0-indexed.
         pow_i = 2**floor_log2_n
         total = pos = 0  # 1-indexed
         for _ in reversed(xrange(floor_log2_n+1)):  # O(logN)
-            if pos+pow_i < len(self.__bit) and not (total+self.__bit[pos+pow_i] >= k):
+            if pos+pow_i < len(self.__bit) and not (total+self.__bit[pos+pow_i] >= k):  # find min pos s.t. total >= k
                 total += self.__bit[pos+pow_i]
                 pos += pow_i
             pow_i >>= 1
