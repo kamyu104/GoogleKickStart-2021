@@ -11,10 +11,10 @@ def ccw(a, b, c):
     return (b[0]-a[0])*(c[1]-a[1]) - (b[1]-a[1])*(c[0]-a[0])
 
 def vector(a, b):
-    return [a[i]-b[i] for i in xrange(len(a))]
+    return [a[0]-b[0], a[1]-b[1]]
 
 def length(a):
-    return sum(x**2 for x in a)**0.5
+    return (a[0]**2+a[1]**2)**0.5
 
 def inner_product(a, b):
     return sum(a[i]*b[i] for i in xrange(len(a)))
