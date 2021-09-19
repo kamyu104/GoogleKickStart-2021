@@ -42,17 +42,17 @@ def star_trappers():
         g = abs(gcd(*point))
         if (point[1]//g, point[0]//g) not in slopes or length(point) < length(points[slopes[(point[1]//g, point[0]//g)]]):
             slopes[(point[1]//g, point[0]//g)] = i
-    pairs = []
+    diagonals = []
     for i in slopes.itervalues():  # Time: O(N)
         g = abs(gcd(*points[i]))
         if (-points[i][1]//g, -points[i][0]//g) in slopes:
             j = slopes[-points[i][1]//g, -points[i][0]//g]
             if i < j:
-                pairs.append((i, j))
-    for i in xrange(len(pairs)-1):  # Time: O((N/2)^2)
-        a, c = pairs[i]
-        for j in xrange(i+1, len(pairs)):
-            b, d = pairs[j]
+                diagonals.append((i, j))
+    for i in xrange(len(diagonals)-1):  # Time: O((N/2)^2)
+        a, c = diagonals[i]
+        for j in xrange(i+1, len(diagonals)):
+            b, d = diagonals[j]
             result = min(result, length(vector(points[a], points[b]))+length(vector(points[b], points[c]))+length(vector(points[c], points[d]))+length(vector(points[d], points[a])))  # possible quadrilateral
     return result if result != float("inf") else "IMPOSSIBLE"
 
