@@ -18,7 +18,7 @@ def vector(a, b):
 def length(a):
     return (a[0]**2+a[1]**2)**0.5
 
-def is_inside_triangle(t, a, b, c):
+def is_stricly_inside_triangle(t, a, b, c):
     d1, d2, d3 = ccw(t, a, b),  ccw(t, b, c),  ccw(t, c, a)
     return (d1 > 0 and d2 > 0 and d3 > 0) or (d1 < 0 and d2 < 0 and d3 < 0)
 
@@ -35,7 +35,7 @@ def star_trappers():
     for i in xrange(N-2):  # Time: O(N^3)
         for j in xrange(i+1, N-1):
             for k in xrange(j+1, N):
-                if is_inside_triangle(target, points[i], points[j], points[k]):
+                if is_stricly_inside_triangle(target, points[i], points[j], points[k]):
                     result = min(result, length(vector(points[i], points[j]))+length(vector(points[j], points[k]))+length(vector(points[k], points[i])))  # possible triangle
     slopes = {}
     for i, point in enumerate(points):
