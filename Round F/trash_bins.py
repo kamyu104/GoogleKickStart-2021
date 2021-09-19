@@ -11,8 +11,8 @@ def trash_bins():
     N = input()
     S = raw_input().strip()
 
-    left = [float("inf")]*N
-    curr = float("inf")
+    left = [None]*N
+    curr = float("-inf")
     for i, c in enumerate(S):
         if c == '1':
             curr = i
@@ -22,7 +22,7 @@ def trash_bins():
     for i in reversed(xrange(len(S))):
         if S[i] == '1':
             curr = i
-        result += min(abs(i-left[i]), abs(i-curr))
+        result += min(i-left[i], curr-i)
     return result
 
 for case in xrange(input()):
