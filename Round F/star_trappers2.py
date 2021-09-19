@@ -40,15 +40,18 @@ def star_trappers():
     slopes = {}
     for i, point in enumerate(points):
         g = abs(gcd(*point))
-        if (point[1]//g, point[0]//g) not in slopes or length(point) < length(points[slopes[(point[1]//g, point[0]//g)]]):
-            slopes[(point[1]//g, point[0]//g)] = i
+        s = (point[1]//g, point[0]//g)
+        if s not in slopes or length(point) < length(points[slopes[s]]):
+            slopes[s] = i
     diagonals = []
     for i in slopes.itervalues():  # Time: O(N)
         g = abs(gcd(*points[i]))
-        if (-points[i][1]//g, -points[i][0]//g) in slopes:
-            j = slopes[-points[i][1]//g, -points[i][0]//g]
-            if i < j:
-                diagonals.append((i, j))
+        s = (-points[i][1]//g, -points[i][0]//g)
+        if s not in slopes:
+            continue
+        j = slopes[s]
+        if i < j:
+            diagonals.append((i, j))
     for i in xrange(len(diagonals)-1):  # Time: O((N/2)^2)
         a, c = diagonals[i]
         for j in xrange(i+1, len(diagonals)):
