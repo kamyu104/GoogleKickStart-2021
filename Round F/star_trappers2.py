@@ -32,7 +32,7 @@ def star_trappers():
     target = [0, 0]
 
     result = float("inf")
-    for i in xrange(N-2):
+    for i in xrange(N-2):  # Time: O(N^3)
         for j in xrange(i+1, N-1):
             for k in xrange(j+1, N):
                 if is_inside_triangle(target, points[i], points[j], points[k]):
@@ -43,13 +43,13 @@ def star_trappers():
         if (point[1]//g, point[0]//g) not in slopes or length(point) < length(points[slopes[(point[1]//g, point[0]//g)]]):
             slopes[(point[1]//g, point[0]//g)] = i
     pairs = []
-    for i in slopes.itervalues():
+    for i in slopes.itervalues():  # Time: O(N)
         g = abs(gcd(*points[i]))
         if (-points[i][1]//g, -points[i][0]//g) in slopes:
             j = slopes[-points[i][1]//g, -points[i][0]//g]
             if i < j:
                 pairs.append((i, j))
-    for i in xrange(len(pairs)-1):
+    for i in xrange(len(pairs)-1):  # Time: O((N/2)^2)
         a, b = pairs[i]
         for j in xrange(i+1, len(pairs)):
             c, d = pairs[j]
