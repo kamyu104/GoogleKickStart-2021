@@ -3,156 +3,63 @@
 # Google Kick Start 2021 Round F - Problem B. Festival
 # https://codingcompetitions.withgoogle.com/kickstart/round/0000000000435bae/0000000000887dba
 #
-# Time:  O(NlogN), pass in PyPy2 but Python2
+# Time:  O(NlogN)
 # Space: O(N)
 #
 
-from random import randint, seed
-
 # Template:
-# https://github.com/kamyu104/GoogleKickStart-2021/blob/master/Round%20D/final_exam.py
-class SkipNode(object):
-    def __init__(self, level=0, val=None):
-        self.val = val
-        self.nexts = [None]*level
-        self.prevs = [None]*level
+# https://github.com/kamyu104/LeetCode-Solutions/blob/master/Python/design-most-recently-used-queue.py
+class BIT(object):  # 0-indexed.
+    def __init__(self, n):
+        self.__bit = [0]*(n+1)  # Extra one for dummy node.
 
-class SkipList(object):
-    P_NUMERATOR, P_DENOMINATOR = 1, 2  # P = 1/4 in redis implementation
-    MAX_LEVEL = 32  # enough for 2^32 elements
+    def add(self, i, val):
+        i += 1  # Extra one for dummy node.
+        while i < len(self.__bit):
+            self.__bit[i] += val
+            i += (i & -i)
 
-    def __init__(self, end=float("inf"), can_duplicated=True):
-        seed(0)
-        self.__head = SkipNode()
-        self.__len = 0
-        self.__can_duplicated = can_duplicated
-        self.add(end)
-        self.__end = self.find(end)
+    def query(self, i):
+        i += 1  # Extra one for dummy node.
+        ret = 0
+        while i > 0:
+            ret += self.__bit[i]
+            i -= (i & -i)
+        return ret
 
-    def begin(self):
-        return self.__head.nexts[0]
-
-    def end(self):
-        return self.__end
-
-    def lower_bound(self, target, cmp=lambda x, y: x < y):
-        return self.__lower_bound(self.__find_prev_nodes(target, cmp))
-
-    def find(self, target):
-        return self.__find(target, self.__find_prev_nodes(target))
-
-    def add(self, val):
-        if not self.__can_duplicated and self.find(val):
-            return self.find(val), False
-        node = SkipNode(self.__random_level(), val)
-        if len(self.__head.nexts) < len(node.nexts):
-            self.__head.nexts.extend([None]*(len(node.nexts)-len(self.__head.nexts)))
-        prevs = self.__find_prev_nodes(val)
-        for i in xrange(len(node.nexts)):
-            node.nexts[i] = prevs[i].nexts[i]
-            if prevs[i].nexts[i]:
-                prevs[i].nexts[i].prevs[i] = node
-            prevs[i].nexts[i] = node
-            node.prevs[i] = prevs[i]
-        self.__len += 1
-        return node if self.__can_duplicated else (node, True)
-
-    def remove(self, it):
-        prevs = it.prevs
-        curr = self.__find(it.val, prevs)
-        if not curr:
-            return self.__end
-        self.__len -= 1
-        for i in reversed(xrange(len(curr.nexts))):
-            prevs[i].nexts[i] = curr.nexts[i]
-            if curr.nexts[i]:
-                curr.nexts[i].prevs[i] = prevs[i]
-            if not self.__head.nexts[i]:
-                self.__head.nexts.pop()
-        return curr.nexts[0]
-
-    def __lower_bound(self, prevs):
-        if prevs:
-            candidate = prevs[0].nexts[0]
-            if candidate:
-                return candidate
-        return None
-
-    def __find(self, val, prevs):
-        candidate = self.__lower_bound(prevs)
-        if candidate and candidate.val == val:
-            return candidate
-        return None
-
-    def __find_prev_nodes(self, val, cmp=lambda x, y: x < y):
-        prevs = [None]*len(self.__head.nexts)
-        curr = self.__head
-        for i in reversed(xrange(len(self.__head.nexts))):
-            while curr.nexts[i] and cmp(curr.nexts[i].val, val):
-                curr = curr.nexts[i]
-            prevs[i] = curr
-        return prevs
-
-    def __random_level(self):
-        level = 1
-        while randint(1, SkipList.P_DENOMINATOR) <= SkipList.P_NUMERATOR and \
-              level < SkipList.MAX_LEVEL:
-            level += 1
-        return level
-
-    def __iter__(self):
-        it = self.begin()
-        while it != self.end():
-            yield it.val
-            it = it.nexts[0]
-
-    def __len__(self):
-        return self.__len-1  # excluding end node
-
-    def __str__(self):
-        result = []
-        for i in reversed(xrange(len(self.__head.nexts))):
-            result.append([])
-            curr = self.__head.nexts[i]
-            while curr:
-                result[-1].append(str(curr.val))
-                curr = curr.nexts[i]
-        return "\n".join(map(lambda x: "->".join(x), result))
+    def binary_lift(self, k):
+        floor_log2_n = len(self.__bit).bit_length()-1
+        pow_i = 2**floor_log2_n
+        total = pos = 0  # 1-indexed
+        for _ in reversed(xrange(floor_log2_n+1)):  # O(logN)
+            if pos+pow_i < len(self.__bit) and total+self.__bit[pos+pow_i] < k:  # find max pos s.t. total < k
+                total += self.__bit[pos+pow_i]
+                pos += pow_i
+            pow_i >>= 1
+        return min(pos+1, len(self.__bit)-1)-1  # 0-indexed, return min pos s.t. total >= k, modified
 
 def festival():
     D, N, K = map(int, raw_input().strip().split())
-    points = []
-    for _ in xrange(N):
+    points, hs = [], []
+    for i in xrange(N):
         h, s, e = map(int, raw_input().strip().split())
-        points.append((s, 1, h))
-        points.append((e+1, -1, h))
+        points.append((s, 1, h, i))
+        points.append((e+1, -1, h, i))
+        hs.append((h, i))
     points.sort()
+    hs.sort(reverse=True)
 
-    topk_sl, others_sl = SkipList(), SkipList()
-    result = curr = 0
-    for _, e, h in points:
+    idx_to_rank = {i:rank for rank, (_, i) in enumerate(hs)}
+    bit1, bit2 = BIT(N), BIT(N)
+    result = 0
+    for _, e, h, i in points:
         if e == 1:
-            topk_sl.add(h)
-            curr += h
-            if len(topk_sl) == K+1:  # keep topk_sl with k elements
-                v = topk_sl.begin().val
-                topk_sl.remove(topk_sl.begin())
-                curr -= v
-                others_sl.add(v)
-            result = max(result, curr)
+            bit1.add(idx_to_rank[i], h)
+            bit2.add(idx_to_rank[i], 1)
+            result = max(result, bit1.query(bit2.binary_lift(K)))
         else:
-            it = others_sl.find(h)
-            if it:
-                others_sl.remove(it)
-                continue
-            topk_sl.remove(topk_sl.find(h))
-            curr -= h
-            if not others_sl:
-                continue
-            v = others_sl.end().prevs[0].val
-            others_sl.remove(others_sl.end().prevs[0])
-            topk_sl.add(v)  # keep topk_sl with k elements
-            curr += v
+            bit1.add(idx_to_rank[i], -h)
+            bit2.add(idx_to_rank[i], -1)
     return result
 
 for case in xrange(input()):
