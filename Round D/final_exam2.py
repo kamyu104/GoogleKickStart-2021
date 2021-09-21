@@ -267,7 +267,7 @@ def final_exam():
         if prev and prev[0] <= x <= prev[1]:
             to_remove = prev
             result.append(x)
-        elif curr is None or (prev and x-prev[1] <= curr[0]-x):
+        elif not curr or (prev and x-prev[1] <= curr[0]-x):
             to_remove = prev
             result.append(to_remove[1])
         else:
