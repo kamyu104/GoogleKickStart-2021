@@ -39,7 +39,7 @@ Python solutions of Google Kick Start 2021. Solution begins with `*` means it wi
 |---| ----- | -------- | ---- | ----- | ---------- | --- | ---- |
 |A| [Arithmetic Square](https://codingcompetitions.withgoogle.com/kickstart/round/00000000004361e3/000000000082b813)| [Python](./Round%20D/arithmetic_square.py)| _O(1)_ | _O(1)_ | Easy | | Math, Counting |
 |B| [Cutting Intervals](https://codingcompetitions.withgoogle.com/kickstart/round/00000000004361e3/000000000082b933)| [Python](./Round%20D/cutting_intervals.py) | _O(NlogN)_ | _O(N)_ | Medium | | Line Sweep, Greedy |
-|C| [Final Exam](https://codingcompetitions.withgoogle.com/kickstart/round/00000000004361e3/000000000082bffc)| [PyPy](./Round%20D/final_exam.py)| _O(NlogN + M * log(N + M))_ | _O(N + M)_ | Medium | | Skip List, Binary Search |
+|C| [Final Exam](https://codingcompetitions.withgoogle.com/kickstart/round/00000000004361e3/000000000082bffc)| [PyPy](./Round%20D/final_exam.py) [PyPy](./Round%20D/final_exam2.py) | _O(NlogN + M * log(N + M))_ | _O(N + M)_ | Medium | | Skip List, Sorted List, Binary Search |
 |D| [Primes and Queries](https://codingcompetitions.withgoogle.com/kickstart/round/00000000004361e3/000000000082bcf4)| [Python](./Round%20D/primes_and_queries.py) [Python](./Round%20D/primes_and_queries2.py) | _O(N * (logN + log(log(MAX_A))) + Q * (logN + log(log(MAX_VAL)) + log(log(MAX_S))))_ | _O(N)_ | Hard | | BIT, Fenwick Tree, LTE, Lifting The Exponent Lemma, Binary Search |
 
 ## Round E
