@@ -209,40 +209,40 @@ class SortedList(object):
         """Return number of occurrences of `value` in the sorted list."""
         return self.bisect_right(value) - self.bisect_left(value)
 
-    def lower_bound(self, value):
+    def lower_bound(self, value):  # added
         """Return the first iter to insert `value` in the sorted list."""
         return self._loc_left(value)
 
-    def upper_bound(self, value):
+    def upper_bound(self, value):  # added
         """Return the last iter to insert `value` in the sorted list."""
         return self._loc_right(value)
 
-    def val(self, it):
+    def val(self, it):  # added
         """Return the value of the `it` in the sorted list."""
         pos, idx = it
         return self._lists[pos][idx]
 
-    def erase(self, it):
+    def erase(self, it):  # added
         """Remove `it` from sorted list; `it` must be a member."""
         pos, idx = it
         self._delete(pos, idx)
 
-    def begin(self):
+    def begin(self):  # added
         """Return the begin of the it in the sorted list."""
         return (0, 0)
 
-    def end(self):
+    def end(self):  # added
         """Return the end of the it in the sorted list."""
         return (len(self._lists)-1, len(self._lists[-1])) if self._lists else (0, 0)
 
-    def prev(self, it):
+    def prev(self, it):  # added
         """Return the previous `it` in the sorted list."""
         pos, idx = it
         if idx:
             return (pos, idx-1)
         return (pos-1, len(self._lists[pos-1])-1)
 
-    def next(self, it):
+    def next(self, it):  # added
         """Return the next `it` in the sorted list."""
         pos, idx = it
         if pos+1 == len(self._lists) or idx+1 != len(self._lists[pos]):
