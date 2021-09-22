@@ -238,9 +238,7 @@ class SortedList(object):
     def prev(self, it):  # added
         """Return the previous `it` in the sorted list."""
         pos, idx = it
-        if idx:
-            return (pos, idx-1)
-        return (pos-1, len(self._lists[pos-1])-1)
+        return (pos, idx-1) if idx else (pos-1, len(self._lists[pos-1])-1)
 
     def next(self, it):  # added
         """Return the next `it` in the sorted list."""
