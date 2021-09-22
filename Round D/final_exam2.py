@@ -209,6 +209,46 @@ class SortedList(object):
         """Return number of occurrences of `value` in the sorted list."""
         return self.bisect_right(value) - self.bisect_left(value)
 
+    def find(self, value):
+        """Return the first iter to insert `value` in the sorted list."""
+        return self._loc_left(value)
+
+    def rfind(self, value):
+        """Return the last iter to insert `value` in the sorted list."""
+        return self._loc_right(value)
+
+    def val(self, it):
+        """Return the value of the `it` in the sorted list."""
+        pos, idx = it
+        return self._lists[pos][idx]
+
+    def erase(self, it):
+        """Remove `it` from sorted list; `it` must be a member."""
+        pos, idx = it
+        self._delete(pos, idx)
+
+    def begin(self):
+        """Return the begin of the it in the sorted list."""
+        return (0, 0)
+
+    def end(self):
+        """Return the end of the it in the sorted list."""
+        return (len(self._lists)-1, len(self._lists[-1])) if self._lists else (0, 0)
+
+    def prev(self, it):
+        """Return the previous `it` in the sorted list."""
+        pos, idx = it
+        if idx:
+            return (pos, idx-1)
+        return (pos-1, len(self._lists[pos-1])-1)
+
+    def next(self, it):
+        """Return the next `it` in the sorted list."""
+        pos, idx = it
+        if pos+1 == len(self._lists) or idx+1 != len(self._lists[pos]):
+            return (pos, idx+1)
+        return (pos+1, 0)
+
     def __len__(self):
         """Return the size of the sorted list."""
         return self._len
@@ -243,9 +283,9 @@ class SortedList(object):
         """Return string representation of sorted list."""
         return 'SortedList({0})'.format(list(self))
 
-def remove_x_from_interval(sl, to_remove, x):
-    sl.remove(to_remove)
-    l, r = to_remove
+def remove_x_from_interval(sl, it, x):
+    l, r = sl.val(it)
+    sl.erase(it)
     if l <= x-1:
         sl.add((l, x-1))
     if x+1 <= r:
@@ -258,22 +298,16 @@ def final_exam():
         sl.add((l, r))
     result = []
     for x in map(int, raw_input().strip().split()):
-        i = sl.bisect_left((x+1,))
-        prev = curr = to_remove = None
-        if i != 0:
-            prev = sl[i-1]
-        if i != len(sl):
-            curr = sl[i]
-        if prev and prev[0] <= x <= prev[1]:
-            to_remove = prev
+        it = sl.find((x+1,))
+        if it != sl.begin() and sl.val(sl.prev(it))[0] <= x <= sl.val(sl.prev(it))[1]:
+            it = sl.prev(it)
             result.append(x)
-        elif not curr or (prev and x-prev[1] <= curr[0]-x):
-            to_remove = prev
-            result.append(to_remove[1])
+        elif it == sl.end() or (it != sl.begin() and x-sl.val(sl.prev(it))[1] <= sl.val(it)[0]-x):
+            it = sl.prev(it)
+            result.append(sl.val(it)[1])
         else:
-            to_remove = curr
-            result.append(to_remove[0])
-        remove_x_from_interval(sl, to_remove, result[-1])
+            result.append(sl.val(it)[0])
+        remove_x_from_interval(sl, it, result[-1])
     return " ".join(map(str, result))
 
 for case in xrange(input()):
