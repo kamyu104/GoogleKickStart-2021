@@ -209,11 +209,11 @@ class SortedList(object):
         """Return number of occurrences of `value` in the sorted list."""
         return self.bisect_right(value) - self.bisect_left(value)
 
-    def find(self, value):
+    def lower_bound(self, value):
         """Return the first iter to insert `value` in the sorted list."""
         return self._loc_left(value)
 
-    def rfind(self, value):
+    def upper_bound(self, value):
         """Return the last iter to insert `value` in the sorted list."""
         return self._loc_right(value)
 
@@ -298,7 +298,7 @@ def final_exam():
         sl.add((l, r))
     result = []
     for x in map(int, raw_input().strip().split()):
-        it = sl.find((x+1,))
+        it = sl.lower_bound((x+1,))
         if it != sl.begin() and sl.val(sl.prev(it))[0] <= x <= sl.val(sl.prev(it))[1]:
             it = sl.prev(it)
             result.append(x)
