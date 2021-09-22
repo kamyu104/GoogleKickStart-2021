@@ -243,9 +243,7 @@ class SortedList(object):
     def next(self, it):  # added
         """Return the next `it` in the sorted list."""
         pos, idx = it
-        if pos+1 == len(self._lists) or idx+1 != len(self._lists[pos]):
-            return (pos, idx+1)
-        return (pos+1, 0)
+        return (pos, idx+1) if pos+1 == len(self._lists) or idx+1 != len(self._lists[pos]) else (pos+1, 0)
 
     def __len__(self):
         """Return the size of the sorted list."""
