@@ -36,7 +36,7 @@ class BIT(object):  # 0-indexed.
                 total += self.__bit[pos+pow_i]
                 pos += pow_i
             pow_i >>= 1
-        return min(pos+1, len(self.__bit)-1)-1  # 0-indexed, return min pos s.t. total >= k, modified
+        return min(pos+1, len(self.__bit)-1)-1  # 0-indexed, return min pos s.t. total >= k if pos exists else n-1, modified
 
 def festival():
     D, N, K = map(int, raw_input().strip().split())
