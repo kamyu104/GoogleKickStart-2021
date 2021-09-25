@@ -130,8 +130,8 @@ def festival():
 
     topk_sl, others_sl = SkipList(), SkipList()
     result = curr = 0
-    for _, e, h in points:
-        if e == 1:
+    for _, t, h in points:
+        if t == 1:
             topk_sl.add(h)
             curr += h
             if len(topk_sl) == K+1:  # keep topk_sl with k elements

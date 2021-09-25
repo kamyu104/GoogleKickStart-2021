@@ -20,8 +20,8 @@ def festival():
 
     topk, others, topk_to_remove, others_to_remove = [], [], [], []
     result = curr = l = 0
-    for _, e, h in points:
-        if e == 1:
+    for _, t, h in points:
+        if t == 1:
             while topk and topk_to_remove and topk[0] == topk_to_remove[0]:
                 heappop(topk), heappop(topk_to_remove)
             heappush(topk, h)
