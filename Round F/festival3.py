@@ -254,8 +254,8 @@ def festival():
 
     topk_sl, others_sl = SortedList(), SortedList()
     result = curr = 0
-    for _, t, h in points:
-        if t == 1:
+    for _, c, h in points:
+        if c == 1:
             topk_sl.add(h)
             curr += h
             if len(topk_sl) == K+1:  # keep topk_sl with k elements

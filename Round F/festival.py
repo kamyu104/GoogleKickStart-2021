@@ -52,8 +52,8 @@ def festival():
     idx_to_rank = {i:rank for rank, (_, i) in enumerate(hs)}
     bit1, bit2 = BIT(N), BIT(N)
     result = 0
-    for _, t, h, i in points:
-        if t == 1:
+    for _, c, h, i in points:
+        if c == 1:
             bit1.add(idx_to_rank[i], h)
             bit2.add(idx_to_rank[i], 1)
             result = max(result, bit1.query(bit2.binary_lift(K)))
