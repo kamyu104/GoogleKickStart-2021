@@ -27,7 +27,7 @@ class BIT(object):  # 0-indexed.
             i -= (i & -i)
         return ret
 
-    def binary_lift(self, k):
+    def kth_element(self, k):
         floor_log2_n = (len(self.__bit)-1).bit_length()-1
         pow_i = 2**floor_log2_n
         total = pos = 0  # 1-indexed
@@ -56,7 +56,7 @@ def festival():
         if c == 1:
             bit1.add(idx_to_rank[i], h)
             bit2.add(idx_to_rank[i], 1)
-            result = max(result, bit1.query(min(bit2.binary_lift(K), N-1)))
+            result = max(result, bit1.query(min(bit2.kth_element(K), N-1)))
         else:
             bit1.add(idx_to_rank[i], -h)
             bit2.add(idx_to_rank[i], -1)
