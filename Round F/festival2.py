@@ -21,7 +21,7 @@ class SkipList(object):
     P_NUMERATOR, P_DENOMINATOR = 1, 2  # P = 1/4 in redis implementation
     MAX_LEVEL = 32  # enough for 2^32 elements
 
-    def __init__(self, end=float("inf"), can_duplicated=True):
+    def __init__(self, end=float("-inf"), can_duplicated=True):  # modified
         seed(0)
         self.__head = SkipNode()
         self.__len = 0
@@ -35,7 +35,7 @@ class SkipList(object):
     def end(self):
         return self.__end
 
-    def lower_bound(self, target, cmp=lambda x, y: x < y):
+    def lower_bound(self, target, cmp=lambda x, y: x > y):  # modified
         return self.__lower_bound(self.__find_prev_nodes(target, cmp))
 
     def find(self, target):
@@ -84,7 +84,7 @@ class SkipList(object):
             return candidate
         return None
 
-    def __find_prev_nodes(self, val, cmp=lambda x, y: x < y):
+    def __find_prev_nodes(self, val, cmp=lambda x, y: x > y):  # modified
         prevs = [None]*len(self.__head.nexts)
         curr = self.__head
         for i in reversed(xrange(len(self.__head.nexts))):
@@ -128,31 +128,29 @@ def festival():
         points.append((e+1, -1, h))
     points.sort()
 
-    topk_sl, others_sl = SkipList(), SkipList()
+    sl = SkipList()
     result = curr = 0
+    it = sl.end()
     for _, c, h in points:
         if c == 1:
-            topk_sl.add(h)
-            curr += h
-            if len(topk_sl) == K+1:  # keep topk_sl with k elements
-                v = topk_sl.begin().val
-                topk_sl.remove(topk_sl.begin())
-                curr -= v
-                others_sl.add(v)
+            sl.add(h)
+            if len(sl) <= K:
+                curr += h
+                it = sl.end().prevs[0]
+            elif h >= it.val:
+                curr -= it.val
+                curr += h
+                it = it.prevs[0]
             result = max(result, curr)
         else:
-            it = others_sl.find(h)
-            if it:
-                others_sl.remove(it)
-                continue
-            topk_sl.remove(topk_sl.find(h))
-            curr -= h
-            if not others_sl:
-                continue
-            v = others_sl.end().prevs[0].val
-            others_sl.remove(others_sl.end().prevs[0])
-            topk_sl.add(v)  # keep topk_sl with k elements
-            curr += v
+            sl.remove(sl.find(h))
+            if len(sl) < K:
+                curr -= h
+                it = sl.end().prevs[0]
+            elif h >= it.val:
+                curr -= h
+                curr += it.nexts[0].val
+                it = it.nexts[0]
     return result
 
 for case in xrange(input()):
