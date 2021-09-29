@@ -128,9 +128,8 @@ def festival():
         points.append((e+1, -1, h))
     points.sort()
 
-    sl = SkipList()
+    sl, it = SkipList(), None
     result = curr = 0
-    it = sl.end()
     for _, c, h in points:
         if c == 1:
             sl.add(-h)
