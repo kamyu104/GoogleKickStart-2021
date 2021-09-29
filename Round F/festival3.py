@@ -258,14 +258,17 @@ def festival():
         if c == 1:
             if len(sl) < K:
                 curr += h
-            elif h < sl[K-1]:
-                curr -= sl[K-1]
+            elif h > sl[-K]:
+                curr -= sl[-K]
                 curr += h
             sl.add(h)
             result = max(result, curr)
         else:
             if len(sl) <= K:
                 curr -= h
+            elif h >= sl[-K]:
+                curr -= h
+                curr += sl[-(K+1)]
             sl.remove(h)
     return result
 
