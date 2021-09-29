@@ -252,30 +252,21 @@ def festival():
         points.append((e+1, -1, h))
     points.sort()
 
-    topk_sl, others_sl = SortedList(), SortedList()
+    sl = SortedList()
     result = curr = 0
     for _, c, h in points:
         if c == 1:
-            topk_sl.add(h)
-            curr += h
-            if len(topk_sl) == K+1:  # keep topk_sl with k elements
-                v = next(iter(topk_sl))
-                topk_sl.remove(topk_sl[0])
-                curr -= v
-                others_sl.add(v)
+            if len(sl) < K:
+                curr += h
+            elif h < sl[K-1]:
+                curr -= sl[K-1]
+                curr += h
+            sl.add(h)
             result = max(result, curr)
         else:
-            if h in others_sl:
-                others_sl.remove(h)
-                continue
-            topk_sl.remove(h)
-            curr -= h
-            if not others_sl:
-                continue
-            v = next(reversed(others_sl))
-            others_sl.remove(v)
-            topk_sl.add(v)  # keep topk_sl with k elements
-            curr += v
+            if len(sl) <= K:
+                curr -= h
+            sl.remove(h)
     return result
 
 for case in xrange(input()):
