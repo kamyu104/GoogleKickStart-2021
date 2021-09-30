@@ -10,6 +10,13 @@
 from heapq import heappush, heappop
 from collections import defaultdict
 
+def lazy_delete(heap, to_remove, sign):
+    while heap and sign*heap[0] in to_remove:
+        to_remove[sign*heap[0]] -= 1
+        if not to_remove[sign*heap[0]]:
+            del to_remove[sign*heap[0]]
+        heappop(heap)
+
 def festival():
     D, N, K = map(int, raw_input().strip().split())
     points = []
@@ -42,16 +49,8 @@ def festival():
                     heappush(topk, v)  # keep topk with k elements
                     curr += v
                     l += 1
-        while others and -others[0] in to_remove:
-            to_remove[-others[0]] -= 1
-            if not to_remove[-others[0]]:
-                del to_remove[-others[0]]
-            heappop(others)
-        while topk and topk[0] in to_remove:
-            to_remove[topk[0]] -= 1
-            if not to_remove[topk[0]]:
-                del to_remove[topk[0]]
-            heappop(topk)
+        lazy_delete(others, to_remove, -1)
+        lazy_delete(topk, to_remove, 1)
     return result
 
 for case in xrange(input()):
