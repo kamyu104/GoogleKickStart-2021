@@ -43,7 +43,7 @@ def staying_hydrated():
         X.append([X1, X2])
         Y.append([Y1, Y2])
 
-    return '%s %s' % (min_pos(X), min_pos(Y))
+    return "%s %s" % (min_pos(X), min_pos(Y))
 
 for case in xrange(input()):
     print 'Case #%d: %s' % (case+1, staying_hydrated())
