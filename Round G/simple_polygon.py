@@ -14,8 +14,8 @@ def simple_polygon():
     #   - the triangle formed by (0, 1), (1, 0), (0, 0) covers 1 unit
     # elif N >= 4:
     #   - the triangle formed by last point (0, 1) and the first two points (0, 2), (1, 1) covers 1 unit,
-    #     each of the rest points forming a new triangle covers 1 unit
-    # the uncovered A will be A-(N-2)
+    #     each of the rest points forming a new triangle covers 1 unit in the zig-zag shape
+    # thus, the uncovered A will be A-(N-2)
     #   => let dy = A-(N-2) and adjust the first point (x, y) to (x, y+dy) to cover the rest of A
     #   => dy = A-(N-2) >= 0 iff it is possible
     if not (A-(N-2) >= 0):
@@ -29,7 +29,7 @@ def simple_polygon():
         for i in reversed(xrange((N+1)//2)):
             result.append((i, 1 if not i%2 or (i == (N+1)//2-1 and N%4 == 3) else 0))
     else:
-        # if N == 3 => 1+dy = 1+(A-(N-2)) = A <= MAX_A 
+        # if N == 3 => 1+dy = 1+(A-(N-2)) = A <= MAX_A
         assert(1+(A-(N-2)) == A <= MAX_A)
         result = [(0, A), (1, 0), (0, 0)]
     return "POSSIBLE\n" + "\n".join(map(lambda x: "%s %s"%(x[0], x[1]), result))
