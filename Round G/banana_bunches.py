@@ -3,7 +3,7 @@
 # Google Kick Start 2021 Round G - Problem C. Banana Bunches
 # https://codingcompetitions.withgoogle.com/kickstart/round/00000000004362d6/00000000008b44ef
 #
-# Time:  O(N^2 + K), pass in PyPy2 but Python2
+# Time:  O(N^2), pass in PyPy2 but Python2
 # Space: O(K)
 #
 
@@ -12,8 +12,7 @@ def banana_bunches():
     B = map(int, raw_input().strip().split())
 
     INF = N+1
-    dp = [INF]*(K+1)
-    dp[0] = 0
+    dp = {0:0}
     result = INF
     for i in xrange(N):
         curr = 0
@@ -21,6 +20,8 @@ def banana_bunches():
             curr += B[j]
             if curr > K:
                 break
+            if K-curr not in dp:
+                continue
             v = (j-i+1) + dp[K-curr]
             if v < result:
                 result = v
@@ -30,7 +31,7 @@ def banana_bunches():
             if curr > K:
                 break
             v = i-j+1
-            if v < dp[curr]:
+            if curr not in dp or dp[curr] > v:
                 dp[curr] = v
     return result if result != INF else -1
 
