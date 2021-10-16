@@ -12,7 +12,7 @@ def simple_polygon():
     if N-A > 2:
         return "IMPOSSIBLE"
     if N == 3:
-        result = [(0, 0), (0, 1), (A, 0)]
+        result = [(0, A), (1, 0), (0, 0)]
     else:
         assert(A-N+4 <= MAX_A)
         # if A-N+4 > MAX_A,
