@@ -22,7 +22,7 @@ def min_pos(x):
         lookup_r[b[i]] = i
 
     min_dist, result = float("inf"), None
-    for v in sorted(a+b):
+    for v in sorted(set(a+b)):
         total = 0
         i = bisect_left(a, v+1)-1  # find max i s.t. a[i] <= v
         if 0 <= i:
