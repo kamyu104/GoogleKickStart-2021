@@ -10,12 +10,14 @@
 def simple_polygon():
     N, A = map(int, raw_input().strip().split())
 
+    # the last point and the first two points increase 1 unit,
+    # each of the rest points increases 1 unit,
+    # so the first point should be (0, 2+dy) to cover extra A,
+    # where dy = A-(N-2) >= 0 iff possible
     if not (A-(N-2) >= 0):
         return "IMPOSSIBLE"
+    # 2+dy = 2+(A-(N-2)) = A-N+4 <= MAX_A iff A != MAX_A or N != 3
     if A != MAX_A or N != 3:
-        # the last point and the first two points increase 1 unit, each of the rest points increases 1 unit,
-        # so the first point should (0, 2+dy) to cover extra A, where dy = A-(N-2)
-        # => 2+dy = 2+(A-(N-2)) = A-N+4 <= MAX_A iff A != MAX_A or N != 3
         assert(2+(A-(N-2)) <= MAX_A)
         result = [(0, 2+(A-(N-2)))]
         for i in xrange(1, N//2):
