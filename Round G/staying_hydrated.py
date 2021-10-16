@@ -28,7 +28,7 @@ def min_pos(arr):
         if 0 <= i:
             i = lookup_l[a[i]]
             total += x*(i+1)-left[i+1]
-        i = bisect_left(b, x)  # find min j s.t. b[i] >= x
+        i = bisect_left(b, x)  # find min i s.t. b[i] >= x
         if i != len(b):
             i = lookup_r[b[i]]
             total += right[i]-x*(len(b)-i)
