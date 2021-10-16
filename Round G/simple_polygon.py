@@ -13,11 +13,11 @@ def simple_polygon():
     if N-A > 2:
         return "IMPOSSIBLE"
     if A != MAX_A or N != 3:
-        # the last one and the first two points forms 1 unit, the rest of points increases 1 unit,
-        # and the first point is (0, 2+dy), where dy = (A-1)-(N-3)
-        # => 2+dy = 2+((A-1)-(N-3)) = A-N+4 <= MAX_A iff A != MAX_A or N != 3
-        assert(2+((A-1)-(N-3)) <= MAX_A)
-        result = [(0, 2+((A-1)-(N-3)))]
+        # the last point and the first two points increase 1 unit, each of the rest points increases 1 unit,
+        # so the first point should (0, 2+dy) to cover extra A, where dy = A-(N-2)
+        # => 2+dy = 2+(A-(N-2)) = A-N+4 <= MAX_A iff A != MAX_A or N != 3
+        assert(2+(A-(N-2)) <= MAX_A)
+        result = [(0, 2+(A-(N-2)))]
         for i in xrange(1, N//2):
             result.append((i, 1 if i%2 else 2))
         for i in reversed(xrange((N+1)//2)):
