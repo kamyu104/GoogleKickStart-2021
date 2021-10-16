@@ -10,7 +10,7 @@
 def simple_polygon():
     N, A = map(int, raw_input().strip().split())
 
-    if N-A > 2:
+    if not (A-(N-2) >= 0):
         return "IMPOSSIBLE"
     if A != MAX_A or N != 3:
         # the last point and the first two points increase 1 unit, each of the rest points increases 1 unit,
