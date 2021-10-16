@@ -19,17 +19,19 @@ def banana_bunches():
         curr = 0
         for j in xrange(i, N):
             curr += B[j]
-            if curr <= K:
-                v = (j-i+1) + dp[K-curr]
-                if v < result:
-                    result = v
+            if curr > K:
+                break
+            v = (j-i+1) + dp[K-curr]
+            if v < result:
+                result = v
         curr = 0
         for j in reversed(xrange(i+1)):
             curr += B[j]
-            if curr <= K:
-                v = i-j+1
-                if v < dp[curr]:
-                    dp[curr] = v
+            if curr > K:
+                break
+            v = i-j+1
+            if v < dp[curr]:
+                dp[curr] = v
     return result if result != INF else -1
 
 for case in xrange(input()):
