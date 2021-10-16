@@ -42,6 +42,7 @@ def staying_hydrated():
         X1, Y1, X2, Y2 = map(int, raw_input().strip().split())
         X.append([X1, X2])
         Y.append([Y1, Y2])
+
     return '%s %s' % (min_pos(X), min_pos(Y))
 
 for case in xrange(input()):

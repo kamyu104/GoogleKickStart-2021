@@ -9,6 +9,7 @@
 
 def simple_polygon():
     N, A = map(int, raw_input().strip().split())
+
     if N-A > 2:
         return "IMPOSSIBLE"
     if N == 3:
