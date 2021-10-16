@@ -36,7 +36,7 @@ def nth_element(nums, n, compare=lambda a, b: a < b):
             left = pivot_right+1
 
 def min_pos(x):
-    # let f(v) be the distance function over x:
+    # let f(v) be the distance function for v in x:
     #   - v starts from smallest to largest in x, and f(v) will be decreasing, then constant, and then increasing
     #   - since the median of x is exact the place where f(v) starts or ends to be consant, so the answer is the smaller median
     nth_element(x, (len(x)+1)//2-1)
