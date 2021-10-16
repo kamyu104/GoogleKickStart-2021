@@ -9,9 +9,10 @@
 
 def dogs_and_cats():
     N, D, C, M = map(int, raw_input().strip().split())
-    S = list(raw_input().strip())
-    for t in S:
-        if t == 'D':
+    S = raw_input().strip()
+
+    for c in S:
+        if c == 'D':
             if D == 0 or C < 0:
                 return "NO"
             D -= 1
