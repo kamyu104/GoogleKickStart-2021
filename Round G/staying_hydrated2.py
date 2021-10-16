@@ -35,12 +35,15 @@ def nth_element(nums, n, compare=lambda a, b: a < b):
         else:  # pivot_right < n.
             left = pivot_right+1
 
-def min_pos(x):
-    # let f(v) be the distance function for v in x:
-    #   - when v starts from smallest to largest in x, f(v) will be strictly decreasing at the begining, then constant, and finally strictly increasing
-    #   - since the 2 medians of x are exact the place where f(v) either starts or ends to be consant, so the answer is the smaller median which meets the problem constraints
-    nth_element(x, (len(x)+1)//2-1)
-    return x[(len(x)+1)//2-1]
+def min_pos(arr):
+    # let f(x) be the distance function for x in arr:
+    #   - when x starts from smallest to largest in arr,
+    #     f(x) will be strictly decreasing at the begining, then constant,
+    #     and finally strictly increasing
+    #   - since the 2 medians of arr are the exact endpoints where f(x) either starts or ends to be constant,
+    #     so the answer is the smaller median which meets the problem constraints
+    nth_element(arr, (len(arr)+1)//2-1)
+    return arr[(len(arr)+1)//2-1]
 
 def staying_hydrated():
     K = input()
