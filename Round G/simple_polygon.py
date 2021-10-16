@@ -17,7 +17,9 @@ def simple_polygon():
     #     each of the rest points forming a new triangle covers 1 unit in the zig-zag shape
     # thus, the uncovered A will be A-(N-2)
     #   => let dy = A-(N-2) and adjust the first point (x, y) to (x, y+dy) to cover the rest of A
-    #   => dy = A-(N-2) >= 0 iff it is possible
+    #   => it is possible if dy = A-(N-2) >= 0
+    #   => by pick's theorem, A = 2*i+N-2 >= N-2, which means A < (N-2) is impossible
+    #   => A-(N-2) >= 0 iff possible
     if not (A-(N-2) >= 0):
         return "IMPOSSIBLE"
     if A != MAX_A or N != 3:
