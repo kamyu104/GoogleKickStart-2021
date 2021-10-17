@@ -12,7 +12,7 @@ def simple_polygon():
 
     # if N == 3:
     #   - the triangle formed by (0, 1), (1, 0), (0, 0) covers 1 unit
-    # elif N >= 4:
+    # if N >= 3:
     #   - the triangle formed by last point (0, 1) and the first two points (0, 2), (1, 1) covers 1 unit,
     #     each of the rest points forming a new triangle covers 1 unit in the zig-zag shape
     # thus, the uncovered A will be A-(N-2)
