@@ -14,9 +14,9 @@ def banana_bunches():
     INF = N+1
     dp = {0:0}
     result = INF
-    for i in xrange(N):
+    for i in xrange(len(B)):
         curr = 0
-        for j in xrange(i, N):
+        for j in xrange(i, len(B)):
             curr += B[j]
             if curr > K:
                 break
