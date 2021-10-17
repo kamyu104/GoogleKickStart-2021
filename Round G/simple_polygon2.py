@@ -18,7 +18,7 @@ def simple_polygon():
     # thus, the uncovered A will be A-(N-2)
     #   => let dy = A-(N-2) and adjust the first point (x, y) to (x, y+dy) to cover the rest of A
     #   => it is possible if dy = A-(N-2) >= 0
-    #   => by pick's theorem, A = 2*i+N-2 >= N-2, which means A < (N-2) is impossible
+    #   => by pick's theorem, i >= 0 and b >= N => A = 2*i+b-2 >= N-2, which means A < (N-2) is impossible
     #   => A-(N-2) >= 0 iff possible
     if not (A-(N-2) >= 0):
         return "IMPOSSIBLE"
