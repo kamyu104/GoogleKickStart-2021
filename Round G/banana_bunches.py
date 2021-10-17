@@ -4,7 +4,7 @@
 # https://codingcompetitions.withgoogle.com/kickstart/round/00000000004362d6/00000000008b44ef
 #
 # Time:  O(N^2), pass in PyPy2 but Python2
-# Space: O(K)
+# Space: O(min(N^2, K))
 #
 
 def banana_bunches():
