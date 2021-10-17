@@ -63,6 +63,6 @@ Python solutions of Google Kick Start 2021. Solution begins with `*` means it wi
 | # | Title | Solution | Time | Space | Difficulty | Tag | Note |
 |---| ----- | -------- | ---- | ----- | ---------- | --- | ---- |
 |A| [Dogs and Cats](https://codingcompetitions.withgoogle.com/kickstart/round/00000000004362d6/00000000008b3771)| [Python](./Round%20G/dogs_and_cats.py)| _O(N)_ | _O(1)_ | Easy | | Simulation |
-|B| [Staying Hydrated](https://codingcompetitions.withgoogle.com/kickstart/round/00000000004362d6/00000000008b3a1c)| [Python](./Round%20G/staying_hydrated.py) [Python](./Round%20G/staying_hydrated2.py) [Python](./Round%20G/staying_hydrated3.py) | _O(K)_ on average | _O(K)_ | Easy | | Prefix Sum, Binary Search, Math, Quick Select |
+|B| [Staying Hydrated](https://codingcompetitions.withgoogle.com/kickstart/round/00000000004362d6/00000000008b3a1c)| [Python](./Round%20G/staying_hydrated.py) [Python](./Round%20G/staying_hydrated2.py) [Python](./Round%20G/staying_hydrated3.py) | _O(K)_ on average | _O(K)_ | Easy | | Prefix Sum, Binary Search, Math, Median, Quick Select |
 |C| [Banana Bunches](https://codingcompetitions.withgoogle.com/kickstart/round/00000000004362d6/00000000008b44ef)| [PyPy](./Round%20G/banana_bunches.py) | _O(N^2)_ | _O(K)_ | Medium | | Two Pointers, DP |
 |D| [Simple Polygon](https://codingcompetitions.withgoogle.com/kickstart/round/00000000004362d6/00000000008b36f9)| [Python](./Round%20G/simple_polygon.py) | _O(N)_ | _O(1)_ | Hard | | Math, Pick's Theorem, Constructive Algorithms |
