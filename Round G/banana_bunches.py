@@ -11,7 +11,7 @@ def banana_bunches():
     N, K = map(int, raw_input().strip().split())
     B = map(int, raw_input().strip().split())
 
-    INF = N+1
+    INF = len(B)+1
     dp = {0:0}
     result = INF
     for i in xrange(len(B)):
