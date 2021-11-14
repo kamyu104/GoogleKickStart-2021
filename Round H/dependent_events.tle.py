@@ -67,7 +67,7 @@ class TreeInfos(object):  # Time: O(NlogN), Space: O(NlogN), N is the number of 
 
 def accu_cond_prob(prob_exp, P, curr, i):
     x, y = prob_exp[curr][i], prob_exp[P[curr][i]][i]
-    prob_exp[curr].append([x[0]*(1-y[a]) + x[1]*y[a] for a in xrange(2)])  # most time cost here
+    prob_exp[curr].append([x[0]*(1-y[a]) + x[1]*y[a] for a in xrange(2)])
 
 def calc_prob(prob_exp, tree_infos, curr, lca):  # Time: O(logN)
     if curr == lca:
