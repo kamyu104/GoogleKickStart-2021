@@ -67,7 +67,7 @@ class TreeInfos(object):  # Time: O(NlogN), Space: O(NlogN), N is the number of 
 
 def accu_cond_prob(prob_exp, P, curr, i):
     x, y = prob_exp[curr][i], prob_exp[P[curr][i]][i]
-    prob_exp[curr].append([x[0]*(1-y[a]) + x[1]*y[a] for a in xrange(2)])
+    prob_exp[curr].append([x[1]*y[a] + x[0]*(1-y[a]) for a in xrange(2)])
 
 def calc_prob(prob_exp, tree_infos, curr, lca):  # Time: O(logN)
     if curr == lca:
@@ -76,12 +76,8 @@ def calc_prob(prob_exp, tree_infos, curr, lca):  # Time: O(logN)
     for i in reversed(xrange(len(tree_infos.P[curr]))):  # O(logN)
         if i < len(tree_infos.P[curr]) and tree_infos.D[tree_infos.P[curr][i]] >= tree_infos.D[lca]:
             x = prob_exp[curr][i]
-            if p[0] == -1:
-                p = [x[a] for a in xrange(2)]
-            else:
-                p = [p[0]*(1-x[a]) + p[1]*x[a] for a in xrange(2)]
+            p = [x[a] for a in xrange(2)] if p[0] == -1 else [p[1]*x[a] + p[0]*(1-x[a]) for a in xrange(2)]
             curr = tree_infos.P[curr][i]
-    assert(curr == lca)
     return p
 
 def dependent_events():
@@ -107,10 +103,7 @@ def dependent_events():
             prob[l] = c[0]*(1-prob[0]) + c[1]*prob[0]
         a = calc_prob(prob_exp, tree_infos, u, l)
         b = calc_prob(prob_exp, tree_infos, v, l)
-        if l in (u, v):
-            result.append(a[1]*b[1]*prob[l])
-        else:
-            result.append(a[1]*b[1]*prob[l] + a[0]*b[0]*(1-prob[l]))
+        result.append(a[1]*b[1]*prob[l] if l in (u, v) else a[1]*b[1]*prob[l] + a[0]*b[0]*(1-prob[l]))
     return " ".join(map(lambda x: str(x.numerator * pow(x.denominator, MOD-2, MOD) % MOD), result))
 
 DENOMINATOR = 10**6
