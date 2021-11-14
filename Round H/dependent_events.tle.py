@@ -3,11 +3,10 @@
 # Google Kick Start 2021 Round H - Problem D. Dependent Events
 # https://codingcompetitions.withgoogle.com/kickstart/round/0000000000435914/00000000008d9970
 #
-# Time:  O(NlogN + QlogN), TLE in both Python2 and PyPy2
+# Time:  O(NlogN + QlogN)
 # Space: O(NlogN)
 #
 
-from fractions import Fraction
 from functools import partial
 
 # Template:
@@ -65,18 +64,27 @@ class TreeInfos(object):  # Time: O(NlogN), Space: O(NlogN), N is the number of 
                 a = self.P[a][i]
         return self.P[a][0]
 
+def addmod(a, b):
+    return (a+b)%MOD
+
+def submod(a, b):
+    return (a-b)%MOD
+
+def mulmod(a, b):
+    return (a*b)%MOD
+
 def accu_cond_prob(prob_exp, P, curr, i):
     x, y = prob_exp[curr][i], prob_exp[P[curr][i]][i]
-    prob_exp[curr].append([x[1]*y[k] + x[0]*(1-y[k]) for k in xrange(2)])
+    prob_exp[curr].append([addmod(mulmod(x[1], y[k]), mulmod(x[0], submod(1, y[k]))) for k in xrange(2)])
 
 def calc_prob(prob_exp, tree_infos, curr, lca):  # Time: O(logN)
     if curr == lca:
-        return [-1, Fraction(1, 1)]
+        return [1]*2
     p = [-1]*2
     for i in reversed(xrange(len(tree_infos.P[curr]))):  # O(logN)
         if i < len(tree_infos.P[curr]) and tree_infos.D[tree_infos.P[curr][i]] >= tree_infos.D[lca]:
             x = prob_exp[curr][i]
-            p = [x[k] for k in xrange(2)] if p[0] == -1 else [p[1]*x[k] + p[0]*(1-x[k]) for k in xrange(2)]
+            p = [x[k] for k in xrange(2)] if p[0] == -1 else [addmod(mulmod(p[1], x[k]), mulmod(p[0], submod(1, x[k]))) for k in xrange(2)]
             curr = tree_infos.P[curr][i]
     return p
 
@@ -88,9 +96,9 @@ def dependent_events():
     for c in xrange(1, N):
         P, A, B = map(int, raw_input().strip().split())
         adj[P-1].append(c)
-        prob_exp[c].append([Fraction(B, DENOMINATOR), Fraction(A, DENOMINATOR)])
+        prob_exp[c].append([mulmod(B, INV), mulmod(A, INV)])
     p = [-1 for _ in xrange(N)]
-    p[0] = Fraction(K, DENOMINATOR)
+    p[0] = mulmod(K, INV)
     tree_infos = TreeInfos(adj, cb=partial(accu_cond_prob, prob_exp))
     result = []
     for _ in xrange(Q):
@@ -99,12 +107,13 @@ def dependent_events():
         l = tree_infos.lca(u, v)
         if p[l] == -1:
             pl = calc_prob(prob_exp, tree_infos, l, 0)
-            p[l] = pl[0]*(1-p[0]) + pl[1]*p[0]
+            p[l] = addmod(mulmod(pl[0], submod(1, p[0])), mulmod(pl[1], p[0]))
         pu, pv = calc_prob(prob_exp, tree_infos, u, l), calc_prob(prob_exp, tree_infos, v, l)
-        result.append(pu[1]*pv[1]*p[l] if l in (u, v) else pu[1]*pv[1]*p[l] + pu[0]*pv[0]*(1-p[l]))
-    return " ".join(map(lambda x: str(x.numerator * pow(x.denominator, MOD-2, MOD) % MOD), result))
+        result.append(mulmod(mulmod(pu[1], pv[1]), p[l]) if l in (u, v) else addmod(mulmod(mulmod(pu[1], pv[1]), p[l]), mulmod(mulmod(pu[0], pv[0]), submod(1, p[l]))))
+    return " ".join(map(str, result))
 
 DENOMINATOR = 10**6
 MOD = 10**9+7
+INV = pow(DENOMINATOR, MOD-2, MOD)
 for case in xrange(input()):
     print 'Case #%d: %s' % (case+1, dependent_events())
