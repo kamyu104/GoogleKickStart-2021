@@ -85,11 +85,10 @@ def dependent_events():
     K = input()
     adj = [[] for _ in xrange(N)]
     prob_exp = [[] for _ in xrange(N)]
-    for x in xrange(1, N):
+    for c in xrange(1, N):
         P, A, B = map(int, raw_input().strip().split())
-        P -= 1
-        adj[P].append(x)
-        prob_exp[x].append([Fraction(B, DENOMINATOR), Fraction(A, DENOMINATOR)])
+        adj[P-1].append(c)
+        prob_exp[c].append([Fraction(B, DENOMINATOR), Fraction(A, DENOMINATOR)])
     prob = [-1 for _ in xrange(N)]
     prob[0] = Fraction(K, DENOMINATOR)
     tree_infos = TreeInfos(adj, cb=partial(accu_cond_prob, prob_exp))
@@ -101,8 +100,7 @@ def dependent_events():
         if prob[l] == -1:
             c = calc_prob(prob_exp, tree_infos, l, 0)
             prob[l] = c[0]*(1-prob[0]) + c[1]*prob[0]
-        a = calc_prob(prob_exp, tree_infos, u, l)
-        b = calc_prob(prob_exp, tree_infos, v, l)
+        a, b = calc_prob(prob_exp, tree_infos, u, l), calc_prob(prob_exp, tree_infos, v, l)
         result.append(a[1]*b[1]*prob[l] if l in (u, v) else a[1]*b[1]*prob[l] + a[0]*b[0]*(1-prob[l]))
     return " ".join(map(lambda x: str(x.numerator * pow(x.denominator, MOD-2, MOD) % MOD), result))
 
