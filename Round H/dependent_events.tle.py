@@ -3,7 +3,7 @@
 # Google Kick Start 2021 Round H - Problem D. Dependent Events
 # https://codingcompetitions.withgoogle.com/kickstart/round/0000000000435914/00000000008d94f5
 #
-# Time:  O(NlogN + QlogN)
+# Time:  O(NlogN + QlogN), TLE
 # Space: O(N)
 #
 
