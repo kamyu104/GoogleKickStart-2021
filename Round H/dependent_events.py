@@ -103,18 +103,18 @@ class Rational:
                         self.denom)
 
 def accu_cond_prob(prob_exp, P, curr, i):
-    prob_exp[curr].append([[sum(prob_exp[curr][i][a][k] * prob_exp[P[curr][i]][i][k][b] for k in xrange(2)) for b in xrange(2)] for a in xrange(2)])
+    prob_exp[curr].append([[prob_exp[curr][i][a][0] * prob_exp[P[curr][i]][i][0][b] + prob_exp[curr][i][a][1] * prob_exp[P[curr][i]][i][1][b] for b in xrange(2)] for a in xrange(2)])
 
-def calc_prob(prob_exp, tree_infos, curr, lca, x):  # Time: O(logK)
+def calc_prob(prob_exp, tree_infos, curr, lca):  # Time: O(logK)
     if curr == lca:
         return Rational(1, 1)
     p = [None]*2
     for i in reversed(xrange(len(tree_infos.P[curr]))):  # O(logN)
         if i < len(tree_infos.P[curr]) and tree_infos.D[tree_infos.P[curr][i]] >= tree_infos.D[lca]:
-            p = [sum(p[k] * prob_exp[curr][i][k][a] for k in xrange(2)) if p[a] is not None else prob_exp[curr][i][1][a] for a in xrange(2)]
+            p = [p[0] * prob_exp[curr][i][0][a]+p[1] * prob_exp[curr][i][1][a] if p[a] is not None else prob_exp[curr][i][1][a] for a in xrange(2)]
             curr = tree_infos.P[curr][i]
     assert(curr == lca)
-    return p[x]
+    return p
 
 def dependent_events():
     N, Q = map(int, raw_input().strip().split())
@@ -138,11 +138,15 @@ def dependent_events():
         u, v = u-1, v-1
         l = tree_infos.lca(u, v)
         if prob[l] is None:
-            p = sum(calc_prob(prob_exp, tree_infos, l, 0, k) * prob[0][k] for k in xrange(2))
+            p = calc_prob(prob_exp, tree_infos, l, 0, 0) * prob[0][0] + calc_prob(prob_exp, tree_infos, l, 0, 1) * prob[0][1]
             prob[l] = [1-p, p]
-        result.append(sum(calc_prob(prob_exp, tree_infos, u, l, k) *
-                          calc_prob(prob_exp, tree_infos, v, l, k) *
-                          prob[l][k] for k in ([0, 1] if l not in (u, v) else [1])))
+        a = calc_prob(prob_exp, tree_infos, u, l)
+        b = calc_prob(prob_exp, tree_infos, v, l)
+        if l in (u, v):
+            result.append(a[1] * b[1] * prob[l][1])
+        else:
+            result.append(a[1] * b[1] * prob[l][1] +
+                          a[0] * b[0] * prob[l][0])
     return " ".join(map(lambda x: str(x.numer * pow(x.denom, MOD-2, MOD) % MOD), result))
 
 DENOMINATOR = 10**6
