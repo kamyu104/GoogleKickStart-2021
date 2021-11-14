@@ -15,14 +15,6 @@ class Node(object):
         self.left = left
         self.right = right
 
-def f(head):
-    result = []
-    curr = head
-    while curr:
-        result.append(str(curr.val))
-        curr = curr.right
-    return "".join(result)
-
 def silly_substitutions():
     N = input()
     S = map(int, list(raw_input().strip()))
