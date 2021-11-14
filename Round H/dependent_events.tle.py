@@ -106,7 +106,7 @@ def accu_cond_prob(prob_exp, P, curr, i):
     x, y = prob_exp[curr][i], prob_exp[P[curr][i]][i]
     prob_exp[curr].append([[x[a][0] * y[0][b] + x[a][1] * y[1][b] for b in xrange(2)] for a in xrange(2)])
 
-def calc_prob(prob_exp, tree_infos, curr, lca):  # Time: O(logK)
+def calc_prob(prob_exp, tree_infos, curr, lca):  # Time: O(logN)
     if curr == lca:
         return [Rational(1, 1)]*2
     p = [None]*2
