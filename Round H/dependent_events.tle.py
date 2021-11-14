@@ -4,7 +4,7 @@
 # https://codingcompetitions.withgoogle.com/kickstart/round/0000000000435914/00000000008d94f5
 #
 # Time:  O(NlogN + QlogN), TLE
-# Space: O(N)
+# Space: O(NlogN)
 #
 
 from functools import partial
