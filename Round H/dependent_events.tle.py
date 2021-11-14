@@ -142,10 +142,9 @@ def dependent_events():
         a = calc_prob(prob_exp, tree_infos, u, l)
         b = calc_prob(prob_exp, tree_infos, v, l)
         if l in (u, v):
-            result.append(a[1] * b[1] * prob[l])
+            result.append(a[1]*b[1]*prob[l])
         else:
-            result.append(a[1] * b[1] * prob[l] +
-                          a[0] * b[0] * (1-prob[l]))
+            result.append(a[1]*b[1]*prob[l] + a[0]*b[0]*(1-prob[l]))
     return " ".join(map(lambda x: str(x.numer * pow(x.denom, MOD-2, MOD) % MOD), result))
 
 DENOMINATOR = 10**6
