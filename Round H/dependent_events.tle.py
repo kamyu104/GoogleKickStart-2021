@@ -113,7 +113,10 @@ def calc_prob(prob_exp, tree_infos, curr, lca):  # Time: O(logN)
     for i in reversed(xrange(len(tree_infos.P[curr]))):  # O(logN)
         if i < len(tree_infos.P[curr]) and tree_infos.D[tree_infos.P[curr][i]] >= tree_infos.D[lca]:
             x = prob_exp[curr][i]
-            p = [p[0]*(1-x[a]) + p[1]*x[a] if p[a] != -1 else x[a] for a in xrange(2)]
+            if p[0] == -1:
+                p = [x[a] for a in xrange(2)]
+            else:
+                p = [p[0]*(1-x[a]) + p[1]*x[a] for a in xrange(2)]
             curr = tree_infos.P[curr][i]
     assert(curr == lca)
     return p
