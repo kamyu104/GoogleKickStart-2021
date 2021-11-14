@@ -104,7 +104,7 @@ class Rational:
 
 def accu_cond_prob(prob_exp, P, curr, i):
     x, y = prob_exp[curr][i], prob_exp[P[curr][i]][i]
-    prob_exp[curr].append([[x[a][0] * y[0][b] + x[a][1] * y[1][b] for b in xrange(2)] for a in xrange(2)])
+    prob_exp[curr].append([x[0]*(1-y[a]) + x[1]*y[a] for a in xrange(2)])
 
 def calc_prob(prob_exp, tree_infos, curr, lca):  # Time: O(logN)
     if curr == lca:
@@ -113,7 +113,7 @@ def calc_prob(prob_exp, tree_infos, curr, lca):  # Time: O(logN)
     for i in reversed(xrange(len(tree_infos.P[curr]))):  # O(logN)
         if i < len(tree_infos.P[curr]) and tree_infos.D[tree_infos.P[curr][i]] >= tree_infos.D[lca]:
             x = prob_exp[curr][i]
-            p = [p[0] * x[0][a]+p[1] * x[1][a] if p[a] != -1 else x[1][a] for a in xrange(2)]
+            p = [p[0]*(1-x[a]) + p[1]*x[a] if p[a] != -1 else x[a] for a in xrange(2)]
             curr = tree_infos.P[curr][i]
     assert(curr == lca)
     return p
@@ -127,10 +127,7 @@ def dependent_events():
         P, A, B = map(int, raw_input().strip().split())
         P -= 1
         adj[P].append(x)
-        prob_exp[x].append([[Rational(DENOMINATOR-B, DENOMINATOR),
-                             Rational(DENOMINATOR-A, DENOMINATOR)],
-                            [Rational(B, DENOMINATOR),
-                             Rational(A, DENOMINATOR)]])
+        prob_exp[x].append([Rational(B, DENOMINATOR), Rational(A, DENOMINATOR)])
     prob = [-1 for _ in xrange(N)]
     prob[0] = Rational(K, DENOMINATOR)
     tree_infos = TreeInfos(adj, cb=partial(accu_cond_prob, prob_exp))
@@ -141,7 +138,7 @@ def dependent_events():
         l = tree_infos.lca(u, v)
         if prob[l] == -1:
             c = calc_prob(prob_exp, tree_infos, l, 0)
-            prob[l] = c[0] * (1-prob[0]) + c[1] * prob[0]
+            prob[l] = c[0]*(1-prob[0]) + c[1]*prob[0]
         a = calc_prob(prob_exp, tree_infos, u, l)
         b = calc_prob(prob_exp, tree_infos, v, l)
         if l in (u, v):
