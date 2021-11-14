@@ -1,4 +1,4 @@
-# [GoogleKickStart 2021](https://codingcompetitions.withgoogle.com/kickstart) ![Language](https://img.shields.io/badge/language-Python-orange.svg) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE) ![Progress](https://img.shields.io/badge/progress-28%20%2F%2028-ff69b4.svg) ![Visitors](https://visitor-badge.laobi.icu/badge?page_id=kamyu104.googlekickstart.2021)
+# [GoogleKickStart 2021](https://codingcompetitions.withgoogle.com/kickstart) ![Language](https://img.shields.io/badge/language-Python-orange.svg) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE) ![Progress](https://img.shields.io/badge/progress-32%20%2F%2032-ff69b4.svg) ![Visitors](https://visitor-badge.laobi.icu/badge?page_id=kamyu104.googlekickstart.2021)
 
 Python solutions of Google Kick Start 2021. Solution begins with `*` means it will get TLE in the largest data set (total computation amount > `10^8`, which is not friendly for Python to solve in 5 ~ 15 seconds). A problem was marked as `Very Hard` means that it was an unsolved one during the contest and may not be that difficult.
 
@@ -10,7 +10,8 @@ Python solutions of Google Kick Start 2021. Solution begins with `*` means it wi
 * [Round E](https://github.com/kamyu104/GoogleKickStart-2021#round-e)
 * [Round F](https://github.com/kamyu104/GoogleKickStart-2021#round-f)
 * [Round G](https://github.com/kamyu104/GoogleKickStart-2021#round-g)
-  
+* [Round H](https://github.com/kamyu104/GoogleKickStart-2021#round-h)
+ 
 ## Round A
 | # | Title | Solution | Time | Space | Difficulty | Tag | Note |
 |---| ----- | -------- | ---- | ----- | ---------- | --- | ---- |
@@ -66,3 +67,11 @@ Python solutions of Google Kick Start 2021. Solution begins with `*` means it wi
 |B| [Staying Hydrated](https://codingcompetitions.withgoogle.com/kickstart/round/00000000004362d6/00000000008b3a1c)| [Python](./Round%20G/staying_hydrated.py) [Python](./Round%20G/staying_hydrated2.py) [Python](./Round%20G/staying_hydrated3.py) | _O(K)_ on average | _O(K)_ | Easy | | Prefix Sum, Binary Search, Math, Median, Quick Select |
 |C| [Banana Bunches](https://codingcompetitions.withgoogle.com/kickstart/round/00000000004362d6/00000000008b44ef)| [PyPy](./Round%20G/banana_bunches.py) | _O(N^2)_ | _O(min(N^2, K))_ | Medium | | Two Pointers, DP |
 |D| [Simple Polygon](https://codingcompetitions.withgoogle.com/kickstart/round/00000000004362d6/00000000008b36f9)| [Python](./Round%20G/simple_polygon.py) [Python](./Round%20G/simple_polygon2.py) | _O(N)_ | _O(1)_ | Hard | | Math, Pick's Theorem, Constructive Algorithms |
+
+## Round H
+| # | Title | Solution | Time | Space | Difficulty | Tag | Note |
+|---| ----- | -------- | ---- | ----- | ---------- | --- | ---- |
+|A| [Transform the String](https://codingcompetitions.withgoogle.com/kickstart/round/0000000000435914/00000000008da461)| [Python](./Round%20H/transform_the_string.py) | _O(N)_ | _O(1)_ | Easy | | String |
+|B| [Painter](https://codingcompetitions.withgoogle.com/kickstart/round/0000000000435914/00000000008d9a88)| [Python](./Round%20H/painter.py) | _O(N)_ | _O(1)_ | Easy | | Greedy |
+|C| [Silly Substitutions](https://codingcompetitions.withgoogle.com/kickstart/round/0000000000435914/00000000008d94f5)| [Python](./Round%20H/silly_substitutions.py) | _O(N)_ | _O(N)_ | Medium | | Simulation, Linked List |
+|D| [Dependent Events](https://codingcompetitions.withgoogle.com/kickstart/round/0000000000435914/00000000008d9970)| [Python](./Round%20H/dependent_events.py) | _O(NlogN + QlogN)_ | _O(NlogN)_ | Hard | | Probability, LCA, Tree Ancestors (Binary Lifting) |
