@@ -1,7 +1,7 @@
 # Copyright (c) 2021 kamyu. All rights reserved.
 #
 # Google Kick Start 2021 Round H - Problem D. Dependent Events
-# https://codingcompetitions.withgoogle.com/kickstart/round/0000000000435914/00000000008d94f5
+# https://codingcompetitions.withgoogle.com/kickstart/round/0000000000435914/00000000008d9970
 #
 # Time:  O(NlogN + QlogN), TLE in both Python2 and PyPy2
 # Space: O(NlogN)
