@@ -3,10 +3,11 @@
 # Google Kick Start 2021 Round H - Problem D. Dependent Events
 # https://codingcompetitions.withgoogle.com/kickstart/round/0000000000435914/00000000008d94f5
 #
-# Time:  O(NlogN + QlogN), TLE
+# Time:  O(NlogN + QlogN), TLE in both Python2 and PyPy2
 # Space: O(NlogN)
 #
 
+from fractions import Fraction
 from functools import partial
 
 # Template:
@@ -64,51 +65,13 @@ class TreeInfos(object):  # Time: O(NlogN), Space: O(NlogN), N is the number of 
                 a = self.P[a][i]
         return self.P[a][0]
 
-def gcd(a, b):  # Time: O(log(a + b))
-    while b:
-        a, b = b, a % b
-    return a
-
-class Rational:
-    def __init__(self, n, d):
-        g = gcd(n, d)
-        self.numer = n//g
-        self.denom = d//g
-
-    def __str__(self):
-        return str(self.numer) + '/' + str(self.denom)
-
-    def __add__(self, that):
-        return Rational(self.numer * that.denom + that.numer * self.denom,
-                        self.denom * that.denom)
-
-    def __radd__(self, that):
-        return Rational(that * self.denom + self.numer,
-                        self.denom)
-
-    def __sub__(self, that):
-        return Rational(self.numer * that.denom - that.numer * self.denom,
-                        self.denom * that.denom)
-
-    def __rsub__(self, that):
-        return Rational(that * self.denom - self.numer,
-                        self.denom)
-
-    def __mul__(self, that):
-        return Rational(self.numer * that.numer,
-                        self.denom * that.denom)
-
-    def __rmul__(self, that):
-        return Rational(that * self.numer,
-                        self.denom)
-
 def accu_cond_prob(prob_exp, P, curr, i):
     x, y = prob_exp[curr][i], prob_exp[P[curr][i]][i]
     prob_exp[curr].append([x[0]*(1-y[a]) + x[1]*y[a] for a in xrange(2)])
 
 def calc_prob(prob_exp, tree_infos, curr, lca):  # Time: O(logN)
     if curr == lca:
-        return [-1, Rational(1, 1)]
+        return [-1, Fraction(1, 1)]
     p = [-1]*2
     for i in reversed(xrange(len(tree_infos.P[curr]))):  # O(logN)
         if i < len(tree_infos.P[curr]) and tree_infos.D[tree_infos.P[curr][i]] >= tree_infos.D[lca]:
@@ -130,9 +93,9 @@ def dependent_events():
         P, A, B = map(int, raw_input().strip().split())
         P -= 1
         adj[P].append(x)
-        prob_exp[x].append([Rational(B, DENOMINATOR), Rational(A, DENOMINATOR)])
+        prob_exp[x].append([Fraction(B, DENOMINATOR), Fraction(A, DENOMINATOR)])
     prob = [-1 for _ in xrange(N)]
-    prob[0] = Rational(K, DENOMINATOR)
+    prob[0] = Fraction(K, DENOMINATOR)
     tree_infos = TreeInfos(adj, cb=partial(accu_cond_prob, prob_exp))
     result = []
     for _ in xrange(Q):
@@ -148,7 +111,7 @@ def dependent_events():
             result.append(a[1]*b[1]*prob[l])
         else:
             result.append(a[1]*b[1]*prob[l] + a[0]*b[0]*(1-prob[l]))
-    return " ".join(map(lambda x: str(x.numer * pow(x.denom, MOD-2, MOD) % MOD), result))
+    return " ".join(map(lambda x: str(x.numerator * pow(x.denominator, MOD-2, MOD) % MOD), result))
 
 DENOMINATOR = 10**6
 MOD = 10**9+7
