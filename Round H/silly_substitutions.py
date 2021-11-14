@@ -1,6 +1,6 @@
 # Copyright (c) 2021 kamyu. All rights reserved.
 #
-# Google Kick Start 2021 Round H - Problem C. Silly Substitution
+# Google Kick Start 2021 Round H - Problem C. Silly Substitutions
 # https://codingcompetitions.withgoogle.com/kickstart/round/0000000000435914/00000000008d94f5
 #
 # Time:  O(N)
