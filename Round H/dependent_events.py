@@ -103,15 +103,17 @@ class Rational:
                         self.denom)
 
 def accu_cond_prob(prob_exp, P, curr, i):
-    prob_exp[curr].append([[prob_exp[curr][i][a][0] * prob_exp[P[curr][i]][i][0][b] + prob_exp[curr][i][a][1] * prob_exp[P[curr][i]][i][1][b] for b in xrange(2)] for a in xrange(2)])
+    x, y = prob_exp[curr][i], prob_exp[P[curr][i]][i]
+    prob_exp[curr].append([[x[a][0] * y[0][b] + x[a][1] * y[1][b] for b in xrange(2)] for a in xrange(2)])
 
 def calc_prob(prob_exp, tree_infos, curr, lca):  # Time: O(logK)
     if curr == lca:
-        return Rational(1, 1)
+        return [Rational(1, 1)]*2
     p = [None]*2
     for i in reversed(xrange(len(tree_infos.P[curr]))):  # O(logN)
         if i < len(tree_infos.P[curr]) and tree_infos.D[tree_infos.P[curr][i]] >= tree_infos.D[lca]:
-            p = [p[0] * prob_exp[curr][i][0][a]+p[1] * prob_exp[curr][i][1][a] if p[a] is not None else prob_exp[curr][i][1][a] for a in xrange(2)]
+            x = prob_exp[curr][i]
+            p = [p[0] * x[0][a]+p[1] * x[1][a] if p[a] is not None else x[1][a] for a in xrange(2)]
             curr = tree_infos.P[curr][i]
     assert(curr == lca)
     return p
@@ -138,7 +140,8 @@ def dependent_events():
         u, v = u-1, v-1
         l = tree_infos.lca(u, v)
         if prob[l] is None:
-            p = calc_prob(prob_exp, tree_infos, l, 0, 0) * prob[0][0] + calc_prob(prob_exp, tree_infos, l, 0, 1) * prob[0][1]
+            c = calc_prob(prob_exp, tree_infos, l, 0)
+            p = c[0] * prob[0][0] + c[1] * prob[0][1]
             prob[l] = [1-p, p]
         a = calc_prob(prob_exp, tree_infos, u, l)
         b = calc_prob(prob_exp, tree_infos, v, l)
