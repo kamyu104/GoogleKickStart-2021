@@ -7,7 +7,6 @@
 # Space: O(N)
 #
 
-from fractions import Fraction
 from functools import partial
 
 # Template:
@@ -65,18 +64,54 @@ class TreeInfos(object):  # Time: O(NlogN), Space: O(NlogN), N is the number of 
                 a = self.P[a][i]
         return self.P[a][0]
 
+def gcd(a, b):  # Time: O(log(a + b))
+    while b:
+        a, b = b, a % b
+    return a
+
+class Rational:
+    def __init__(self, n, d):
+        g = gcd(n, d)
+        self.numer = n//g
+        self.denom = d//g
+
+    def __str__(self):
+        return str(self.numer) + '/' + str(self.denom)
+
+    def __add__(self, that):
+        return Rational(self.numer * that.denom + that.numer * self.denom,
+                        self.denom * that.denom)
+
+    def __radd__(self, that):
+        return Rational(that * self.denom + self.numer,
+                        self.denom)
+
+    def __sub__(self, that):
+        return Rational(self.numer * that.denom - that.numer * self.denom,
+                        self.denom * that.denom)
+
+    def __rsub__(self, that):
+        return Rational(that * self.denom - self.numer,
+                        self.denom)
+
+    def __mul__(self, that):
+        return Rational(self.numer * that.numer,
+                        self.denom * that.denom)
+
+    def __rmul__(self, that):
+        return Rational(that * self.numer,
+                        self.denom)
+
 def accu_cond_prob(prob_exp, P, curr, i):
-    for a in xrange(2):
-        for b in xrange(2):
-            prob_exp[curr][a, b].append(sum(prob_exp[curr][a, k][i] * prob_exp[P[curr][i]][k, b][i] for k in xrange(2)))
+    prob_exp[curr].append([[sum(prob_exp[curr][i][a][k] * prob_exp[P[curr][i]][i][k][b] for k in xrange(2)) for b in xrange(2)] for a in xrange(2)])
 
 def calc_prob(prob_exp, tree_infos, curr, lca, x):  # Time: O(logK)
     if curr == lca:
-        return 1
+        return Rational(1, 1)
     p = [None]*2
     for i in reversed(xrange(len(tree_infos.P[curr]))):  # O(logN)
         if i < len(tree_infos.P[curr]) and tree_infos.D[tree_infos.P[curr][i]] >= tree_infos.D[lca]:
-            p = [sum(p[k] * prob_exp[curr][k, a][i] for k in xrange(2)) if p[a] is not None else prob_exp[curr][1, a][i] for a in xrange(2)]
+            p = [sum(p[k] * prob_exp[curr][i][k][a] for k in xrange(2)) if p[a] is not None else prob_exp[curr][i][1][a] for a in xrange(2)]
             curr = tree_infos.P[curr][i]
     assert(curr == lca)
     return p[x]
@@ -85,16 +120,16 @@ def dependent_events():
     N, Q = map(int, raw_input().strip().split())
     K = input()
     adj = [[] for _ in xrange(N)]
-    prob_exp = [{} for _ in xrange(N)]
+    prob_exp = [[] for _ in xrange(N)]
     for x in xrange(1, N):
         P, A, B = map(int, raw_input().strip().split())
         P -= 1
         adj[P].append(x)
-        prob_exp[x][1, 1] = [Fraction(A, DENOMINATOR)]
-        prob_exp[x][0, 1] = [1-prob_exp[x][1, 1][0]]
-        prob_exp[x][1, 0] = [Fraction(B, DENOMINATOR)]
-        prob_exp[x][0, 0] = [1-prob_exp[x][1, 0][0]]
-    prob = {(0, 1): Fraction(K, DENOMINATOR), (0, 0): 1-Fraction(K, DENOMINATOR)}
+        prob_exp[x].append([[Rational(DENOMINATOR-B, DENOMINATOR),
+                             Rational(DENOMINATOR-A, DENOMINATOR)],
+                            [Rational(B, DENOMINATOR),
+                             Rational(A, DENOMINATOR)]])
+    prob = {(0, 1): Rational(K, DENOMINATOR), (0, 0): 1-Rational(K, DENOMINATOR)}
     tree_infos = TreeInfos(adj, cb=partial(accu_cond_prob, prob_exp))
     result = []
     for _ in xrange(Q):
@@ -106,8 +141,8 @@ def dependent_events():
             prob[l, 0] = 1-prob[l, 1]
         result.append(sum(calc_prob(prob_exp, tree_infos, u, l, k) *
                           calc_prob(prob_exp, tree_infos, v, l, k) *
-                          prob[l, k] for k in ([0, 1] if l not in (u, v)  else [1])))
-    return " ".join(map(lambda x: str(x.numerator * pow(x.denominator, MOD-2, MOD) % MOD), result))
+                          prob[l, k] for k in ([0, 1] if l not in (u, v) else [1])))
+    return " ".join(map(lambda x: str(x.numer * pow(x.denom, MOD-2, MOD) % MOD), result))
 
 DENOMINATOR = 10**6
 MOD = 10**9+7
