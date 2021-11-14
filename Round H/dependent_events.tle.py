@@ -67,7 +67,7 @@ class TreeInfos(object):  # Time: O(NlogN), Space: O(NlogN), N is the number of 
 
 def accu_cond_prob(prob_exp, P, curr, i):
     x, y = prob_exp[curr][i], prob_exp[P[curr][i]][i]
-    prob_exp[curr].append([x[1]*y[a] + x[0]*(1-y[a]) for a in xrange(2)])
+    prob_exp[curr].append([x[1]*y[k] + x[0]*(1-y[k]) for k in xrange(2)])
 
 def calc_prob(prob_exp, tree_infos, curr, lca):  # Time: O(logN)
     if curr == lca:
@@ -76,7 +76,7 @@ def calc_prob(prob_exp, tree_infos, curr, lca):  # Time: O(logN)
     for i in reversed(xrange(len(tree_infos.P[curr]))):  # O(logN)
         if i < len(tree_infos.P[curr]) and tree_infos.D[tree_infos.P[curr][i]] >= tree_infos.D[lca]:
             x = prob_exp[curr][i]
-            p = [x[a] for a in xrange(2)] if p[0] == -1 else [p[1]*x[a] + p[0]*(1-x[a]) for a in xrange(2)]
+            p = [x[k] for k in xrange(2)] if p[0] == -1 else [p[1]*x[k] + p[0]*(1-x[k]) for k in xrange(2)]
             curr = tree_infos.P[curr][i]
     return p
 
@@ -89,19 +89,19 @@ def dependent_events():
         P, A, B = map(int, raw_input().strip().split())
         adj[P-1].append(c)
         prob_exp[c].append([Fraction(B, DENOMINATOR), Fraction(A, DENOMINATOR)])
-    prob = [-1 for _ in xrange(N)]
-    prob[0] = Fraction(K, DENOMINATOR)
+    p = [-1 for _ in xrange(N)]
+    p[0] = Fraction(K, DENOMINATOR)
     tree_infos = TreeInfos(adj, cb=partial(accu_cond_prob, prob_exp))
     result = []
     for _ in xrange(Q):
         u, v = map(int, raw_input().strip().split())
         u, v = u-1, v-1
         l = tree_infos.lca(u, v)
-        if prob[l] == -1:
-            c = calc_prob(prob_exp, tree_infos, l, 0)
-            prob[l] = c[0]*(1-prob[0]) + c[1]*prob[0]
-        a, b = calc_prob(prob_exp, tree_infos, u, l), calc_prob(prob_exp, tree_infos, v, l)
-        result.append(a[1]*b[1]*prob[l] if l in (u, v) else a[1]*b[1]*prob[l] + a[0]*b[0]*(1-prob[l]))
+        if p[l] == -1:
+            pl = calc_prob(prob_exp, tree_infos, l, 0)
+            p[l] = pl[0]*(1-p[0]) + pl[1]*p[0]
+        pu, pv = calc_prob(prob_exp, tree_infos, u, l), calc_prob(prob_exp, tree_infos, v, l)
+        result.append(pu[1]*pv[1]*p[l] if l in (u, v) else pu[1]*pv[1]*p[l] + pu[0]*pv[0]*(1-p[l]))
     return " ".join(map(lambda x: str(x.numerator * pow(x.denominator, MOD-2, MOD) % MOD), result))
 
 DENOMINATOR = 10**6
