@@ -129,19 +129,20 @@ def dependent_events():
                              Rational(DENOMINATOR-A, DENOMINATOR)],
                             [Rational(B, DENOMINATOR),
                              Rational(A, DENOMINATOR)]])
-    prob = {(0, 1): Rational(K, DENOMINATOR), (0, 0): 1-Rational(K, DENOMINATOR)}
+    prob = [None for _ in xrange(N)]
+    prob[0] = [Rational(DENOMINATOR-K, DENOMINATOR), Rational(K, DENOMINATOR)]
     tree_infos = TreeInfos(adj, cb=partial(accu_cond_prob, prob_exp))
     result = []
     for _ in xrange(Q):
         u, v = map(int, raw_input().strip().split())
         u, v = u-1, v-1
         l = tree_infos.lca(u, v)
-        if (l, 1) not in prob:
-            prob[l, 1] = sum(calc_prob(prob_exp, tree_infos, l, 0, k) * prob[0, k] for k in xrange(2))
-            prob[l, 0] = 1-prob[l, 1]
+        if prob[l] is None:
+            p = sum(calc_prob(prob_exp, tree_infos, l, 0, k) * prob[0][k] for k in xrange(2))
+            prob[l] = [1-p, p]
         result.append(sum(calc_prob(prob_exp, tree_infos, u, l, k) *
                           calc_prob(prob_exp, tree_infos, v, l, k) *
-                          prob[l, k] for k in ([0, 1] if l not in (u, v) else [1])))
+                          prob[l][k] for k in ([0, 1] if l not in (u, v) else [1])))
     return " ".join(map(lambda x: str(x.numer * pow(x.denom, MOD-2, MOD) % MOD), result))
 
 DENOMINATOR = 10**6
