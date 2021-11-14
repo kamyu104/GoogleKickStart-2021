@@ -28,34 +28,33 @@ def silly_substitutions():
             lookup[tail.val].add(tail)
             cnt += 1
         tail = node
+    i = 0
     while cnt:
-        for i in xrange(10):
-            if not lookup[i]:
-                continue
-            while lookup[i]:
-                node = lookup[i].pop()
+        while lookup[i]:
+            node = lookup[i].pop()
+            cnt -= 1
+            if node.left and node.left in lookup[node.left.val]:
+                lookup[node.left.val].remove(node.left)
                 cnt -= 1
-                if node.left and node.left in lookup[node.left.val]:
-                    lookup[node.left.val].remove(node.left)
-                    cnt -= 1
-                if node.right in lookup[node.right.val]:
-                    lookup[node.right.val].remove(node.right)
-                    cnt -= 1
-                new_node = Node((i+2)%10, left=node.left, right=node.right.right)
-                if new_node.left:
-                    new_node.left.right = new_node
-                else:
-                    head = new_node
-                if new_node.right:
-                    new_node.right.left = new_node
-                if new_node.left and (new_node.left.val+1)%10 == new_node.val:
-                    if new_node.left not in lookup[new_node.left.val]:
-                        lookup[new_node.left.val].add(new_node.left)
-                        cnt += 1
-                if new_node.right and (new_node.val+1)%10 == new_node.right.val:
-                    if new_node not in lookup[new_node.val]:
-                        lookup[new_node.val].add(new_node)
-                        cnt += 1
+            if node.right in lookup[node.right.val]:
+                lookup[node.right.val].remove(node.right)
+                cnt -= 1
+            new_node = Node((i+2)%10, left=node.left, right=node.right.right)
+            if new_node.left:
+                new_node.left.right = new_node
+            else:
+                head = new_node
+            if new_node.right:
+                new_node.right.left = new_node
+            if new_node.left and (new_node.left.val+1)%10 == new_node.val:
+                if new_node.left not in lookup[new_node.left.val]:
+                    lookup[new_node.left.val].add(new_node.left)
+                    cnt += 1
+            if new_node.right and (new_node.val+1)%10 == new_node.right.val:
+                if new_node not in lookup[new_node.val]:
+                    lookup[new_node.val].add(new_node)
+                    cnt += 1
+        i = (i+1)%10
     result = []
     curr = head
     while curr:
