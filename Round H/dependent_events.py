@@ -78,8 +78,6 @@ def accu_cond_prob(prob_exp, P, curr, i):
     prob_exp[curr].append([addmod(mulmod(x[1], y[k]), mulmod(x[0], submod(1, y[k]))) for k in xrange(2)])
 
 def calc_prob(prob_exp, tree_infos, curr, lca):  # Time: O(logN)
-    if curr == lca:
-        return [1]*2
     p = [-1]*2
     for i in reversed(xrange(len(tree_infos.P[curr]))):  # O(logN)
         if i < len(tree_infos.P[curr]) and tree_infos.D[tree_infos.P[curr][i]] >= tree_infos.D[lca]:
@@ -109,8 +107,11 @@ def dependent_events():
         if p[l] == -1:
             pl = calc_prob(prob_exp, tree_infos, l, 0)
             p[l] = addmod(mulmod(pl[1], p[0]), mulmod(pl[0], submod(1, p[0])))
-        pu, pv = calc_prob(prob_exp, tree_infos, u, l), calc_prob(prob_exp, tree_infos, v, l)
-        result.append(mulmod(mulmod(pu[1], pv[1]), p[l]) if l in (u, v) else addmod(mulmod(mulmod(pu[1], pv[1]), p[l]), mulmod(mulmod(pu[0], pv[0]), submod(1, p[l]))))
+        if u != l:
+            pu = calc_prob(prob_exp, tree_infos, u, l)
+        if v != l:
+            pv = calc_prob(prob_exp, tree_infos, v, l)
+        result.append(mulmod(pu[1] if v == l else pv[1], p[l]) if l in (u, v) else addmod(mulmod(mulmod(pu[1], pv[1]), p[l]), mulmod(mulmod(pu[0], pv[0]), submod(1, p[l]))))
     return " ".join(map(str, result))
 
 MOD = 10**9+7
