@@ -78,11 +78,13 @@ def calc_prob_exp(prob_exp, P, curr, i):
     prob_exp[curr].append([addmod(mulmod(x[1], y[k]), mulmod(x[0], submod(1, y[k]))) for k in xrange(2)])
 
 def calc_prob(prob_exp, tree_infos, curr, lca):  # Time: O(logN)
-    p = [-1]*2
+    assert(tree_infos.D[curr] > tree_infos.D[lca])
+    p = prob_exp[curr][0]
+    curr = tree_infos.P[curr][0]
     for i in reversed(xrange(len(tree_infos.P[curr]))):  # O(logN)
         if i < len(tree_infos.P[curr]) and tree_infos.D[tree_infos.P[curr][i]] >= tree_infos.D[lca]:
             x = prob_exp[curr][i]
-            p = [x[k] if p[0] == -1 else addmod(mulmod(p[1], x[k]), mulmod(p[0], submod(1, x[k]))) for k in xrange(2)]
+            p = [addmod(mulmod(p[1], x[k]), mulmod(p[0], submod(1, x[k]))) for k in xrange(2)]
             curr = tree_infos.P[curr][i]
     assert(curr == lca)
     return p
