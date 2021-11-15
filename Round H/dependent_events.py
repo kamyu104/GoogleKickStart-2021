@@ -73,7 +73,7 @@ def submod(a, b):
 def mulmod(a, b):
     return (a*b)%MOD
 
-def accu_cond_prob(prob_exp, P, curr, i):
+def calc_prob_exp(prob_exp, P, curr, i):
     x, y = prob_exp[curr][i], prob_exp[P[curr][i]][i]
     prob_exp[curr].append([addmod(mulmod(x[1], y[k]), mulmod(x[0], submod(1, y[k]))) for k in xrange(2)])
 
@@ -98,7 +98,7 @@ def dependent_events():
         prob_exp[c].append([mulmod(B, INV_DENOMINATOR), mulmod(A, INV_DENOMINATOR)])
     p = [-1 for _ in xrange(N)]
     p[0] = mulmod(K, INV_DENOMINATOR)
-    tree_infos = TreeInfos(adj, cb=partial(accu_cond_prob, prob_exp))
+    tree_infos = TreeInfos(adj, cb=partial(calc_prob_exp, prob_exp))
     result = []
     for _ in xrange(Q):
         u, v = map(int, raw_input().strip().split())
