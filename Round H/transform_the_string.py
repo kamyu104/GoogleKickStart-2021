@@ -7,16 +7,10 @@
 # Space: O(1)
 #
 
-from collections import defaultdict
-
 def transform_the_string():
     S, F = [raw_input().strip() for _ in xrange(2)]
 
-    dist = defaultdict(lambda: float("inf"))
-    for c in set(list(S)):
-        for f in F:
-            x = abs((ord(f)-ord('a'))-(ord(c)-ord('a')))
-            dist[c] = min(dist[c], min(x, 26-x))
+    dist = {c:min(min(abs((ord(f)-ord('a'))-(ord(c)-ord('a'))), 26-abs((ord(f)-ord('a'))-(ord(c)-ord('a')))) for f in F) for c in set(list(S))}
     return sum(dist[c] for c in S)
 
 for case in xrange(input()):
