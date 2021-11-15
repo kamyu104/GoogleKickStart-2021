@@ -18,9 +18,9 @@ class Node(object):
 def silly_substitutions():
     N = input()
     S = map(int, list(raw_input().strip()))
-    cnt = 0
     tail = head = Node(S[0])
     lookup = defaultdict(set)
+    cnt = 0
     for i in xrange(1, len(S)):
         node = Node(S[i], left=tail)
         node.left.right = node
