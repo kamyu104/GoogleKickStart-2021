@@ -86,6 +86,7 @@ def calc_prob(prob_exp, tree_infos, curr, lca):  # Time: O(logN)
             x = prob_exp[curr][i]
             p = [x[k] for k in xrange(2)] if p[0] == -1 else [addmod(mulmod(p[1], x[k]), mulmod(p[0], submod(1, x[k]))) for k in xrange(2)]
             curr = tree_infos.P[curr][i]
+    assert(curr == lca)
     return p
 
 def dependent_events():
