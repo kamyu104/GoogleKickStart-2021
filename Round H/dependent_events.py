@@ -43,7 +43,7 @@ class TreeInfos(object):  # Time: O(NlogN), Space: O(NlogN), N is the number of 
         N = len(children)
         L, R, D, P, C = [0]*N, [0]*N, [0]*N, [[] for _ in xrange(N)], [-1]
         stk = []
-        stk.append(partial(divide, 0, -1))
+        stk.append(partial(divide, ROOT, -1))
         while stk:
             stk.pop()()
         assert(C[0] == N-1)
@@ -79,15 +79,15 @@ def calc_prob_exp(prob_exp, P, curr, i):
 
 def calc_prob(prob_exp, tree_infos, curr, lca):  # Time: O(logN)
     assert(tree_infos.D[curr] > tree_infos.D[lca])
-    p = prob_exp[curr][0]
+    pcl = prob_exp[curr][0]
     curr = tree_infos.P[curr][0]
     for i in reversed(xrange(len(tree_infos.P[curr]))):  # O(logN)
         if i < len(tree_infos.P[curr]) and tree_infos.D[tree_infos.P[curr][i]] >= tree_infos.D[lca]:
             x = prob_exp[curr][i]
-            p = [addmod(mulmod(p[1], x[k]), mulmod(p[0], submod(1, x[k]))) for k in xrange(2)]
+            pcl = [addmod(mulmod(pcl[1], x[k]), mulmod(pcl[0], submod(1, x[k]))) for k in xrange(2)]
             curr = tree_infos.P[curr][i]
     assert(curr == lca)
-    return p
+    return pcl
 
 def dependent_events():
     N, Q = map(int, raw_input().strip().split())
@@ -99,25 +99,27 @@ def dependent_events():
         adj[P-1].append(c)
         prob_exp[c].append([mulmod(B, INV_DENOMINATOR), mulmod(A, INV_DENOMINATOR)])
     p = [-1 for _ in xrange(N)]
-    p[0] = mulmod(K, INV_DENOMINATOR)
+    p[ROOT] = mulmod(K, INV_DENOMINATOR)
     tree_infos = TreeInfos(adj, cb=partial(calc_prob_exp, prob_exp))
     result = []
     for _ in xrange(Q):
         u, v = map(int, raw_input().strip().split())
         u, v = u-1, v-1
+        if tree_infos.D[u] < tree_infos.D[v]:
+            u, v = v, u
         l = tree_infos.lca(u, v)
         if p[l] == -1:
-            pl = calc_prob(prob_exp, tree_infos, l, 0)
-            p[l] = addmod(mulmod(pl[1], p[0]), mulmod(pl[0], submod(1, p[0])))
-        if u != l:
-            pu = calc_prob(prob_exp, tree_infos, u, l)
+            plr = calc_prob(prob_exp, tree_infos, l, ROOT)
+            p[l] = addmod(mulmod(plr[1], p[ROOT]), mulmod(plr[0], submod(1, p[ROOT])))
+        pul = calc_prob(prob_exp, tree_infos, u, l)
         if v != l:
-            pv = calc_prob(prob_exp, tree_infos, v, l)
-        result.append(str(mulmod(pu[1] if v == l else pv[1], p[l]) if l in (u, v) else addmod(mulmod(mulmod(pu[1], pv[1]), p[l]), mulmod(mulmod(pu[0], pv[0]), submod(1, p[l])))))
+            pvl = calc_prob(prob_exp, tree_infos, v, l)
+        result.append(str(mulmod(pul[1], p[v]) if v == l else addmod(mulmod(mulmod(pul[1], pvl[1]), p[l]), mulmod(mulmod(pul[0], pvl[0]), submod(1, p[l])))))
     return " ".join(result)
 
 MOD = 10**9+7
 DENOMINATOR = 10**6
 INV_DENOMINATOR = pow(DENOMINATOR, MOD-2, MOD)  # Euler's Theorem, Fermat's Little Theorem
+ROOT = 0
 for case in xrange(input()):
     print 'Case #%d: %s' % (case+1, dependent_events())
