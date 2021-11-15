@@ -116,6 +116,6 @@ def dependent_events():
 
 MOD = 10**9+7
 DENOMINATOR = 10**6
-INV_DENOMINATOR = pow(DENOMINATOR, MOD-2, MOD)  # fermat's little theorem
+INV_DENOMINATOR = pow(DENOMINATOR, MOD-2, MOD)  # Euler's Theorem, Fermat's Little Theorem
 for case in xrange(input()):
     print 'Case #%d: %s' % (case+1, dependent_events())
