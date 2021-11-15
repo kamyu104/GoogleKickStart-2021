@@ -111,8 +111,8 @@ def dependent_events():
             pu = calc_prob(prob_exp, tree_infos, u, l)
         if v != l:
             pv = calc_prob(prob_exp, tree_infos, v, l)
-        result.append(mulmod(pu[1] if v == l else pv[1], p[l]) if l in (u, v) else addmod(mulmod(mulmod(pu[1], pv[1]), p[l]), mulmod(mulmod(pu[0], pv[0]), submod(1, p[l]))))
-    return " ".join(map(str, result))
+        result.append(str(mulmod(pu[1] if v == l else pv[1], p[l]) if l in (u, v) else addmod(mulmod(mulmod(pu[1], pv[1]), p[l]), mulmod(mulmod(pu[0], pv[0]), submod(1, p[l])))))
+    return " ".join(result)
 
 MOD = 10**9+7
 DENOMINATOR = 10**6
