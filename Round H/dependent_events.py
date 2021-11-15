@@ -96,9 +96,9 @@ def dependent_events():
     for c in xrange(1, N):
         P, A, B = map(int, raw_input().strip().split())
         adj[P-1].append(c)
-        prob_exp[c].append([mulmod(B, INV), mulmod(A, INV)])
+        prob_exp[c].append([mulmod(B, INV_DENOMINATOR), mulmod(A, INV_DENOMINATOR)])
     p = [-1 for _ in xrange(N)]
-    p[0] = mulmod(K, INV)
+    p[0] = mulmod(K, INV_DENOMINATOR)
     tree_infos = TreeInfos(adj, cb=partial(accu_cond_prob, prob_exp))
     result = []
     for _ in xrange(Q):
@@ -112,8 +112,8 @@ def dependent_events():
         result.append(mulmod(mulmod(pu[1], pv[1]), p[l]) if l in (u, v) else addmod(mulmod(mulmod(pu[1], pv[1]), p[l]), mulmod(mulmod(pu[0], pv[0]), submod(1, p[l]))))
     return " ".join(map(str, result))
 
-DENOMINATOR = 10**6
 MOD = 10**9+7
-INV = pow(DENOMINATOR, MOD-2, MOD)  # fermat's little theorem
+DENOMINATOR = 10**6
+INV_DENOMINATOR = pow(DENOMINATOR, MOD-2, MOD)  # fermat's little theorem
 for case in xrange(input()):
     print 'Case #%d: %s' % (case+1, dependent_events())
