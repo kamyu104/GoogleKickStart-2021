@@ -68,15 +68,13 @@ def combine(x, y):
     return (x[0]*(1-y)+x[1]*y)%MOD
 
 def calc_p_exp(p_exp, P, curr, i):
-    x, y = p_exp[curr][i], p_exp[P[curr][i]][i]
-    p_exp[curr].append([combine(x, y[k]) for k in xrange(2)])
+    p_exp[curr].append([combine(p_exp[curr][i], p_exp[P[curr][i]][i][k]) for k in xrange(2)])
 
 def calc_prob(p_exp, tree_infos, curr, lca):  # Time: O(logN)
     x = [0, 1]
     for i in reversed(xrange(len(tree_infos.P[curr]))):  # O(logN)
         if i < len(tree_infos.P[curr]) and tree_infos.D[tree_infos.P[curr][i]] >= tree_infos.D[lca]:
-            y = p_exp[curr][i]
-            x = [combine(x, y[k]) for k in xrange(2)]
+            x = [combine(x, p_exp[curr][i][k]) for k in xrange(2)]
             curr = tree_infos.P[curr][i]
     assert(curr == lca)
     return x
