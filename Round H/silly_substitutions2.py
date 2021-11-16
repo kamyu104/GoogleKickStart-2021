@@ -46,10 +46,6 @@ def silly_substitutions():
                 head = node
             if node.right:
                 node.right.left = node
-            if node.left and (node.left.val+1)%10 == node.val:
-                if node.left not in lookup[node.left.val]:
-                    lookup[node.left.val].add(node.left)
-                    cnt += 1
             # at most one node of interest needs to be added
             if node.left and (node.left.val+1)%10 == node.val and \
                (not node.left.left or (node.left.left.val+1)%10 != node.left.val):
