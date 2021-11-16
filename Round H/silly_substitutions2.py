@@ -46,7 +46,10 @@ def silly_substitutions():
                 head = node
             if node.right:
                 node.right.left = node
-            # at most one node of interest needs to be added
+            # the number of inital nodes of interest is at most O(N).
+            # we will remove at most O(N) nodes.
+            # for each remove, at most 1 node of interest is needed to add.
+            # the total number of nodes of interest will be at most O(2N)
             if node.left and (node.left.val+1)%10 == node.val and \
                (not node.left.left or (node.left.left.val+1)%10 != node.left.val):
                 if node.left not in lookup[node.left.val]:
