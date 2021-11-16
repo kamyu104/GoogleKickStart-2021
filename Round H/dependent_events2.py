@@ -65,8 +65,8 @@ class TreeInfos(object):  # Time: O(NlogN), Space: O(NlogN), N is the number of 
                 a = self.P[a][i]
         return self.P[a][0]
 
-def combine(x, y):
-    return (x[0]*(1-y)+x[1]*y)%MOD
+def combine(a, b):
+    return (a[0]*(1-b)+a[1]*b)%MOD
 
 def calc_p_exp(p_exp, P, curr, i):
     p_exp[curr].append([combine(p_exp[curr][i], p_exp[P[curr][i]][i][k]) for k in xrange(2)])
@@ -76,13 +76,13 @@ def calc_p(p, p_exp, curr, parent):
         p[curr] = combine(p_exp[curr][0], p[parent])
 
 def calc_prob(p_exp, tree_infos, curr, lca):  # Time: O(logN)
-    x = [0, 1]
+    prob = [0, 1]
     for i in reversed(xrange(len(tree_infos.P[curr]))):  # O(logN)
         if i < len(tree_infos.P[curr]) and tree_infos.D[tree_infos.P[curr][i]] >= tree_infos.D[lca]:
-            x = [combine(x, p_exp[curr][i][k]) for k in xrange(2)]
+            prob = [combine(prob, p_exp[curr][i][k]) for k in xrange(2)]
             curr = tree_infos.P[curr][i]
     assert(curr == lca)
-    return x
+    return prob
 
 def dependent_events():
     N, Q = map(int, raw_input().strip().split())
