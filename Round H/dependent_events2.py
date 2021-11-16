@@ -73,10 +73,8 @@ def calc_p_exp(p_exp, P, curr, i):
     p_exp[curr].append([combine(x, y[k]) for k in xrange(2)])
 
 def calc_p(p, p_exp, curr, parent):
-    if curr == ROOT:
-        return
-    x = p_exp[curr][0]
-    p[curr] = combine(x, p[parent])
+    if curr != ROOT:
+        p[curr] = combine(p_exp[curr][0], p[parent])
 
 def calc_prob(p_exp, tree_infos, curr, lca):  # Time: O(logN)
     x = [0, 1]
