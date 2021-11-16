@@ -85,14 +85,14 @@ def calc_p(p, p_exp, curr, parent):
     p[curr] = addmod(mulmod(x[0], submod(1, p[parent])), mulmod(x[1], p[parent]))
 
 def calc_prob(p_exp, tree_infos, curr, lca):  # Time: O(logN)
-    pcl = [0, 1]
+    x = [0, 1]
     for i in reversed(xrange(len(tree_infos.P[curr]))):  # O(logN)
         if i < len(tree_infos.P[curr]) and tree_infos.D[tree_infos.P[curr][i]] >= tree_infos.D[lca]:
-            x = p_exp[curr][i]
-            pcl = [addmod(mulmod(pcl[0], submod(1, x[k])), mulmod(pcl[1], x[k])) for k in xrange(2)]
+            y = p_exp[curr][i]
+            x = [addmod(mulmod(x[0], submod(1, y[k])), mulmod(x[1], y[k])) for k in xrange(2)]
             curr = tree_infos.P[curr][i]
     assert(curr == lca)
-    return pcl
+    return x
 
 def dependent_events():
     N, Q = map(int, raw_input().strip().split())
