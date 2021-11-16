@@ -71,7 +71,7 @@ Python solutions of Google Kick Start 2021. Solution begins with `*` means it wi
 ## Round H
 | # | Title | Solution | Time | Space | Difficulty | Tag | Note |
 |---| ----- | -------- | ---- | ----- | ---------- | --- | ---- |
-|A| [Transform the String](https://codingcompetitions.withgoogle.com/kickstart/round/0000000000435914/00000000008da461)| [Python](./Round%20H/transform_the_string.py) | _O(N)_ | _O(1)_ | Easy | | String |
+|A| [Transform the String](https://codingcompetitions.withgoogle.com/kickstart/round/0000000000435914/00000000008da461)| [Python](./Round%20H/transform_the_string.py) [Python](./Round%20H/transform_the_string2.py) | _O(N)_ | _O(1)_ | Easy | | String |
 |B| [Painter](https://codingcompetitions.withgoogle.com/kickstart/round/0000000000435914/00000000008d9a88)| [Python](./Round%20H/painter.py) [Python](./Round%20H/painter2.py) | _O(N)_ | _O(1)_ | Easy | | Greedy |
 |C| [Silly Substitutions](https://codingcompetitions.withgoogle.com/kickstart/round/0000000000435914/00000000008d94f5)| [Python](./Round%20H/silly_substitutions.py) [Python](./Round%20H/silly_substitutions2.py) | _O(N)_ | _O(N)_ | Medium | | Simulation, Linked List |
 |D| [Dependent Events](https://codingcompetitions.withgoogle.com/kickstart/round/0000000000435914/00000000008d9970)| [Python](./Round%20H/dependent_events.py) [Python](./Round%20H/dependent_events2.py) [Python](./Round%20H/dependent_events3.py) | _O(NlogN + QlogN)_ | _O(NlogN)_ | Hard | | Euler's Theorem, Fermat's Little Theorem, Probability, DFS, LCA, Tree Ancestors (Binary Lifting), Tarjan's Offline LCA Algorithm, DP |
