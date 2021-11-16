@@ -64,25 +64,19 @@ class TreeInfos(object):  # Time: O(NlogN), Space: O(NlogN), N is the number of 
                 a = self.P[a][i]
         return self.P[a][0]
 
-def addmod(a, b):
-    return (a+b)%MOD
-
-def submod(a, b):
-    return (a-b)%MOD
-
-def mulmod(a, b):
-    return (a*b)%MOD
+def combine(x, y):
+    return (x[0]*(1-y)+x[1]*y)%MOD
 
 def calc_p_exp(p_exp, P, curr, i):
     x, y = p_exp[curr][i], p_exp[P[curr][i]][i]
-    p_exp[curr].append([addmod(mulmod(x[0], submod(1, y[k])), mulmod(x[1], y[k])) for k in xrange(2)])
+    p_exp[curr].append([combine(x, y[k]) for k in xrange(2)])
 
 def calc_prob(p_exp, tree_infos, curr, lca):  # Time: O(logN)
     x = [0, 1]
     for i in reversed(xrange(len(tree_infos.P[curr]))):  # O(logN)
         if i < len(tree_infos.P[curr]) and tree_infos.D[tree_infos.P[curr][i]] >= tree_infos.D[lca]:
             y = p_exp[curr][i]
-            x = [addmod(mulmod(x[0], submod(1, y[k])), mulmod(x[1], y[k])) for k in xrange(2)]
+            x = [combine(x, y[k]) for k in xrange(2)]
             curr = tree_infos.P[curr][i]
     assert(curr == lca)
     return x
@@ -95,9 +89,9 @@ def dependent_events():
     for c in xrange(1, N):
         P, A, B = map(int, raw_input().strip().split())
         adj[P-1].append(c)
-        p_exp[c].append([mulmod(B, INV_DENOMINATOR), mulmod(A, INV_DENOMINATOR)])
+        p_exp[c].append([(B*INV_DENOMINATOR)%MOD, (A*INV_DENOMINATOR)%MOD])
     p = [-1 for _ in xrange(N)]
-    p[ROOT] = mulmod(K, INV_DENOMINATOR)
+    p[ROOT] = (K*INV_DENOMINATOR)%MOD
     tree_infos = TreeInfos(adj, cb=partial(calc_p_exp, p_exp))
     result = []
     for _ in xrange(Q):
@@ -106,9 +100,9 @@ def dependent_events():
         l = tree_infos.lca(u, v)
         if p[l] == -1:
             plr = calc_prob(p_exp, tree_infos, l, ROOT)
-            p[l] = addmod(mulmod(plr[0], submod(1, p[ROOT])), mulmod(plr[1], p[ROOT]))
+            p[l] = combine(plr, p[ROOT])
         pul, pvl = calc_prob(p_exp, tree_infos, u, l), calc_prob(p_exp, tree_infos, v, l)
-        result.append(str(addmod(mulmod(mulmod(pul[0], pvl[0]), submod(1, p[l])), mulmod(mulmod(pul[1], pvl[1]), p[l]))))
+        result.append(str(combine([(pul[k]*pvl[k])%MOD for k in xrange(2)], p[l])))
     return " ".join(result)
 
 MOD = 10**9+7
