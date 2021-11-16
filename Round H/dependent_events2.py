@@ -74,21 +74,21 @@ def submod(a, b):
 def mulmod(a, b):
     return (a*b)%MOD
 
-def calc_prob_exp(prob_exp, P, curr, i):
-    x, y = prob_exp[curr][i], prob_exp[P[curr][i]][i]
-    prob_exp[curr].append([addmod(mulmod(x[0], submod(1, y[k])), mulmod(x[1], y[k])) for k in xrange(2)])
+def calc_p_exp(p_exp, P, curr, i):
+    x, y = p_exp[curr][i], p_exp[P[curr][i]][i]
+    p_exp[curr].append([addmod(mulmod(x[0], submod(1, y[k])), mulmod(x[1], y[k])) for k in xrange(2)])
 
-def calc_p(p, prob_exp, curr, parent):
+def calc_p(p, p_exp, curr, parent):
     if curr == ROOT:
         return
-    x = prob_exp[curr][0]
+    x = p_exp[curr][0]
     p[curr] = addmod(mulmod(x[0], submod(1, p[parent])), mulmod(x[1], p[parent]))
 
-def calc_prob(prob_exp, tree_infos, curr, lca):  # Time: O(logN)
+def calc_prob(p_exp, tree_infos, curr, lca):  # Time: O(logN)
     pcl = [0, 1]
     for i in reversed(xrange(len(tree_infos.P[curr]))):  # O(logN)
         if i < len(tree_infos.P[curr]) and tree_infos.D[tree_infos.P[curr][i]] >= tree_infos.D[lca]:
-            x = prob_exp[curr][i]
+            x = p_exp[curr][i]
             pcl = [addmod(mulmod(pcl[0], submod(1, x[k])), mulmod(pcl[1], x[k])) for k in xrange(2)]
             curr = tree_infos.P[curr][i]
     assert(curr == lca)
@@ -98,20 +98,20 @@ def dependent_events():
     N, Q = map(int, raw_input().strip().split())
     K = input()
     adj = [[] for _ in xrange(N)]
-    prob_exp = [[] for _ in xrange(N)]
+    p_exp = [[] for _ in xrange(N)]
     for c in xrange(1, N):
         P, A, B = map(int, raw_input().strip().split())
         adj[P-1].append(c)
-        prob_exp[c].append([mulmod(B, INV_DENOMINATOR), mulmod(A, INV_DENOMINATOR)])
+        p_exp[c].append([mulmod(B, INV_DENOMINATOR), mulmod(A, INV_DENOMINATOR)])
     p = [-1 for _ in xrange(N)]
     p[ROOT] = mulmod(K, INV_DENOMINATOR)
-    tree_infos = TreeInfos(adj, cb=partial(calc_prob_exp, prob_exp), cb2=partial(calc_p, p, prob_exp))
+    tree_infos = TreeInfos(adj, cb=partial(calc_p_exp, p_exp), cb2=partial(calc_p, p, p_exp))
     result = []
     for _ in xrange(Q):
         u, v = map(int, raw_input().strip().split())
         u, v = u-1, v-1
         l = tree_infos.lca(u, v)
-        pul, pvl = calc_prob(prob_exp, tree_infos, u, l), calc_prob(prob_exp, tree_infos, v, l)
+        pul, pvl = calc_prob(p_exp, tree_infos, u, l), calc_prob(p_exp, tree_infos, v, l)
         result.append(str(addmod(mulmod(mulmod(pul[0], pvl[0]), submod(1, p[l])), mulmod(mulmod(pul[1], pvl[1]), p[l]))))
     return " ".join(result)
 
