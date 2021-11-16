@@ -52,13 +52,11 @@ def silly_substitutions():
             # the total number of added nodes of interest will be at most O(2N)
             if node.left and (node.left.val+1)%10 == node.val and \
                (not node.left.left or (node.left.left.val+1)%10 != node.left.val):
-                if node.left not in lookup[node.left.val]:
-                    lookup[node.left.val].add(node.left)
-                    cnt += 1
+                lookup[node.left.val].add(node.left)
+                cnt += 1
             elif node.right and (node.val+1)%10 == node.right.val:
-                if node not in lookup[node.val]:
-                    lookup[node.val].add(node)
-                    cnt += 1
+                lookup[node.val].add(node)
+                cnt += 1
         i = (i+1)%10
     result = []
     curr = head
