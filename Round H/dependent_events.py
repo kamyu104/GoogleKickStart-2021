@@ -79,7 +79,7 @@ def calc_prob_exp(prob_exp, P, curr, i):
 
 def calc_prob(prob_exp, tree_infos, curr, lca):  # Time: O(logN)
     if curr == lca:
-        return [1]*2
+        return [0, 1]
     pcl = prob_exp[curr][0]
     curr = tree_infos.P[curr][0]
     for i in reversed(xrange(len(tree_infos.P[curr]))):  # O(logN)
