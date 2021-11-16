@@ -24,7 +24,7 @@ class TreeInfos(object):  # Time: O(NlogN), Space: O(NlogN), N is the number of 
                 cb(P, curr, i)
                 P[curr].append(P[P[curr][i]][i])
                 i += 1
-            cb2(P, curr)  # added
+            cb2(curr, parent)  # added
             # the subtree of the node i is represented by traversal index L[i]..R[i]
             C[0] += 1
             L[curr] = C[0]
@@ -78,11 +78,11 @@ def calc_prob_exp(prob_exp, P, curr, i):
     x, y = prob_exp[curr][i], prob_exp[P[curr][i]][i]
     prob_exp[curr].append([addmod(mulmod(x[0], submod(1, y[k])), mulmod(x[1], y[k])) for k in xrange(2)])
 
-def calc_p(p, prob_exp, P, curr):
+def calc_p(p, prob_exp, curr, parent):
     if curr == ROOT:
         return
-    parent, pcp = P[curr][0], prob_exp[curr][0]
-    p[curr] = addmod(mulmod(pcp[0], submod(1, p[parent])), mulmod(pcp[1], p[parent]))
+    x = prob_exp[curr][0]
+    p[curr] = addmod(mulmod(x[0], submod(1, p[parent])), mulmod(x[1], p[parent]))
 
 def calc_prob(prob_exp, tree_infos, curr, lca):  # Time: O(logN)
     pcl = [0, 1]
