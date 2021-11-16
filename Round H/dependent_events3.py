@@ -44,8 +44,6 @@ class UnionFind(object):  # Time: O(n * alpha(n)), Space: O(n)
     def update_ancestor_of_set(self, x):  # added
         self.ancestor[self.find_set(x)] = x
 
-# Template:
-# https://github.com/kamyu104/FacebookHackerCup-2021/blob/main/Round%202/chainblock.py
 class TreeInfos(object):  # Time: O(NlogN + Q), Space: O(NlogN + Q), N is the number of nodes
     def __init__(self, children, pairs, cb=lambda *x:None, cb2=lambda *x:None):  # modified
         def preprocess(curr, parent):
