@@ -106,7 +106,7 @@ def dependent_events():
         l = tree_infos.lca(u, v)
         if p[l] == -1:
             plr = calc_prob(prob_exp, tree_infos, l, ROOT)
-            p[l] = addmod(mulmod(plr[1], p[ROOT]), mulmod(plr[0], submod(1, p[ROOT])))
+            p[l] = addmod(mulmod(plr[0], submod(1, p[ROOT])), mulmod(plr[1], p[ROOT]))
         pul, pvl = calc_prob(prob_exp, tree_infos, u, l), calc_prob(prob_exp, tree_infos, v, l)
         result.append(str(addmod(mulmod(mulmod(pul[0], pvl[0]), submod(1, p[l])), mulmod(mulmod(pul[1], pvl[1]), p[l]))))
     return " ".join(result)
