@@ -5,7 +5,7 @@
 * A problem was marked as `Very Hard` means that it was an unsolved one during the contest and may not be that difficult.
 * From 2021-04, `PyPy3` is supported by the online judge. 
 * From 2021-11, `Python2/PyPy2` is no longer supported by the online judge.
-* You need to run `2to3 -w solution.py` to convert the solution into `Python3/PyPy3`.
+* You need to run `2to3 -n -W --add-suffix=3 solution.py` to convert the solution into `Python3/PyPy3`.
 
 ## Rounds
 
