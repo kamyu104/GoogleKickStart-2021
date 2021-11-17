@@ -3,7 +3,7 @@
 * Python solutions of Google Kick Start 2021. Solution begins with `*` means it will get TLE in the largest data set.
 * Total computation amount > `10^8` is not friendly for Python to solve in 5 ~ 15 seconds.
 * A problem was marked as `Very Hard` means that it was an unsolved one during the contest and may not be that difficult.
-* From now on (`2021-11-17`), `Python2 / PyPy2` is no longer supported by the online judge.
+* Since `2021-11-17`, `Python2 / PyPy2` is no longer supported by the online judge.
 * You need to run `2to3 -w solution.py` to convert the solution into `Python3 / PyPy3`.
 
 ## Rounds
