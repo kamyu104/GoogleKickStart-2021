@@ -1,6 +1,12 @@
 # [GoogleKickStart 2021](https://codingcompetitions.withgoogle.com/kickstart/archive/2021) ![Language](https://img.shields.io/badge/language-Python-orange.svg) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE) ![Progress](https://img.shields.io/badge/progress-32%20%2F%2032-ff69b4.svg) ![Visitors](https://visitor-badge.laobi.icu/badge?page_id=kamyu104.googlekickstart.2021)
 
-Python solutions of Google Kick Start 2021. Solution begins with `*` means it will get TLE in the largest data set (total computation amount > `10^8`, which is not friendly for Python to solve in 5 ~ 15 seconds). A problem was marked as `Very Hard` means that it was an unsolved one during the contest and may not be that difficult. From now on (`2021-11-17`), `Python2 / PyPy2` is no longer supported by the online judge. You need to run `2to3 -w solution.py` to convert the solution into `Python3 / PyPy3`.
+* Python solutions of Google Kick Start 2021. Solution begins with `*` means it will get TLE in the largest data set.
+* Total computation amount > `10^8` is not friendly for Python to solve in 5 ~ 15 seconds.
+* A problem was marked as `Very Hard` means that it was an unsolved one during the contest and may not be that difficult.
+* From now on (`2021-11-17`), `Python2 / PyPy2` is no longer supported by the online judge.
+* You need to run `2to3 -w solution.py` to convert the solution into `Python3 / PyPy3`.
+
+## Rounds
 
 * [Kick Start 2020](https://github.com/kamyu104/GoogleKickStart-2020)
 * [Round A](https://github.com/kamyu104/GoogleKickStart-2021#round-a)
