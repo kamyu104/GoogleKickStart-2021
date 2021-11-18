@@ -52,6 +52,16 @@ def silly_substitutions():
             # the total number of added nodes of interest will be at most O(2N)
             if node.left and (node.left.val+1)%10 == node.val and \
                (not node.left.left or (node.left.left.val+1)%10 != node.left.val):
+                # assume current replace is (01), and both two possible interests (12) and (23) exist
+                # - ^1(01)3 => 1(2)3,
+                #   since (12) is prior to (23), (1(2))3 => (3)3,
+                #   only need to mark (12) as interest
+                # - [1-9]1(01)3 => [1-9]1(2)3,
+                #   since (12) is prior to (23), [1-9](1(2))3 => [1-9](3)3,
+                #   only need to mark (12) as interest
+                # - 01(01)3 => 01(2)3,
+                #   since (01) is prior to (12) and (23), (01)(2)3 => (2)(2)3,
+                #   only need to mark (23) as interest
                 lookup[node.left.val].add(node.left)
                 cnt += 1
             elif node.right and (node.val+1)%10 == node.right.val:
