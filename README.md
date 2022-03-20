@@ -18,6 +18,7 @@
 * [Round F](https://github.com/kamyu104/GoogleKickStart-2021#round-f)
 * [Round G](https://github.com/kamyu104/GoogleKickStart-2021#round-g)
 * [Round H](https://github.com/kamyu104/GoogleKickStart-2021#round-h)
+* [Kick Start 2022](https://github.com/kamyu104/GoogleKickStart-2022)
 
 ## Round A
 | # | Title | Solution | Time | Space | Difficulty | Tag | Note |
