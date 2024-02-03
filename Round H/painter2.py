@@ -15,14 +15,7 @@ def painter():
     result = curr = 0
     for c in P:
         x = COLORS[c]
-        if not curr^x:
-            continue
-        if not curr&x:
-            result += COUNT[x]
-        elif (curr&x) == curr:
-            result += COUNT[curr^x]
-        elif (curr&x) != x:
-            result += COUNT[x^(curr&x)]
+        result += COUNT[(curr&x)^x]
         curr = x
     return result
 
